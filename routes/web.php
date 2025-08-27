@@ -8,9 +8,10 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\ShopController;
-use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductController as PublicProductController;
 
+use App\Http\Controllers\Admin\AdminProductController;
 
 
 
@@ -76,9 +77,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
-    // Products CRUD
-    Route::resource('products', AdminProductController::class)->names('admin.products');
-
     // Categories CRUD
     Route::resource('categories', AdminCategoryController::class)->names('admin.categories');
 
@@ -87,16 +85,19 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Users Management (optional)
     Route::resource('users', AdminUserController::class)->names('admin.users');
-});
 
 
-use App\Http\Controllers\Admin\ProductController;
-
-Route::prefix('admin')->group(function () {
-    Route::get('/products', [ProductController::class, 'index'])->name('admin.products.index');
+    Route::prefix('admin')->group(function () {
+    Route::get('/products', [AdminProductController::class, 'index'])->name('admin.products.index');
     Route::post('/products/update/{id}', [ProductController::class, 'update'])->name('admin.products.update');
     Route::delete('/products/delete/{id}', [ProductController::class, 'destroy'])->name('admin.products.delete');
 });
+});
+
+
+
+
+
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 // Public product detail route
