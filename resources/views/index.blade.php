@@ -21,9 +21,9 @@
     		<div class="row no-gutters">
     			<div class="col-md-4 d-flex ">
     				<div class="intro d-lg-flex w-100 ftco-animate">
-    					<div class="icon">
-    						<span class="flaticon-support"></span>
-    					</div>
+                   <div class="icon">
+                    <i class="fa-solid fa-headset"></i>
+                       </div>
     					<div class="text">
     						<h2>Online Support 24/7</h2>
     						<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
@@ -33,8 +33,8 @@
     			<div class="col-md-4 d-flex">
     				<div class="intro color-1 d-lg-flex w-100 ftco-animate">
     					<div class="icon">
-    						<span class="flaticon-cashback"></span>
-    					</div>
+                       <i class="fa-solid fa-hand-holding-dollar"></i>
+                      </div>
     					<div class="text">
     						<h2>Money Back Guarantee</h2>
     						<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
@@ -43,9 +43,9 @@
     			</div>
     			<div class="col-md-4 d-flex">
     				<div class="intro color-2 d-lg-flex w-100 ftco-animate">
-    					<div class="icon">
-    						<span class="flaticon-free-delivery"></span>
-    					</div>
+                 <div class="icon">
+                <i class="fa-solid fa-truck-fast"></i>
+                 </div>
     					<div class="text">
     						<h2>Free Shipping &amp; Return</h2>
     						<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
@@ -85,37 +85,37 @@
 					<div class="col-lg-2 col-md-4 ">
 						<div class="sort w-100 text-center ftco-animate">
 							<div class="img" style="background-image: url(naxham/assets/images/perfume1.jpg);"></div>
-							<h3>Lexaro</h3>
+							<h3>FYNORA</h3>
 						</div>
 					</div>
 					<div class="col-lg-2 col-md-4 ">
 						<div class="sort w-100 text-center ftco-animate">
 							<div class="img" style="background-image: url(naxham/assets/images/perfume2.jpg);"></div>
-							<h3>Dioran</h3>
+							<h3>FLORENZA</h3>
 						</div>
 					</div>
 					<div class="col-lg-2 col-md-4 ">
 						<div class="sort w-100 text-center ftco-animate">
 							<div class="img" style="background-image: url(naxham/assets/images/perfume3.jpg);"></div>
-							<h3>VeloRain</h3>
+							<h3>MYSTARA</h3>
 						</div>
 					</div>
 					<div class="col-lg-2 col-md-4 ">
 						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(naxham/assets/images/tester1.jpg);"></div>
-							<h3>Tequila</h3>
+							<div class="img" style="background-image: url(naxham/assets/images/perfume4.jpg);"></div>
+							<h3>ROUZAN</h3>
 						</div>
 					</div>
 					<div class="col-lg-2 col-md-4 ">
 						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(naxham/assets/images/tester2.png);"></div>
-							<h3>Vodka</h3>
+							<div class="img" style="background-image: url(naxham/assets/images/perfume5.jpg);"></div>
+							<h3>LEXARO</h3>
 						</div>
 					</div>
 					<div class="col-lg-2 col-md-4 ">
 						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(naxham/assets/images/tester3.png);"></div>
-							<h3>Whiskey</h3>
+							<div class="img" style="background-image: url(naxham/assets/images/perfume6.jpg);"></div>
+							<h3>VELORAIN</h3>
 						</div>
 					</div>
 
@@ -137,9 +137,10 @@
 							<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume1.jpg);">
 								<div class="desc">
 									<p class="meta-prod d-flex">
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+												<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+                                                <a href="{{ url('wishlist') }}"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+                                                <a href="{{ url('product') }}"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
+
 									</p>
 								</div>
 							</div>
@@ -156,9 +157,10 @@
 							<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume2.jpg);">
 								<div class="desc">
 									<p class="meta-prod d-flex">
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+									<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+                                    <a href="{{ url('wishlist') }}"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+                                    <a href="{{ url('product') }}"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
+
 									</p>
 								</div>
 							</div>
@@ -175,9 +177,10 @@
 							<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume3.jpg);">
 								<div class="desc">
 									<p class="meta-prod d-flex">
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+										<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+                                    <a href="{{ url('wishlist') }}"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+                                    <a href="{{ url('product') }}"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
+
 									</p>
 								</div>
 							</div>
@@ -194,10 +197,11 @@
 							<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume4.jpg);">
 								<div class="desc">
 									<p class="meta-prod d-flex">
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
-									</p>
+									<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+                                    <a href="{{ url('wishlist') }}"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+                                    <a href="{{ url('product') }}"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
+
+                                    </p>
 								</div>
 							</div>
 							<div class="text text-center">
@@ -213,10 +217,11 @@
 							<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume5.jpg);">
 								<div class="desc">
 									<p class="meta-prod d-flex">
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
-									</p>
+									<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+                                    <a href="{{ url('wishlist') }}"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+                                    <a href="{{ url('product') }}"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
+
+                                    </p>
 								</div>
 							</div>
 							<div class="text text-center">
@@ -231,10 +236,11 @@
 							<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume6.jpg);">
 								<div class="desc">
 									<p class="meta-prod d-flex">
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
-									</p>
+									<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+                                    <a href="{{ url('wishlist') }}"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+                                    <a href="{{ url('product') }}"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
+
+                                    </p>
 								</div>
 							</div>
 							<div class="text text-center">
@@ -249,10 +255,11 @@
 							<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume7.jpg);">
 								<div class="desc">
 									<p class="meta-prod d-flex">
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
-									</p>
+									<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+                                    <a href="{{ url('wishlist') }}"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+                                    <a href="{{ url('product') }}"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
+
+                                    </p>
 								</div>
 							</div>
 							<div class="text text-center">
@@ -267,10 +274,11 @@
 							<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume1.jpg);">
 								<div class="desc">
 									<p class="meta-prod d-flex">
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
-									</p>
+									<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+                                    <a href="{{ url('wishlist') }}"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+                                    <a href="{{ url('product') }}"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
+
+                                    </p>
 								</div>
 							</div>
 							<div class="text text-center">
@@ -395,7 +403,7 @@
         <div class="row d-flex">
           <div class="col-lg-6 d-flex align-items-stretch ftco-animate">
           	<div class="blog-entry d-flex">
-          		<a href="blog-single.html" class="block-20 img" style="background-image: url('naxham/assets/images/image_1.jpg');">
+          		<a href="#" class="block-20 img" style="background-image: url('naxham/assets/images/image_1.jpg');">
               </a>
               <div class="text p-4 bg-light">
               	<div class="meta">
@@ -410,7 +418,7 @@
           </div>
           <div class="col-lg-6 d-flex align-items-stretch ftco-animate">
           	<div class="blog-entry d-flex">
-          		<a href="blog-single.html" class="block-20 img" style="background-image: url('naxham/assets/images/image_2.jpg');">
+          		<a href="#" class="block-20 img" style="background-image: url('naxham/assets/images/image_2.jpg');">
               </a>
               <div class="text p-4 bg-light">
               	<div class="meta">
@@ -425,7 +433,7 @@
           </div>
           <div class="col-lg-6 d-flex align-items-stretch ftco-animate">
           	<div class="blog-entry d-flex">
-          		<a href="blog-single.html" class="block-20 img" style="background-image: url('naxham/assets/images/image_3.jpg');">
+          		<a href="#" class="block-20 img" style="background-image: url('naxham/assets/images/image_3.jpg');">
               </a>
               <div class="text p-4 bg-light">
               	<div class="meta">
@@ -440,7 +448,7 @@
           </div>
           <div class="col-lg-6 d-flex align-items-stretch ftco-animate">
           	<div class="blog-entry d-flex">
-          		<a href="blog-single.html" class="block-20 img" style="background-image: url('naxham/assets/images/image_4.jpg');">
+          		<a href="#" class="block-20 img" style="background-image: url('naxham/assets/images/image_4.jpg');">
               </a>
               <div class="text p-4 bg-light">
               	<div class="meta">

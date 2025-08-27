@@ -16,6 +16,11 @@
      <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+
+
 
     <link rel="stylesheet" href="{{asset('naxham/assets/css/animate.css')}}">
 
@@ -26,6 +31,8 @@
     <link rel="stylesheet" href="{{ asset('naxham/assets/css/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('naxham/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('naxham/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('naxham/assets/css/flaticon.css') }}">
+
 
 
     </head>
@@ -61,13 +68,13 @@
 			</div>
 		</div> --}}
 
-
+{{--
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light " id="ftco-navbar">
 	    <div class="container ">
 	      <!-- <a class="navbar-brand" href="index.html">Liquor <span>store</span></a> -->
 		   <a class="navbar-brand " href="#">
                 <img src="naxham/assets/images/logo.png" alt="logo" class="navbar-logo  ">
-            </a>
+            </a> --}}
 		   {{-- <div class="order-lg-last btn-group">
           <a href="#" class="btn-cart dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           	<span class="flaticon-shopping-bag"></span>
@@ -102,53 +109,64 @@
 				  </div>
         </div> --}}
 
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+       <a class="navbar-brand " href="#">
+                <img src="naxham/assets/images/logo.png" alt="logo" class="navbar-logo  ">
+            </a>
 
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="{{ url('/') }}" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="{{ url('about') }}" class="nav-link">About</a></li>
-	          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="{{ url('product') }}">Products</a>
-                <a class="dropdown-item" href="{{ url('cart') }}">Cart</a>
-                <a class="dropdown-item" href="{{ url('checkout') }}">Checkout</a>
-              </div>
-            </li>
-	          <li class="nav-item"><a href="{{ url('shop') }}" class="nav-link">Shop</a></li>
-	          <li class="nav-item"><a href="{{ url('contact') }}" class="nav-link">Contact</a></li>
-{{-- Auth / Guest Buttons --}}
-<div class="ms-auto m-3">
-    @guest
-        <a href="{{ route('login') }}" class="btn btn-outline-light me-2">Login</a>
-        <a href="{{ route('signup') }}" class="btn btn-warning">Signup</a>
-    @endguest
+       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ftco-navbar" aria-controls="ftco-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span> Menu
+</button>
 
-    @auth
-        <div class="dropdown">
-            <button class="btn btn-warning dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
-              Wellcome,  {{ Auth::user()->name }}
-            </button>
-           <li class="nav-item dropdown">
+<div class="collapse navbar-collapse ftco_navbar justify-content-between" id="ftco-navbar">
+    <ul class="navbar-nav">
 
-    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li>
-            <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
-        </li>
-    </ul>
-</li>
+                <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="{{ url('about') }}" class="nav-link">About</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown04">
+                        <li><a class="dropdown-item" href="{{ url('product') }}">Products</a></li>
+                        <li><a class="dropdown-item" href="{{ url('cart') }}">Cart</a></li>
+                        <li><a class="dropdown-item" href="{{ url('checkout') }}">Checkout</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="{{ url('shop') }}" class="nav-link">Shop</a></li>
+                <li class="nav-item"><a href="{{ url('contact') }}" class="nav-link">Contact</a></li>
+            </ul>
 
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item me-2">
+                    <a href="{{ route('wishlist.index') }}" class="btn btn-outline-light position-relative">
+                        ❤️ Wishlist
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ \App\Models\Wishlist::where('user_id', Auth::id())->count() }}
+                        </span>
+                    </a>
+                </li>
+
+                @guest
+                    <li class="nav-item me-2"><a href="{{ route('login') }}" class="btn btn-outline-light">Login</a></li>
+                    <li class="nav-item"><a href="{{ route('signup') }}" class="btn btn-warning">Signup</a></li>
+                @endguest
+
+                @auth
+                    <li class="nav-item dropdown">
+                        <a class="btn btn-warning dropdown-toggle" href="#" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                            Welcome, {{ Auth::user()->name }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                            <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                        </ul>
+                    </li>
+                @endauth
+            </ul>
         </div>
-    @endauth
-</div>
+    </div>
+</nav>
 
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
+
     <!-- END nav -->
 	<!-- Header section end -->
 
@@ -162,8 +180,9 @@
         <div class="row mb-5">
           <div class="col-sm-12 col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2 logo"><a href="#">Liquor <span>Store</span></a></h2>
-              <p>Far far away, behind the word mountains, far from the countries.</p>
+   <a class="navbar-brand " href="#">
+                <img src="naxham/assets/images/logo.png" alt="logo" class="navbar-logo  ">
+            </a>              <p>Far far away, behind the word mountains, far from the countries.</p>
               <ul class="ftco-footer-social list-unstyled mt-2">
                 <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
@@ -250,8 +269,11 @@
   <script src="{{ asset('naxham/assets/js/jquery.animateNumber.min.js') }}"></script>
   <script src="{{ asset('naxham/assets/js/scrollax.min.js') }}"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="{{ asset('naxham/assets/js/google-map.js') }}"></script>
   <script src="{{ asset('naxham/assets/js/main.js') }}"></script>
+
+
 
 
     </html>

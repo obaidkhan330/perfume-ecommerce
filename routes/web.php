@@ -1,9 +1,18 @@
 <?php
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
-
-
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminDashboardController;
+// use App\Http\Controllers\Admin\AdminProductController;
+use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminOrderController;
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\ProductController as PublicProductController;
+
+
+
 
 Route::get('/', function () {
     return view('index');
@@ -57,4 +66,58 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::post('/place-order', [OrderController::class, 'store'])->middleware('auth');
+
+
+
+// Admin Panel Routes
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    // Dashboard
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Products CRUD
+    Route::resource('products', AdminProductController::class)->names('admin.products');
+
+    // Categories CRUD
+    Route::resource('categories', AdminCategoryController::class)->names('admin.categories');
+
+    // Orders CRUD
+    Route::resource('orders', AdminOrderController::class)->names('admin.orders');
+
+    // Users Management (optional)
+    Route::resource('users', AdminUserController::class)->names('admin.users');
+});
+
+
+use App\Http\Controllers\Admin\ProductController;
+
+Route::prefix('admin')->group(function () {
+    Route::get('/products', [ProductController::class, 'index'])->name('admin.products.index');
+    Route::post('/products/update/{id}', [ProductController::class, 'update'])->name('admin.products.update');
+    Route::delete('/products/delete/{id}', [ProductController::class, 'destroy'])->name('admin.products.delete');
+});
+
+Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+// Public product detail route
+// Route::get('/product/{id}', [PublicProductController::class, 'show'])->name('product.show');
+
+use App\Http\Controllers\ShopProductController;
+
+Route::get('/product/{id}', [ShopProductController::class, 'show'])->name('product.show');
+
+
+
+
+
+
+
+use App\Http\Controllers\WishlistController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+    Route::post('/wishlist/{productId}', [WishlistController::class, 'store'])->name('wishlist.store');
+    Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+});
+
 

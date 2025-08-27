@@ -105,8 +105,13 @@
               <label class="form-check-label" for="bank">Bank Transfer</label>
             </div>
 
-            <button class="btn btn-dark w-100">Place Order</button>
+            @if(Auth::check())
+            <button class="btn btn-dark w-100" id="orderBtn">Place Order</button>
+            @else
+            <button class="btn btn-dark w-100" id="loginPromptBtn">Place Order</button>
+            @endif
             <p class="small text-muted mt-2 mb-0">By placing your order, you agree to our terms.</p>
+
           </div>
         </div>
 
@@ -129,5 +134,12 @@
   document.getElementById('shipDiff')?.addEventListener('change', e=>{
     document.getElementById('shipForm')?.classList.toggle('d-none', !e.target.checked);
   });
+</script>
+
+<script>
+document.getElementById('loginPromptBtn')?.addEventListener('click', function() {
+    alert('Please login to place your order.');
+    window.location.href = "{{ route('login') }}";
+});
 </script>
 @endsection

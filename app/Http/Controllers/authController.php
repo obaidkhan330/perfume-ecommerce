@@ -47,9 +47,14 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/'); // Redirect to home or intended page
+       if (Auth::attempt($credentials)) {
+       $request->session()->regenerate();
+
+         if (Auth::user()->role === 'admin') {
+        return redirect('/admin/dashboard');
+        }
+
+         return redirect()->intended('/');
         }
 
         return back()->withErrors([

@@ -38,9 +38,10 @@
 									<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume1.jpg);">
 										<div class="desc">
 											<p class="meta-prod d-flex">
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+												<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+                                                <a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+                                                <a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
+
 											</p>
 										</div>
 									</div>
@@ -57,9 +58,9 @@
 									<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume2.jpg);">
 										<div class="desc">
 											<p class="meta-prod d-flex">
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+												<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+                                                <a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+                                                <a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
 											</p>
 										</div>
 									</div>
@@ -76,9 +77,9 @@
 									<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume3.jpg);">
 										<div class="desc">
 											<p class="meta-prod d-flex">
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+												<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+                                                <a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+                                                <a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
 											</p>
 										</div>
 									</div>
@@ -95,9 +96,9 @@
 									<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume4.jpg);">
 										<div class="desc">
 											<p class="meta-prod d-flex">
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+												<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+                                                <a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+                                                <a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
 											</p>
 										</div>
 									</div>
@@ -114,9 +115,9 @@
 									<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume5.jpg);">
 										<div class="desc">
 											<p class="meta-prod d-flex">
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+											<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+                                                <a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+                                                <a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
 											</p>
 										</div>
 									</div>
@@ -132,9 +133,9 @@
 									<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume6.jpg);">
 										<div class="desc">
 											<p class="meta-prod d-flex">
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+												<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+                                                <a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+                                                <a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
 											</p>
 										</div>
 									</div>
@@ -150,9 +151,9 @@
 									<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume7.jpg);">
 										<div class="desc">
 											<p class="meta-prod d-flex">
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+												<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+                                                <a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+                                                <a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
 											</p>
 										</div>
 									</div>
@@ -168,9 +169,9 @@
 									<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/perfume8.jpg);">
 										<div class="desc">
 											<p class="meta-prod d-flex">
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+												<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+												<a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+												<a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
 											</p>
 										</div>
 									</div>
@@ -186,9 +187,9 @@
 									<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/prod-9.jpg);">
 										<div class="desc">
 											<p class="meta-prod d-flex">
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+												<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+												<a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+												<a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
 											</p>
 										</div>
 									</div>
@@ -204,9 +205,9 @@
 									<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/prod-10.jpg);">
 										<div class="desc">
 											<p class="meta-prod d-flex">
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+												<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+												<a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+												<a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
 											</p>
 										</div>
 									</div>
@@ -222,9 +223,9 @@
 									<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/prod-11.jpg);">
 										<div class="desc">
 											<p class="meta-prod d-flex">
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+												<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+												<a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+												<a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
 											</p>
 										</div>
 									</div>
@@ -240,9 +241,9 @@
 									<div class="img d-flex align-items-center justify-content-center" style="background-image: url(naxham/assets/images/prod-12.jpg);">
 										<div class="desc">
 											<p class="meta-prod d-flex">
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+												<a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
+												<a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
+												<a href="#"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
 											</p>
 										</div>
 									</div>
@@ -276,12 +277,14 @@
               <div class="categories">
                 <h3>Product Types</h3>
                 <ul class="p-0">
-                	<li><a href="#">Brandy <span class="fa fa-chevron-right"></span></a></li>
-	                <li><a href="#">Gin <span class="fa fa-chevron-right"></span></a></li>
-	                <li><a href="#">Rum <span class="fa fa-chevron-right"></span></a></li>
-	                <li><a href="#">Tequila <span class="fa fa-chevron-right"></span></a></li>
-	                <li><a href="#">Vodka <span class="fa fa-chevron-right"></span></a></li>
-	                <li><a href="#">Whiskey <span class="fa fa-chevron-right"></span></a></li>
+   <li><a href="#">Brandy <span class="fa fa-chevron-right"></span></a></li>
+<li><a href="#">Gin <span class="fa fa-chevron-right"></span></a></li>
+<li><a href="#">Rum <span class="fa fa-chevron-right"></span></a></li>
+<li><a href="#">Tequila <span class="fa fa-chevron-right"></span></a></li>
+<li><a href="#">Vodka <span class="fa fa-chevron-right"></span></a></li>
+<li><a href="#">Whiskey <span class="fa fa-chevron-right"></span></a></li>
+
+
                 </ul>
               </div>
             </div>

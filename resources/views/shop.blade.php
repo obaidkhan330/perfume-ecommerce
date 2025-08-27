@@ -147,36 +147,38 @@
           <!-- Grid -->
           <div class="row g-4">
             <!-- product card -->
-            <div class="col-6 col-md-4">
-              <div class="product-card card border-0 shadow-sm h-100">
+           <div class="row">
+    @foreach($products as $product)
+        <div class="col-6 col-md-4">
+            <div class="product-card card border-0 shadow-sm h-100">
                 <div class="position-relative">
-                  <span class="badge text-bg-danger position-absolute m-2">Sale</span>
-                  <a href="{{ url('product') }}" class="ratio ratio-1x1 d-block">
-                    <img src="{{ asset('naxham/assets/images/perfume4.jpg') }}" alt="Perfume" class="card-img-top object-fit-cover rounded-top">
-                  </a>
-                  <div class="product-actions">
-                    <a href="{{ url('product') }}" class="btn btn-sm btn-light"><i class="bi bi-eye"></i> Quick View</a>
-                    <a href="{{ url('cart') }}" class="btn btn-sm btn-dark"><i class="bi bi-bag"></i> Add to Cart</a>
-                    {{-- <a href="wishlist.html" class="btn btn-sm btn-light"><i class="bi bi-heart"></i></a> --}}
-                  </div>
+                    <a href="{{ route('product.show', $product->id) }}" class="ratio ratio-1x1 d-block">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="card-img-top object-fit-cover rounded-top">
+                    </a>
+                    <div class="product-actions">
+                        <a href="{{ route('product.show', $product->id) }}" class="btn btn-sm btn-light"><i class="bi bi-eye"></i> Quick View</a>
+                        <a href="#" class="btn btn-sm btn-dark"><i class="bi bi-bag"></i> Add to Cart</a>
+                        <a href="#" class="btn btn-sm btn-light"><i class="bi bi-heart"></i></a>
+                    </div>
                 </div>
                 <div class="card-body">
-                  <a href="{{ url('product') }}" class="text-decoration-none text-dark d-block mb-1">Paco Rabanne Pure XS</a>
-                  <div class="d-flex align-items-center gap-2">
-                    <div class="stars text-warning small">
-                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star"></i>
+                    <a href="{{ route('product.show', $product->id) }}" class="text-decoration-none text-dark d-block mb-1">{{ $product->name }}</a>
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="stars text-warning small">
+                            @for($i = 0; $i < 5; $i++)
+                                <i class="bi bi-star-fill"></i>
+                            @endfor
+                        </div>
+                        <small class="text-muted">(31)</small>
                     </div>
-                    <small class="text-muted">(24)</small>
-                  </div>
-                  <div class="price mt-2">
-                    <span class="fw-bold">PKR 19,000</span>
-                    <del class="text-muted small ms-2">PKR 31,000</del>
-                  </div>
+                    <div class="price mt-2">
+                        <span class="fw-bold">PKR {{ number_format($product->discount_price ?? $product->real_price) }}</span>
+                    </div>
                 </div>
-              </div>
             </div>
+        </div>
+    @endforeach
+</div>
 
             <!-- Duplicate products (change images/titles as you like) -->
             <div class="col-6 col-md-4">
@@ -189,7 +191,7 @@
                   <div class="product-actions">
                     <a href="{{ url('product') }}" class="btn btn-sm btn-light"><i class="bi bi-eye"></i> Quick View</a>
                     <a href="{{ url('cart') }}" class="btn btn-sm btn-dark"><i class="bi bi-bag"></i> Add to Cart</a>
-                    <a href="wishlist.html" class="btn btn-sm btn-light"><i class="bi bi-heart"></i></a>
+                    <a href="#" class="btn btn-sm btn-light"><i class="bi bi-heart"></i></a>
                   </div>
                 </div>
                 <div class="card-body">
@@ -218,7 +220,7 @@
                   <div class="product-actions">
                     <a href="{{ url('product') }}" class="btn btn-sm btn-light"><i class="bi bi-eye"></i> Quick View</a>
                     <a href="{{ url('cart') }}" class="btn btn-sm btn-dark"><i class="bi bi-bag"></i> Add to Cart</a>
-                    <a href="wishlist.html" class="btn btn-sm btn-light"><i class="bi bi-heart"></i></a>
+                    <a href="#" class="btn btn-sm btn-light"><i class="bi bi-heart"></i></a>
                   </div>
                 </div>
                 <div class="card-body">
@@ -249,7 +251,7 @@
                   <div class="product-actions">
                     <a href="{{ url('product') }}" class="btn btn-sm btn-light"><i class="bi bi-eye"></i> Quick View</a>
                     <a href="{{ url('cart') }}" class="btn btn-sm btn-dark"><i class="bi bi-bag"></i> Add to Cart</a>
-                    <a href="wishlist.html" class="btn btn-sm btn-light"><i class="bi bi-heart"></i></a>
+                    <a href="#" class="btn btn-sm btn-light"><i class="bi bi-heart"></i></a>
                   </div>
                 </div>
                 <div class="card-body">
@@ -274,12 +276,12 @@
                 <div class="position-relative">
                   <span class="badge text-bg-warning position-absolute m-2">Hot</span>
                   <a href="{{ url('product') }}" class="ratio ratio-1x1 d-block">
-                    <img src="{{ asset('naxham/assets/images/perfume8.jpg') }}" alt="Perfume" class="card-img-top object-fit-cover rounded-top">
+                    <img src="{{ asset('naxham/assets/images/perfume6.jpg') }}" alt="Perfume" class="card-img-top object-fit-cover rounded-top">
                   </a>
                   <div class="product-actions">
                     <a href="{{ url('product') }}" class="btn btn-sm btn-light"><i class="bi bi-eye"></i> Quick View</a>
                     <a href="{{ url('cart') }}" class="btn btn-sm btn-dark"><i class="bi bi-bag"></i> Add to Cart</a>
-                    <a href="wishlist.html" class="btn btn-sm btn-light"><i class="bi bi-heart"></i></a>
+                    <a href="#" class="btn btn-sm btn-light"><i class="bi bi-heart"></i></a>
                   </div>
                 </div>
                 <div class="card-body">
@@ -308,7 +310,7 @@
                   <div class="product-actions">
                     <a href="{{ url('product') }}" class="btn btn-sm btn-light"><i class="bi bi-eye"></i> Quick View</a>
                     <a href="{{ url('cart') }}" class="btn btn-sm btn-dark"><i class="bi bi-bag"></i> Add to Cart</a>
-                    <a href="wishlist.html" class="btn btn-sm btn-light"><i class="bi bi-heart"></i></a>
+                    <a href="#" class="btn btn-sm btn-light"><i class="bi bi-heart"></i></a>
                   </div>
                 </div>
                 <div class="card-body">
