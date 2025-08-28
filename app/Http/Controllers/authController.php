@@ -42,39 +42,39 @@ class AuthController extends Controller
     // Login Logic
     public function login(Request $request)
     {
+        // Step 1: Validate email & password
         $credentials = $request->validate([
             'email'    => 'required|email',
             'password' => 'required',
         ]);
 
-       if (Auth::attempt($credentials)) {
-       $request->session()->regenerate();
+        // Step 2: Try logging in with given credentials
+        if (Auth::attempt($credentials)) {
+            // Regenerate session for security
+            $request->session()->regenerate();
 
-         if (Auth::user()->role === 'admin') {
-        return redirect('/admin/dashboard');
+            // Step 3: Redirect based on role
+            if (Auth::user()->role === 'admin') {
+                return redirect('/admin/dashboard');
+            }
+
+            return redirect()->intended('/');
         }
 
-         return redirect()->intended('/');
-        }
-
+        // Step 4: If login fails, return with error
         return back()->withErrors([
             'email' => 'Invalid credentials.',
         ])->onlyInput('email');
     }
 
+
     // Logout
-   public function logout(Request $request)
-{
-    Auth::logout();
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-    return redirect('/'); // Home page after logout
+        return redirect('/'); // Home page after logout
+    }
 }
-
-
-
-
-}
-
-

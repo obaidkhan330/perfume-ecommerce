@@ -41,8 +41,8 @@
                     {{ $product->status ? 'Active' : 'Inactive' }}
                 </td>
                 <td>
-                    <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                    <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" style="display:inline;">
+                    <a href="" class="btn btn-sm btn-primary">Edit</a>
+                    <form action="" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this product?')">Delete</button>

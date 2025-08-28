@@ -77,6 +77,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
+    Route::get('/products', [AdminProductController::class, 'index'])->name('admin.products');
+
     // Categories CRUD
     Route::resource('categories', AdminCategoryController::class)->names('admin.categories');
 
