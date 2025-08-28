@@ -1,17 +1,22 @@
 <?php
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\OrderController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AdminDashboardController;
-// use App\Http\Controllers\Admin\AdminProductController;
-use App\Http\Controllers\Admin\AdminCategoryController;
-use App\Http\Controllers\Admin\AdminOrderController;
-use App\Http\Controllers\Admin\AdminUserController;
-use App\Http\Controllers\ShopController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductController as PublicProductController;
 
+
+
+
+use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminProductController;
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+
+use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ShopProductController;
+use App\Http\Controllers\WishlistController;
+use Illuminate\Support\Facades\Route;
+
+
+use App\Http\Controllers\Admin\AdminCategoryController;
 
 
 
@@ -105,7 +110,6 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 // Public product detail route
 // Route::get('/product/{id}', [PublicProductController::class, 'show'])->name('product.show');
 
-use App\Http\Controllers\ShopProductController;
 
 Route::get('/product/{id}', [ShopProductController::class, 'show'])->name('product.show');
 
@@ -115,7 +119,11 @@ Route::get('/product/{id}', [ShopProductController::class, 'show'])->name('produ
 
 
 
-use App\Http\Controllers\WishlistController;
+
+
+
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');

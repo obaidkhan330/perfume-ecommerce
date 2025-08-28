@@ -1,19 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\auth;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
+
 
 class AuthController extends Controller
 {
     //
 
 
-  // Show Signup Page
+    // Show Signup Page
     public function showSignup()
     {
         return view('auth.signup');
@@ -80,6 +82,5 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/'); // Home page after logout
-    }}
-
-
+    }
+}
