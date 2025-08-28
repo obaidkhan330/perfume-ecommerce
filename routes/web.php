@@ -8,7 +8,8 @@ use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 
-use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\Auth\AuthController;
+
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ShopProductController;
