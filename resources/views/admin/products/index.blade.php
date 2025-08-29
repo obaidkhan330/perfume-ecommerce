@@ -58,6 +58,6 @@
     </table> -->
 
     {{-- Pagination --}}
-    <!-- {{ $products->links() }} -->
+
 </div>
 @endsection
