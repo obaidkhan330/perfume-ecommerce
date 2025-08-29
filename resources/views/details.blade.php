@@ -3,17 +3,51 @@
 @section('content')
 
 
+<style>
+    .thumbnail-bar {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-bottom: -20px;
 
+    }
+
+    .thumbnail-bar img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border: 2px solid #ccc;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: border-color 0.3s;
+    }
+
+    .thumbnail-bar img:hover {
+        border-color: #000;
+    }
+</style>
+
+
+
+<div class="thumbnail-bar">
+    <img src="{{ asset('naxham/assets/images/product1.jpg') }}"
+         onclick="changeImage('{{ asset('naxham/assets/images/product1.jpg') }}')"
+         alt="Thumb 1">
+    <img src="{{ asset('naxham/assets/images/perfume2.jpg') }}"
+         onclick="changeImage('{{ asset('naxham/assets/images/perfume2.jpg') }}')"
+         alt="Thumb 2">
+</div>
 
 <div class="container py-5">
     <div class="row">
         <div class="col-md-6">
-            <img src="{{ asset('naxham/assets/images/product1.jpg') }}" alt="Mahir Perfume" class="img-fluid rounded">
+ <img id="mainProductImage" src="{{ asset('naxham/assets/images/product1.jpg') }}"
+                 alt="Mahir Perfume" class="img-fluid rounded">
         </div>
         <div class="col-md-6">
             <h2 class="fw-bold">Dioran 100ML</h2>
             <p class="fs-4 text-danger">Rs. 2950 <del class="text-muted">Rs. 5,000</del></p>
-
 
 
 
@@ -367,6 +401,14 @@
 
 {{-- Button Scripts --}}
 <script>
+
+      function changeImage(src) {
+        document.getElementById('mainProductImage').src = src;
+    }
+
+
+
+
     function decreaseQty() {
         let qty = document.getElementById('quantity');
         if (qty.value > 1) qty.value--;
