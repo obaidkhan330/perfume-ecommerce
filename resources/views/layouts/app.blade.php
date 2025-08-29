@@ -193,13 +193,11 @@
     <nav class="navbar navbar-expand-lg bg-dark text-light  main-nav">
         <div class="container">
             <!-- Toggle Button -->
-            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+            <button class="navbar-toggler ms-auto text-light" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
                 aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon "></span>
             </button>
-            {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ftco-navbar" aria-controls="ftco-navbar" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span> Menu
-</button> --}}
+
 
             <div class="collapse navbar-collapse justify-content-center" id="mainNav">
                 <ul class="navbar-nav">
