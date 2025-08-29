@@ -157,7 +157,7 @@
             </div>
         </div>
     </div>
-<hr class=" bg-light">
+<hr class=" bg-light p-0 m-0">
     <!-- Row 3: Main navigation -->
     <nav class="navbar navbar-expand-lg bg-dark text-light  main-nav">
         <div class="container">
