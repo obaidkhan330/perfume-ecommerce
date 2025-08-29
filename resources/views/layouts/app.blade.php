@@ -69,6 +69,7 @@
             </div>
         </div>
     </div>
+<hr class=" bg-light p-0 m-0">
 
     <!-- Row 2: Left sidebar button / Center logo / Right account+cart -->
     <div class="mid-row bg-dark">
@@ -89,7 +90,6 @@
                     </div>
                 </div>
 
-<hr class=" bg-light p-0 m-0">
 
                 <!-- Center: Logo -->
 
