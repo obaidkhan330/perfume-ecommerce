@@ -109,7 +109,7 @@
                     <a href="{{ route('wishlist.index') }}" class="btn btn-outline-light position-relative bg-secondary">
                     ❤️ Wishlist
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        {{ \App\Models\Wishlist::where('user_id', Auth::id())->count() }}
+                       name
                     </span>
                     </a>
                     </li>
