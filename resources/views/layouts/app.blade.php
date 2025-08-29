@@ -111,7 +111,7 @@
 
 
                     <!-- Right: Account + Cart -->
-                    <div class="header-icons d-flex align-items-center g-0">
+                    <div class="header-icons d-flex justify-content-center align-items-center g-0">
 
                         <a href="#" class="ms-3 position-relative" title="Cart">
                             <i class="bi bi-bag" style="color: #fff; margin-left: 10px;"></i>
