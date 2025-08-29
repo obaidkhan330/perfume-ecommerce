@@ -190,86 +190,57 @@
     </div>
     <hr class=" bg-light p-0 m-0">
     <!-- Row 3: Main navigation -->
-    <nav class="navbar navbar-expand-lg bg-dark text-light  main-nav">
-        <div class="container">
-            <!-- Toggle Button -->
-            <button class="navbar-toggler ms-auto text-light" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
-                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon "></span>
-            </button>
+<style>
+/* White toggler icon */
+.navbar-dark .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+.navbar-dark .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255,255,255,1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+</style>
 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <!-- Left Side Toggler -->
+        <button class="navbar-toggler me-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse justify-content-center" id="mainNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        <!-- Collapse Menu -->
+        <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
 
-                    <!-- Shop (12 items) -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="shopDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                        <ul class="dropdown-menu" aria-labelledby="shopDropdown">
-                            <li><a class="dropdown-item" href="#">Item 01</a></li>
-                            <li><a class="dropdown-item" href="#">Item 02</a></li>
-                            <li><a class="dropdown-item" href="#">Item 03</a></li>
-                            <li><a class="dropdown-item" href="#">Item 04</a></li>
-                            <li><a class="dropdown-item" href="#">Item 05</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="shopDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="shopDropdown">
+                        <li><a class="dropdown-item" href="#">Item 01</a></li>
+                        <li><a class="dropdown-item" href="#">Item 02</a></li>
+                        <li><a class="dropdown-item" href="#">Item 03</a></li>
+                        <li><a class="dropdown-item" href="#">Item 04</a></li>
+                        <li><a class="dropdown-item" href="#">Item 05</a></li>
+                    </ul>
+                </li>
 
-                        </ul>
-                    </li>
+                <li class="nav-item"><a class="nav-link" href="#">Summer Deal</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="perfumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Perfume</a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfumeDropdown">
+                        <li><a class="dropdown-item" href="#">All Perfumes</a></li>
+                        <li><a class="dropdown-item" href="#">EDP</a></li>
+                        <li><a class="dropdown-item" href="#">Attar</a></li>
+                        <li><a class="dropdown-item" href="#">Body Spray</a></li>
+                    </ul>
+                </li>
 
-                    <li class="nav-item"><a class="nav-link" href="#">Summer Deal</a></li>
-
-                    <!-- Perfume dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="perfumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Perfume</a>
-                        <ul class="dropdown-menu" aria-labelledby="perfumeDropdown">
-                            <li><a class="dropdown-item" href="#">All Perfumes</a></li>
-                            <li><a class="dropdown-item" href="#">EDP</a></li>
-                            <li><a class="dropdown-item" href="#">Attar</a></li>
-                            <li><a class="dropdown-item" href="#">Body Spray</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Female dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="femaleDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Female</a>
-                        <ul class="dropdown-menu" aria-labelledby="femaleDropdown">
-                            <li><a class="dropdown-item" href="#">Top Picks</a></li>
-                            <li><a class="dropdown-item" href="#">Gift Sets</a></li>
-                            <li><a class="dropdown-item" href="#">New Arrivals</a></li>
-                        </ul>
-                    </li>
-
-
-                    {{-- male dropdown    --}}
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="femaleDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Male</a>
-                        <ul class="dropdown-menu" aria-labelledby="femaleDropdown">
-                            <li><a class="dropdown-item" href="#">Top Picks</a></li>
-                            <li><a class="dropdown-item" href="#">Gift Sets</a></li>
-                            <li><a class="dropdown-item" href="#">New Arrivals</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item"><a class="nav-link" href="#">Bundles</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Gold Edition</a></li>
-
-                    <!-- Pages (extra) -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
-                        <ul class="dropdown-menu" aria-labelledby="pagesDropdown">
-                            <li><a class="dropdown-item" href="#">About Us</a></li>
-                            <li><a class="dropdown-item" href="#">Contact Us</a></li>
-                            <li><a class="dropdown-item" href="#">Track Order</a></li>
-                            <li><a class="dropdown-item" href="#">Wishlist</a></li>
-                            <li><a class="dropdown-item" href="#">Login</a></li>
-                            <li><a class="dropdown-item" href="#">Signup</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+                <!-- Add more nav-items as needed -->
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+
 
 
     <!-- END nav -->
