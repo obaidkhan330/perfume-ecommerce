@@ -20,6 +20,12 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
 
+       <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+
 
 
     <link rel="stylesheet" href="{{asset('naxham/assets/css/animate.css')}}">
@@ -42,103 +48,58 @@
     	<div id="preloder">
 		<div class="loader"></div>
 	</div>
-{{-- <div class="wrap">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 d-flex align-items-center">
-						<p class="mb-0 phone pl-md-2">
-							<a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +00 1234 567</a>
-							<a href="#"><span class="fa fa-paper-plane mr-1"></span> youremail@email.com</a>
-						</p>
-					</div>
-					<div class="col-md-6 d-flex justify-content-md-end">
-						<div class="social-media mr-4">
-			    		<p class="mb-0 d-flex">
-			    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
-			    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
-			    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
-			    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
-			    		</p>
-		        </div>
-		        <div class="reg">
-		        	<p class="mb-0"><a href="#" class="mr-2">Sign Up</a> <a href="#">Log In</a></p>
-		        </div>
-					</div>
-				</div>
-			</div>
-		</div> --}}
 
-{{--
-	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light " id="ftco-navbar">
-	    <div class="container ">
-	      <!-- <a class="navbar-brand" href="index.html">Liquor <span>store</span></a> -->
-		   <a class="navbar-brand " href="#">
-                <img src="naxham/assets/images/logo.png" alt="logo" class="navbar-logo  ">
-            </a> --}}
-		   {{-- <div class="order-lg-last btn-group">
-          <a href="#" class="btn-cart dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          	<span class="flaticon-shopping-bag"></span>
-          	<div class="d-flex justify-content-center align-items-center"><small>3</small></div>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right">
-				    <div class="dropdown-item d-flex align-items-start" href="#">
-				    	<div class="img" style="background-image: url(images/prod-1.jpg);"></div>
-				    	<div class="text pl-3">
-				    		<h4>Bacardi 151</h4>
-				    		<p class="mb-0"><a href="#" class="price">$25.99</a><span class="quantity ml-3">Quantity: 01</span></p>
-				    	</div>
-				    </div>
-				    <div class="dropdown-item d-flex align-items-start" href="#">
-				    	<div class="img" style="background-image: url(images/prod-2.jpg);"></div>
-				    	<div class="text pl-3">
-				    		<h4>Jim Beam Kentucky Straight</h4>
-				    		<p class="mb-0"><a href="#" class="price">$30.89</a><span class="quantity ml-3">Quantity: 02</span></p>
-				    	</div>
-				    </div>
-				    <div class="dropdown-item d-flex align-items-start" href="#">
-				    	<div class="img" style="background-image: url(images/prod-3.jpg);"></div>
-				    	<div class="text pl-3">
-				    		<h4>Citadelle</h4>
-				    		<p class="mb-0"><a href="#" class="price">$22.50</a><span class="quantity ml-3">Quantity: 01</span></p>
-				    	</div>
-				    </div>
-				    <a class="dropdown-item text-center btn-link d-block w-100" href="cart.html">
-				    	View All
-				    	<span class="ion-ios-arrow-round-forward"></span>
-				    </a>
-				  </div>
-        </div> --}}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <!-- Row 1: Top strip -->
+  <div class="top-strip bg-dark text-light py-1">
     <div class="container">
-       <a class="navbar-brand " href="#">
-                <img src="naxham/assets/images/logo.png" alt="logo" class="navbar-logo  ">
-            </a>
+      <div class="row align-items-center">
+        <div class="col-4 text-start ">
+          <a href="tel:+923233810638 "><i class="bi bi-whatsapp  me-1"></i> +92 323 3810638</a>
+        </div>
+        <div class="col-4 text-center">
+          Free Delivery on orders above Rs. 2000
+        </div>
+        <div class="col-4 text-end social">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-tiktok"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ftco-navbar" aria-controls="ftco-navbar" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span> Menu
-</button>
+  <!-- Row 2: Left sidebar button / Center logo / Right account+cart -->
+  <div class="mid-row bg-dark">
+    <div class="container ">
+      <div class="d-flex align-items-center justify-content-between">
 
-<div class="collapse navbar-collapse ftco_navbar justify-content-between" id="ftco-navbar">
-    <ul class="navbar-nav">
+          <!-- Center: Logo -->
+        <a href="#" class="brand-logo d-inline-block text-center">
+          <!-- replace src with your logo -->
+          <img src="{{ asset('naxham/assets/images/logo.png') }}" alt=" Logo">
+        </a>
 
-                <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="{{ url('about') }}" class="nav-link">About</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdown04">
-                        <li><a class="dropdown-item" href="{{ url('product') }}">Products</a></li>
-                        <li><a class="dropdown-item" href="{{ url('cart') }}">Cart</a></li>
-                        <li><a class="dropdown-item" href="{{ url('checkout') }}">Checkout</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a href="{{ url('shop') }}" class="nav-link">Shop</a></li>
-                <li class="nav-item"><a href="{{ url('contact') }}" class="nav-link">Contact</a></li>
-            </ul>
+<!-- Responsive Search Bar -->
 
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item me-2">
-                    <a href="{{ route('wishlist.index') }}" class="btn btn-outline-light position-relative">
+<div class="container my-3">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search..." aria-label="Search">
+        <span class="input-group-text bg-primary text-white">
+          <i class="fa fa-search"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{{-- <ul class="navbar-nav ms-auto align-items-center ">
+                <li class="nav-item me-3">
+                    <a href="{{ route('wishlist.index') }}" class="btn btn-outline-light position-relative bg-secondary">
                         ❤️ Wishlist
                           <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             {{ \App\Models\Wishlist::where('user_id', Auth::id())->count() }}
@@ -161,10 +122,104 @@
                         </ul>
                     </li>
                 @endauth
-            </ul>
+            </ul> --}}
+
+
+        <!-- Right: Account + Cart -->
+        <div class="header-icons d-flex align-items-center">
+          <a href="#" title="Account"><i class="bi bi-person" style="color: #fff; margin-left: 20px;"></i>Account</a>
+          <a href="#" class="ms-3 position-relative" title="Cart">
+            <i class="bi bi-bag" style="color: #fff; margin-left: 10px;">Cart</i>
+            <span class="badge bg-dark rounded-pill">0</span>
+          </a>
         </div>
+      </div>
     </div>
-</nav>
+  </div>
+
+  <!-- Row 3: Main navigation -->
+  <nav class="navbar navbar-expand-lg bg-dark text-light  main-nav">
+    <div class="container">
+        <!-- Toggle Button -->
+    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+      aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+                  {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ftco-navbar" aria-controls="ftco-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span> Menu
+</button> --}}
+
+      <div class="collapse navbar-collapse justify-content-center" id="mainNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+
+          <!-- Shop (12 items) -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="shopDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+            <ul class="dropdown-menu" aria-labelledby="shopDropdown">
+              <li><a class="dropdown-item" href="#">Item 01</a></li>
+              <li><a class="dropdown-item" href="#">Item 02</a></li>
+              <li><a class="dropdown-item" href="#">Item 03</a></li>
+              <li><a class="dropdown-item" href="#">Item 04</a></li>
+              <li><a class="dropdown-item" href="#">Item 05</a></li>
+
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link" href="#">Summer Deal</a></li>
+
+          <!-- Perfume dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="perfumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Perfume</a>
+            <ul class="dropdown-menu" aria-labelledby="perfumeDropdown">
+              <li><a class="dropdown-item" href="#">All Perfumes</a></li>
+              <li><a class="dropdown-item" href="#">EDP</a></li>
+              <li><a class="dropdown-item" href="#">Attar</a></li>
+              <li><a class="dropdown-item" href="#">Body Spray</a></li>
+            </ul>
+          </li>
+
+          <!-- Female dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="femaleDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Female</a>
+            <ul class="dropdown-menu" aria-labelledby="femaleDropdown">
+              <li><a class="dropdown-item" href="#">Top Picks</a></li>
+              <li><a class="dropdown-item" href="#">Gift Sets</a></li>
+              <li><a class="dropdown-item" href="#">New Arrivals</a></li>
+            </ul>
+          </li>
+
+
+          {{-- male dropdown    --}}
+
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="femaleDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Male</a>
+            <ul class="dropdown-menu" aria-labelledby="femaleDropdown">
+              <li><a class="dropdown-item" href="#">Top Picks</a></li>
+              <li><a class="dropdown-item" href="#">Gift Sets</a></li>
+              <li><a class="dropdown-item" href="#">New Arrivals</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link" href="#">Bundles</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Gold Edition</a></li>
+
+          <!-- Pages (extra) -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
+            <ul class="dropdown-menu" aria-labelledby="pagesDropdown">
+              <li><a class="dropdown-item" href="#">About Us</a></li>
+              <li><a class="dropdown-item" href="#">Contact Us</a></li>
+              <li><a class="dropdown-item" href="#">Track Order</a></li>
+              <li><a class="dropdown-item" href="#">Wishlist</a></li>
+              <li><a class="dropdown-item" href="#">Login</a></li>
+              <li><a class="dropdown-item" href="#">Signup</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
 
     <!-- END nav -->
@@ -277,3 +332,7 @@
 
 
     </html>
+
+
+
+
