@@ -89,7 +89,7 @@
                     </div>
                 </div>
 
-
+<hr class=" bg-light p-0 m-0">
 
                 <!-- Center: Logo -->
 
