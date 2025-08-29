@@ -50,10 +50,10 @@
     <div class="sidebar p-3">
         <h4 class="text-center mb-4">Admin Panel</h4>
         <a href="{{ route('admin.dashboard') }}">Dashboard</a>
-        <a href="{{ route('admin.products.index') }}">Products</a>
+        <a href="">Products</a>
         <a href="">Categories</a>
-        <a href="{{ route('admin.orders.index') }}">Orders</a>
-        <a href="{{ route('admin.users.index') }}">Users</a>
+        <a href="">Orders</a>
+        <a href="">Users</a>
         <a href="{{ route('logout') }}">Logout</a>
     </div>
 

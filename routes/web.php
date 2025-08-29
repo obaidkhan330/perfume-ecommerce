@@ -86,24 +86,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
     Route::post('/wishlist/{productId}', [WishlistController::class, 'store'])->name('wishlist.store');
     Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
-
-
-
-
-
-
-
-
-
-
 });
 
 
-    Route::prefix('admin')->middleware('auth')->group(function () {
-        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
-        Route::resource('users', AdminUserController::class);
-        Route::resource('products', AdminProductController::class);
-        Route::resource('categories', AdminCategoryController::class);
-        Route::resource('orders', AdminOrderController::class);
-    });
+
+});
