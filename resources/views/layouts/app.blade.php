@@ -159,7 +159,7 @@
     </div>
 
     <!-- Row 3: Main navigation -->
-    <nav class="navbar navbar-expand-lg bg-dark text-light  main-nav">
+    <nav class="navbar navbar-expand-lg   main-nav">
         <div class="container">
             <!-- Toggle Button -->
             <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
