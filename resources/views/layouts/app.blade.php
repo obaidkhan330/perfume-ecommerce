@@ -54,14 +54,14 @@
     <div class="top-strip bg-dark text-light py-1">
         <div class="container-fluid">
             <div class="row d-flex align-items-center">
-                <div class=" col-md-3 order-1 text-start ">
+                <div class=" col-md-3 order-1 text-start d-none d-md-block">
                     <a href="tel:+923233810638 " class="text-light"><i class="bi bi-whatsapp  me-1"></i> +92 323 3810638</a>
                 </div>
-                <div class=" col-md-6 order-2 text-center d-none d-md-block">
+                <div class=" col-md-6 order-2 text-center ">
                     Free Delivery on orders above Rs. 2000
                 </div>
 
-                <div class=" col-md-3 order-3 text-end social">
+                <div class=" col-md-3 order-3  text-end social d-none d-md-block">
                     <a href="#" class="text-light"><i class="bi bi-facebook"></i></a>
                     <a href="#" class="text-light"><i class="bi bi-instagram"></i></a>
                     <a href="#" class="text-light"><i class="bi bi-tiktok"></i></a>
@@ -75,15 +75,16 @@
     <div class="mid-row bg-dark">
         <div class="container-fluid ">
             <div class="row d-flex align-items-center ">
-                <div class=" col-md-4 my-3">
+
+                <div class=" col-md-4 my-3 order-md-3">
                     <div class="row justify-content-center">
                         <div class="col-12" style="max-width: 300px;">
                             <div style="display: flex; align-items: center;">
                                 <input type="text"
                                     placeholder="Search..."
-                                    style="height:28px; font-size: 12px; padding: 2px 6px; border:1px solid #ccc; border-radius:4px 0 0 4px; flex:1;">
-                                <button style="height:28px; background: #36383aff; color:#fff; border:1px solid #0d6efd; border-radius:0 4px 4px 0; padding:0 8px; display:flex; align-items:center; justify-content:center;">
-                                    <i class="fa fa-search " style="font-size:12px;"></i>
+                                    style="height:28px; font-size: 12px; padding: 2px 6px; border:1px solid #ccc; border-radius:10px 0 0 4px; flex:1;">
+                                <button style="height:28px; background: #ffffffff; color:#fff; border:1px solid #0d6efd; border-radius:0 4px 4px 0; padding:0 8px; display:flex; align-items:center; justify-content:center;">
+                                    <i class="fa fa-search " style="font-size:12px; color:black"></i>
                                 </button>
                             </div>
                         </div>
@@ -93,7 +94,7 @@
 
                 <!-- Center: Logo -->
 
-                <div class="col-md-4  d-none d-md-block my-0">
+                <div class="col-md-4  d-none d-md-block my-0 order-md-1">
                     <a href="#" class="brand-logo d-inline-block text-center">
                         <!-- replace src with your logo -->
                         <img src="{{ asset('naxham/assets/images/logo.png') }}" alt=" Logo" width="200px" height="80px">
@@ -102,7 +103,7 @@
 
                 <!-- Responsive Search Bar -->
 
-                <div class="col-md-4 my-2">
+                <div class="col-md-4 my-2 order-md-2">
 
 
 
