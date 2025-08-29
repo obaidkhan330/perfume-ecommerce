@@ -104,41 +104,54 @@
 
                 <div class="col-md-4 my-2">
 
-                    {{-- <ul class="navbar-nav ms-auto align-items-center ">
-                <li class="nav-item me-3">
-                    <a href="{{ route('wishlist.index') }}" class="btn btn-outline-light position-relative bg-secondary">
-                    ❤️ Wishlist
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                       name
-                    </span>
-                    </a>
-                    </li>
 
-                    @guest
-                    <li class="nav-item me-2"><a href="{{ route('login') }}" class="btn btn-outline-light">Login</a></li>
-                    <li class="nav-item"><a href="{{ route('signup') }}" class="btn btn-warning">Signup</a></li>
-                    @endguest
 
-                    @auth
-                    <li class="nav-item dropdown">
-                        <a class="btn btn-warning dropdown-toggle" href="#" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
-                            Welcome, {{ Auth::user()->name }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-                            <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
-                        </ul>
-                    </li>
-                    @endauth
-                    </ul> --}}
+
+
 
 
                     <!-- Right: Account + Cart -->
-                    <div class="header-icons d-flex align-items-center">
-                        <a href="#" title="Account"><i class="bi bi-person" style="color: #fff; margin-left: 20px;"></i><span class="d-none d-md-inline">Account</span></a>
+                    <div class="header-icons d-flex align-items-center g-0">
+
                         <a href="#" class="ms-3 position-relative" title="Cart">
-                            <i class="bi bi-bag" style="color: #fff; margin-left: 10px;"><span class="d-none d-md-inline">Cart</span></i>
+                            <i class="bi bi-bag" style="color: #fff; margin-left: 10px;"></i>
                             <span class="badge bg-dark rounded-pill">0</span>
                         </a>
+                        <a href="#" class="ms-3 position-relative" title="Cart">
+                            <i class="bi bi-heart" style="color: #fff; margin-left: 10px; margin-right: 15px;"></i>
+                            <span class="badge bg-dark rounded-pill me-3">0</span>
+                        </a>
+
+                        <ul class="navbar-nav  d-flex flex-row align-items-center gap-2">
+                            @guest
+                            <li class="nav-item">
+                                <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('signup') }}" class="btn btn-warning btn-sm">Signup</a>
+                            </li>
+                            @endguest
+
+                            @auth
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userMenu"
+                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle me-2" style="font-size: 1.3rem;"></i>
+                                    <span>Welcome, {{ Auth::user()->name }}</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
+                                    <li><a class="dropdown-item text-dark" href="#">My Profile</a></li>
+                                    <li><a class="dropdown-item text-dark" href="#">Settings</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item text-danger" href="{{ route('logout') }}">Logout</a></li>
+                                </ul>
+                            </li>
+                            @endauth
+                        </ul>
+
+
                     </div>
                 </div>
             </div>
