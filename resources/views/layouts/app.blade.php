@@ -114,8 +114,8 @@
                                 <i class="bi bi-person-circle me-2 fs-5"></i>
 
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end shadow bg-dark" aria-labelledby="userMenu">
-                                <li><a class="dropdown-item" href="#">{{ Auth::user()->name }}</a></li>
+                            <ul class="dropdown-menu dropdown-menu-end shadow bg-dark text-light" aria-labelledby="userMenu">
+                                <li><a class="dropdown-item " href="#">{{ Auth::user()->name }}</a></li>
                                  <hr class="dropdown-divider bg-dark">
                                 <li><a class="dropdown-item" href="#">My Profile</a></li>
                                 <li><a class="dropdown-item" href="#">Settings</a></li>
