@@ -96,7 +96,7 @@
                 <div class="col-md-4  d-none d-md-block my-0">
                     <a href="#" class="brand-logo d-inline-block text-center">
                         <!-- replace src with your logo -->
-                        <img src="{{ asset('naxham/assets/images/logo.png') }}" alt=" Logo" width="200px" height="100px">
+                        <img src="{{ asset('naxham/assets/images/logo.png') }}" alt=" Logo" width="200px" height="80px">
                     </a>
                 </div>
 
