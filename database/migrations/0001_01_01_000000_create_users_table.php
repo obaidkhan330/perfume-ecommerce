@@ -14,8 +14,26 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('user_name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+
+            $table->string('role')->nullable()->default('user');
+            $table->string('gender')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->string('status')->nullable();
+            $table->string('image_path')->nullable()->default('default.jpg');
+            $table->string('otp')->nullable();
+            $table->timestamp('otp_expires_at')->nullable();
+            $table->boolean('is_verified')->default(false);
+            $table->boolean('reg_status')->default(false);
+            $table->timestamp('reg_date')->nullable();
+            $table->boolean('stealth_mode')->default(true);
+            $table->string('provider')->nullable();
+            $table->string('google_id')->nullable()->unique();
+            $table->string('facebook_id')->nullable()->unique();
+            $table->text('google_token')->nullable();
+            $table->text('facebook_token')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

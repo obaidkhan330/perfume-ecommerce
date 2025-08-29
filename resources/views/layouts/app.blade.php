@@ -52,15 +52,16 @@
 
     <!-- Row 1: Top strip -->
     <div class="top-strip bg-dark text-light py-1">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-4 text-start ">
+        <div class="container-fluid">
+            <div class="row d-flex align-items-center">
+                <div class=" col-md-3 order-1 text-start ">
                     <a href="tel:+923233810638 " class="text-light"><i class="bi bi-whatsapp  me-1"></i> +92 323 3810638</a>
                 </div>
-                <div class="col-4 text-center">
+                <div class=" col-md-6 order-2 text-center d-none d-md-block">
                     Free Delivery on orders above Rs. 2000
                 </div>
-                <div class="col-4 text-end social">
+
+                <div class=" col-md-3 order-3 text-end social">
                     <a href="#" class="text-light"><i class="bi bi-facebook"></i></a>
                     <a href="#" class="text-light"><i class="bi bi-instagram"></i></a>
                     <a href="#" class="text-light"><i class="bi bi-tiktok"></i></a>
@@ -71,9 +72,9 @@
 
     <!-- Row 2: Left sidebar button / Center logo / Right account+cart -->
     <div class="mid-row bg-dark">
-        <div class="container ">
+        <div class="container-fluid ">
             <div class="row d-flex align-items-center ">
-                <div class=" col-4 my-3">
+                <div class=" col-md-4 my-3">
                     <div class="row justify-content-center">
                         <div class="col-12" style="max-width: 300px;">
                             <div style="display: flex; align-items: center;">
@@ -92,7 +93,7 @@
 
                 <!-- Center: Logo -->
 
-                <div class="col-4 my-0">
+                <div class="col-md-4  d-none d-md-block my-0">
                     <a href="#" class="brand-logo d-inline-block text-center">
                         <!-- replace src with your logo -->
                         <img src="{{ asset('naxham/assets/images/logo.png') }}" alt=" Logo">
@@ -101,7 +102,7 @@
 
                 <!-- Responsive Search Bar -->
 
-                <div class="col-4 my-2">
+                <div class="col-md-4 my-2">
 
                     {{-- <ul class="navbar-nav ms-auto align-items-center ">
                 <li class="nav-item me-3">
@@ -133,9 +134,9 @@
 
                     <!-- Right: Account + Cart -->
                     <div class="header-icons d-flex align-items-center">
-                        <a href="#" title="Account"><i class="bi bi-person" style="color: #fff; margin-left: 20px;"></i>Account</a>
+                        <a href="#" title="Account"><i class="bi bi-person" style="color: #fff; margin-left: 20px;"></i><span class="d-none d-md-inline">Account</span></a>
                         <a href="#" class="ms-3 position-relative" title="Cart">
-                            <i class="bi bi-bag" style="color: #fff; margin-left: 10px;">Cart</i>
+                            <i class="bi bi-bag" style="color: #fff; margin-left: 10px;"><span class="d-none d-md-inline">Cart</span></i>
                             <span class="badge bg-dark rounded-pill">0</span>
                         </a>
                     </div>
