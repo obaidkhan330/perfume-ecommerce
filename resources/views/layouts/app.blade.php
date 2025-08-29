@@ -116,11 +116,11 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
                                 <li><a class="dropdown-item" href="#">{{ Auth::user()->name }}</a></li>
-                                 <hr class="dropdown-divider">
+                                 <hr class="dropdown-divider bg-dark">
                                 <li><a class="dropdown-item" href="#">My Profile</a></li>
                                 <li><a class="dropdown-item" href="#">Settings</a></li>
                                 <li>
-
+                                    <hr class="dropdown-divider bg-dark">
                                 </li>
                                 <li><a class="dropdown-item text-danger" href="{{ route('logout') }}">Logout</a></li>
                             </ul>
