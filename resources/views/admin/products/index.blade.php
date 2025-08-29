@@ -5,9 +5,9 @@
     <h2>Product List</h2>
 
     {{-- Search Bar --}}
-    <form method="GET" action="{{ route('admin.products.index') }}" class="mb-3">
+    <!-- <form method="GET" action="{{ route('admin.products.index') }}" class="mb-3">
         <input type="text" name="search" class="form-control" placeholder="Search products...">
-    </form>
+    </form> -->
 
     {{-- Success Message --}}
     @if(session('success'))
@@ -15,7 +15,7 @@
     @endif
 
     {{-- Product Table --}}
-    <table class="table table-bordered">
+    <!-- <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Name</th>
@@ -55,9 +55,9 @@
             </tr>
             @endforelse
         </tbody>
-    </table>
+    </table> -->
 
     {{-- Pagination --}}
-    {{ $products->links() }}
+    <!-- {{ $products->links() }} -->
 </div>
 @endsection
