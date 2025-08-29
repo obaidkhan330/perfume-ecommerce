@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 
 
@@ -31,14 +32,73 @@ class AuthController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
+        $username = strtolower(str_replace(' ', '_', $request->name)) . rand(100, 999);
+
+        // Generate OTP
+        $otp = rand(100000, 999999);
+
+        $user = User::create([
+            'name'        => $request->name,
+            'user_name'    => $username,
+            'email'       => $request->email,
+            'password'    => Hash::make($request->password),
+            'role'        => 'user',
+            'status'      => 'active',
+            'is_verified' => false, // not verified yet
+            'reg_status'  => 'pending',
+            'otp'   => $otp,
+            'otp_expires_at' => now()->addMinutes(10),
         ]);
 
-        return redirect()->route('login')->with('success', 'Signup successful! Please login.');
+
+        Mail::raw("Your OTP for email verification is: {$otp}. It will expire in 10 minutes.", function ($message) use ($user) {
+            $message->to($user->email)
+                ->subject('Verify Your Email - TS Developers');
+        });
+
+   session([
+        'email' => $user->email,
+         // optional, if you also want to compare from session
+    ]);
+
+        // Redirect to verify page
+        return redirect()->route('verify.email')->with('success', 'Signup successful! Please verify your email.');
     }
+
+
+    public function showVerifyForm()
+    {
+        return view('auth.verify');
+    }
+
+    public function verifyOtp(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'otp'   => 'required',
+        ]);
+
+        $otp = implode('', $request->otp);
+        $user = User::where('email', $request->email)
+            ->where('otp', $otp)
+            ->where('otp_expires_at', '>', now())
+            ->first();
+
+        if (!$user) {
+            return back()->with('error', 'Invalid or expired OTP.');
+        }
+
+        $user->update([
+            'is_verified' => true,
+            'reg_status'  => 'active',
+            'otp'   => null,
+            'otp_expires_at' => null,
+        ]);
+
+        return redirect()->route('login')->with('success', 'Email verified! You can now login.');
+    }
+
+
 
     // Show Login Page
     public function showLogin()
