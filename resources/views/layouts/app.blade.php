@@ -51,7 +51,7 @@
 
 
     <!-- Row 1: Top strip -->
-    <div class="top-strip bg-dark text-light py-1">
+    <div class="top-strip bg-dark text-light py-1 p-0 m-0">
         <div class="container-fluid">
             <div class="row d-flex align-items-center">
                 <div class=" col-md-3 order-1 text-start d-none d-md-block">
@@ -69,96 +69,119 @@
             </div>
         </div>
     </div>
-<hr class=" bg-light p-0 m-0">
+    <hr class=" bg-light p-0 m-0">
 
     <!-- Row 2: Left sidebar button / Center logo / Right account+cart -->
-    <div class="mid-row bg-dark">
-        <div class="container-fluid ">
-            <div class="row d-flex align-items-center ">
+   <div class="bg-dark py-2">
+  <div class="container-fluid">
+    <div class="row align-items-center g-2">
 
-                <div class=" col-md-4 my-3 order-md-3">
-                    <div class="row justify-content-center">
-                        <div class="col-12" style="max-width: 300px;">
-                            <div style="display: flex; align-items: center;">
-                                <input type="text"
-                                    placeholder="Search..."
-                                    style="height:28px; font-size: 12px; padding: 2px 6px; border:1px solid #ccc; border-radius:10px 0 0 4px; flex:1;">
-                                <button style="height:28px; background: #ffffffff; color:#fff; border:1px solid #0d6efd; border-radius:0 4px 4px 0; padding:0 8px; display:flex; align-items:center; justify-content:center;">
-                                    <i class="fa fa-search " style="font-size:12px; color:black"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      {{-- Logo: left on lg, left half on small --}}
+      <div class="col-6 col-lg-3 order-1 order-lg-1 d-flex align-items-center">
+        <a href="#" class="d-inline-block">
+          <img src="{{ asset('naxham/assets/images/logo.png') }}" alt="Logo" class="img-fluid" style="max-height:60px;">
+        </a>
+      </div>
 
+      {{-- Icons: right on lg, right half on small (same first row as logo) --}}
+      <div class="col-6 col-lg-3 order-2 order-lg-3 d-flex justify-content-end align-items-center">
+        <ul class="navbar-nav flex-row align-items-center gap-2 mb-0">
 
-                <!-- Center: Logo -->
+          @guest
+            <li class="nav-item">
+              <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm">Login</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('signup') }}" class="btn btn-warning btn-sm">Signup</a>
+            </li>
+          @endguest
 
-                <div class="col-md-4  d-none d-md-block my-0 order-md-1">
-                    <a href="#" class="brand-logo d-inline-block text-center">
-                        <!-- replace src with your logo -->
-                        <img src="{{ asset('naxham/assets/images/logo.png') }}" alt=" Logo" width="200px" height="80px">
-                    </a>
-                </div>
+          @auth
+            <li class="nav-item me-2">
+              <a href="#" class="position-relative text-white text-decoration-none">
+                <i class="bi bi-heart fs-5"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">0</span>
+              </a>
+            </li>
+            <li class="nav-item me-2">
+              <a href="#" class="position-relative text-white text-decoration-none">
+                <i class="bi bi-bag fs-5"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">0</span>
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle me-2 fs-5"></i>
+                <span>Welcome, {{ Auth::user()->name }}</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
+                <li><a class="dropdown-item" href="#">My Profile</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="{{ route('logout') }}">Logout</a></li>
+              </ul>
+            </li>
+          @endauth
 
-                <!-- Responsive Search Bar -->
+        </ul>
+      </div>
 
-                <div class="col-md-4 my-2 order-md-2">
+      {{-- Search: centered on lg (middle column); second row centered on small --}}
+      <div class="col-12 col-lg-6 order-3 order-lg-2">
+        <div class="d-flex justify-content-center mt-2 mt-lg-0">
+          <form action="" method="GET" class="w-100" style="max-width: 600px;">
+            <style>
+  .custom-search {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden; /* input aur button ek box ke andar rahain */
+    background: #f9f9f9; /* dono ka same background */
+  }
 
+  .custom-search input {
+    border: none;
+    box-shadow: none;
+    background: transparent; /* parent ka background inherit kare */
+    color: #000;
+    padding: 6px 10px;
+    font-size: 14px;
+  }
 
+  .custom-search input:focus {
+    outline: none;
+    box-shadow: none;
+  }
 
+  .custom-search button {
+    border: none;
+    background: transparent; /* same background as parent */
+    color: #000;
+    padding: 6px 12px;
+    font-size: 14px;
+  }
 
+  .custom-search button:hover {
+    background: #e6e6e6; /* hover effect */
+  }
+</style>
 
+<div class="custom-search d-flex align-items-center">
+  <input type="text" name="q" placeholder="Search..." class="flex-grow-1">
+  <button type="submit">
+    <i class="bi bi-search"></i>
+  </button>
+</div>
 
-
-                    <!-- Right: Account + Cart -->
-                    <div class="header-icons d-flex justify-content-center align-items-center g-0">
-
-                        <a href="#" class="ms-3 position-relative" title="Cart">
-                            <i class="bi bi-bag" style="color: #fff; margin-left: 10px;"></i>
-                            <span class="badge bg-dark rounded-pill">0</span>
-                        </a>
-                        <a href="#" class="ms-3 position-relative" title="Cart">
-                            <i class="bi bi-heart" style="color: #fff; margin-left: 10px; margin-right: 15px;"></i>
-                            <span class="badge bg-dark rounded-pill me-3">0</span>
-                        </a>
-
-                        <ul class="navbar-nav  d-flex flex-row align-items-center gap-2">
-                            @guest
-                            <li class="nav-item">
-                                <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('signup') }}" class="btn btn-warning btn-sm">Signup</a>
-                            </li>
-                            @endguest
-
-                            @auth
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userMenu"
-                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-person-circle me-2" style="font-size: 1.3rem;"></i>
-                                    <span>Welcome, {{ Auth::user()->name }}</span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
-                                    <li><a class="dropdown-item text-dark" href="#">My Profile</a></li>
-                                    <li><a class="dropdown-item text-dark" href="#">Settings</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item text-danger" href="{{ route('logout') }}">Logout</a></li>
-                                </ul>
-                            </li>
-                            @endauth
-                        </ul>
-
-
-                    </div>
-                </div>
-            </div>
+          </form>
         </div>
+      </div>
+
     </div>
-<hr class=" bg-light p-0 m-0">
+  </div>
+</div>
+
+    </div>
+    <hr class=" bg-light p-0 m-0">
     <!-- Row 3: Main navigation -->
     <nav class="navbar navbar-expand-lg bg-dark text-light  main-nav">
         <div class="container">
