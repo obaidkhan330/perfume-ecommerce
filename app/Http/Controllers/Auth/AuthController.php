@@ -18,64 +18,65 @@ use Laravel\Socialite\Facades\Socialite;
 class AuthController extends Controller
 {
     //
-
-    // continue with google
- public function redirectToGoogle()
+    /**
+     * Redirect to Google for authentication
+     */
+    public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect()
-        ->stateless()
-        ->with(['prompt' => 'select_account']) // force account chooser
-        ->redirect();
-
+        return Socialite::driver('google')
+            ->stateless()
+            ->with(['prompt' => 'select_account']) // force Google account chooser
+            ->redirect();
     }
 
-public function handleGoogleCallback()
-{
-    $googleUser = Socialite::driver('google')->stateless()->user();
+    /**
+     * Handle callback from Google
+     */
+    public function handleGoogleCallback()
+    {
+        $googleUser = Socialite::driver('google')
+            ->stateless()
+            ->user();
 
-    // Debug: Show what we are receiving from Google
-    // dd($googleUser);
+        $fullName = $googleUser->getName();
+        $email    = $googleUser->getEmail();
+        $googleId = $googleUser->getId();
+        $avatar   = $googleUser->getAvatar();
+        $token    = $googleUser->token;
 
-    $fullName = $googleUser->getName();
-    $email = $googleUser->getEmail();
-    $googleId = $googleUser->getId();
-    $avatar = $googleUser->getAvatar();
-    $token = $googleUser->token;
+        // Generate a unique username
+        $username = Str::slug($fullName) . rand(100, 999);
 
-    // Generate a slug-based username
-    $username = Str::slug($fullName) . rand(100, 999); // Example: abdul-basit123
+        // Find user by email
+        $user = User::where('email', $email)->first();
 
-    // Check if the user already exists
-    $user = User::where('email', $email)->first();
+        if (!$user) {
+            // Create a new user
+            $user = User::create([
+                'name'         => $fullName,
+                'user_name'    => $username,
+                'email'        => $email,
+                'password'     => Hash::make(Str::random(16)), // random password
+                'google_id'    => $googleId,
+                'google_token' => $token,
+                'image'        => $avatar,
+                'is_active'    => 1,
+                'role'         => 'user',
+            ]);
+        } else {
+            // Update Google info if user already exists
+            $user->update([
+                'google_id'    => $googleId,
+                'google_token' => $token,
+                'image'        => $avatar,
+            ]);
+        }
 
-    if (!$user) {
-        // Create new user
-        $user = User::create([
-            'name'         => $fullName,
-            'user_name' => $googleUser->name,
-            'email'        => $email,
-            'password' => Hash::make(Str::random(16)),
-            'google_id'    => $googleId,
-            'google_token' => $token,
-            'image'        => $avatar,
-            'is_active'    => 1,
-            'role'         => 'user',
-        ]);
-    } else {
-        // Update Google ID, token, and avatar
-        $user->update([
-            'google_id'    => $googleId,
-            'google_token' => $token,
-        ]);
+        // Login the user
+        Auth::login($user);
+
+        return redirect('/');
     }
-
-    // Log the user in
-    Auth::login($user);
-
-
-    return redirect('/');
-}
-
 
 
     // Show Signup Page

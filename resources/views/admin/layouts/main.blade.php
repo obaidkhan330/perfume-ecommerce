@@ -73,7 +73,7 @@
         <div class="flex-grow-1">
             {{-- Topbar --}}
             <div class="topbar d-flex justify-content-between align-items-center p-3">
-                <img src="{{ asset('naxham/assets/images/logo.png') }}" alt="logo" class="navbar-logo">
+                <img src="{{ asset('naxham/assets/images/logo.png') }}" alt="logo" style="max-height:60px; class="navbar-logo">
                 <div class="admin-name">
                     Welcome,@auth
                     {{ Auth::User()->name ?? 'Admin' }}
