@@ -21,9 +21,10 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 
 
 
-Route::get('/', function () {
-    return view('index');
-});
+use App\Http\Controllers\HomeController;
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 
 Route::get('about', function () {
     return view('about');
@@ -54,6 +55,10 @@ Route::get('shop', function () {
 });
 
 
+
+
+Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('login');
+Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
 
 
 Route::get('/signup', [AuthController::class, 'showSignup'])->name('signup');
@@ -101,3 +106,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 
 });
+
+
+
+// fetch products
+

@@ -12,7 +12,10 @@
             <div class="col-md-6">
                 <div class="card shadow-lg">
                     <div class="card-body">
+
                         <h3 class="text-center mb-4">Login</h3>
+
+
 
                         @if(session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
@@ -35,6 +38,16 @@
                                 <input type="password" name="password" class="form-control" required>
                                 @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
+
+              <p class="text-center">Continue with</p>
+              <div class="d-flex flex-column gap-2">
+                <a href="{{ url('auth/google') }}" class="btn btn-primary btn-lg">
+                  <i class="bi bi-google me-2"></i> Sign in with Google
+                </a>
+                <a href="#" class="btn btn-primary btn-lg">
+                  <i class="bi bi-facebook me-2"></i> Sign in with Facebook
+                </a>
+
 
                             <button type="submit" class="btn btn-primary w-100">Login </button>
 

@@ -56,28 +56,38 @@
     	</div>
     </section>
 
-    <section class="ftco-section ftco-no-pb">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 img img-3 d-flex justify-content-center align-items-center" style="background-image: url(naxham/assets/images/product1.jpg);">
-					</div>
-					<div class="col-md-6 wrap-about pl-md-5 ftco-animate py-5">
-	          <div class="heading-section">
-	          	<span class="subheading">Since 1905</span>
-	            <h2 class="mb-4">Desire Meets A New Taste</h2>
+{{-- all products fetch --}}
 
-	            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-	            <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country.</p>
-	            <p class="year">
-	            	<strong class="number" data-number="115">0</strong>
-		            <span>Years of Experience In Business</span>
-	            </p>
-	          </div>
+<section class="container py-5">
+    <h2 class="mb-4 text-center">Featured Products</h2>
+    <div class="row">
+        @forelse($products as $product)
+            <div class="col-md-3 mb-4">
+                <div class="card shadow-sm h-100">
+                  <img src="{{ asset('storage/products/' . $product->image) }}"
+                       class="card-img-top"
+                       alt="{{ $product->name }}"
+                       style="height: 200px; object-fit: cover;">
+                          style="height: 200px; object-fit: cover;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ $product->name }}</h5>
+                        <p class="card-text">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        @empty
+            <p class="text-center">No products available at the moment.</p>
+        @endforelse
+    </div>
+</section>
 
-					</div>
-				</div>
-			</div>
-		</section>
+
+
+
+
+
+
 
 		<section class="ftco-section ftco-no-pb">
 			<div class="container">
@@ -297,7 +307,7 @@
 			</div>
 		</section>
 
-    <section class="ftco-section testimony-section img" style="background-image: url(naxham/assets/images/bg_4.jpg);">
+    <section class="ftco-section testimony-section img" style="background-image: url(naxham/assets/images/banner.jpg);">
     	<div class="overlay"></div>
       <div class="container">
         <div class="row justify-content-center mb-5">
@@ -392,78 +402,6 @@
 
 
 
-    <section class="ftco-section">
-      <div class="container">
-        <div class="row justify-content-center mb-5">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-          	<span class="subheading">Blog</span>
-            <h2>Recent Blog</h2>
-          </div>
-        </div>
-        <div class="row d-flex">
-          <div class="col-lg-6 d-flex align-items-stretch ftco-animate">
-          	<div class="blog-entry d-flex">
-          		<a href="#" class="block-20 img" style="background-image: url('naxham/assets/images/image_1.jpg');">
-              </a>
-              <div class="text p-4 bg-light">
-              	<div class="meta">
-              		<p><span class="fa fa-calendar"></span> 23 April 2020</p>
-              	</div>
-                <h3 class="heading mb-3"><a href="#">The Recipe from a Winemaker’s Restaurent</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                <a href="#" class="btn-custom">Continue <span class="fa fa-long-arrow-right"></span></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 d-flex align-items-stretch ftco-animate">
-          	<div class="blog-entry d-flex">
-          		<a href="#" class="block-20 img" style="background-image: url('naxham/assets/images/image_2.jpg');">
-              </a>
-              <div class="text p-4 bg-light">
-              	<div class="meta">
-              		<p><span class="fa fa-calendar"></span> 23 April 2020</p>
-              	</div>
-                <h3 class="heading mb-3"><a href="#">The Recipe from a Winemaker’s Restaurent</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                <a href="#" class="btn-custom">Continue <span class="fa fa-long-arrow-right"></span></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 d-flex align-items-stretch ftco-animate">
-          	<div class="blog-entry d-flex">
-          		<a href="#" class="block-20 img" style="background-image: url('naxham/assets/images/image_3.jpg');">
-              </a>
-              <div class="text p-4 bg-light">
-              	<div class="meta">
-              		<p><span class="fa fa-calendar"></span> 23 April 2020</p>
-              	</div>
-                <h3 class="heading mb-3"><a href="#">The Recipe from a Winemaker’s Restaurent</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                <a href="#" class="btn-custom">Continue <span class="fa fa-long-arrow-right"></span></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 d-flex align-items-stretch ftco-animate">
-          	<div class="blog-entry d-flex">
-          		<a href="#" class="block-20 img" style="background-image: url('naxham/assets/images/image_4.jpg');">
-              </a>
-              <div class="text p-4 bg-light">
-              	<div class="meta">
-              		<p><span class="fa fa-calendar"></span> 23 April 2020</p>
-              	</div>
-                <h3 class="heading mb-3"><a href="#">The Recipe from a Winemaker’s Restaurent</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                <a href="" class="btn-custom">Continue <span class="fa fa-long-arrow-right"></span></a>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
 
 

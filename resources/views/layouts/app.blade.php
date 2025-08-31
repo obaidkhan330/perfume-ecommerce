@@ -211,20 +211,26 @@
         <!-- Collapse Menu -->
         <div class="collapse navbar-collapse justify-content-end" id="mainNav">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url('/')}}">Home</a></li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="shopDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="shopDropdown">
-                        <li><a class="dropdown-item" href="#">Item 01</a></li>
-                        <li><a class="dropdown-item" href="#">Item 02</a></li>
-                        <li><a class="dropdown-item" href="#">Item 03</a></li>
-                        <li><a class="dropdown-item" href="#">Item 04</a></li>
-                        <li><a class="dropdown-item" href="#">Item 05</a></li>
+                        <li><a class="dropdown-item" href="#">Shop</a></li>
+                        <li><a class="dropdown-item" href="#">Men</a></li>
+                        <li><a class="dropdown-item" href="#">Women</a></li>
+                        <li><a class="dropdown-item" href="#">Unisex</a></li>
+                        <li><a class="dropdown-item" href="#">Range</a></li>
+                        {{-- <li><a class="dropdown-item" href="#">Under 1100</a></li> --}}
                     </ul>
                 </li>
 
                 <li class="nav-item"><a class="nav-link" href="#">Summer Deal</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Daliywear</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Men Perfume</a></li>
+               <li class="nav-item"><a class="nav-link" href="#">Women Perfume</a></li>
+
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="perfumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Perfume</a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfumeDropdown">
