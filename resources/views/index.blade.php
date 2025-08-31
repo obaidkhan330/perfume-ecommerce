@@ -68,7 +68,7 @@
                        class="card-img-top"
                        alt="{{ $product->name }}"
                        style="height: 200px; object-fit: cover;">
-                          style="height: 200px; object-fit: cover;">
+                          
                     <div class="card-body text-center">
                         <h5 class="card-title">{{ $product->name }}</h5>
                         <p class="card-text">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>

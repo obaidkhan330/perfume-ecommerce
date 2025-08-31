@@ -22,7 +22,10 @@ class AuthController extends Controller
     // continue with google
  public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->redirect()
+        ->stateless()
+        ->with(['prompt' => 'select_account']) // force account chooser
+        ->redirect();
 
     }
 
