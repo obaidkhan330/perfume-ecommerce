@@ -268,7 +268,6 @@ class AdminProductController extends Controller
     public function destroyProduct($id)
     {
         $product = Product::findOrFail($id);
-
         if ($product->image && Storage::disk('public')->exists($product->image)) {
             Storage::disk('public')->delete($product->image);
         }
