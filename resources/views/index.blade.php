@@ -64,11 +64,11 @@
         @forelse($products as $product)
             <div class="col-md-3 mb-4">
                 <div class="card shadow-sm h-100">
-                  <img src="{{ asset('storage/products/' . $product->image) }}"
+                  <img src="{{ asset('storage/' . $product->image) }}"
                        class="card-img-top"
                        alt="{{ $product->name }}"
                        style="height: 200px; object-fit: cover;">
-                          
+
                     <div class="card-body text-center">
                         <h5 class="card-title">{{ $product->name }}</h5>
                         <p class="card-text">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>

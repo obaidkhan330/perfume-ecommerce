@@ -6,7 +6,7 @@
         background-color: #949495ff;
     }
 </style>
-<div class="container  mt-5">
+<div class="container  mt-3 mb-3">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card shadow-lg">
