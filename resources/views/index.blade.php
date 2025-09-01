@@ -72,7 +72,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">{{ $product->name }}</h5>
                         <p class="card-text">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                        <a href="{{ url('details/' . $product->id) }}" class="btn btn-sm btn-outline-primary">View Details</a>
                     </div>
                 </div>
             </div>

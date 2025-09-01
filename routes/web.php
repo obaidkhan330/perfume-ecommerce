@@ -46,9 +46,8 @@ Route::get('contact', function () {
 Route::get('product', function () {
     return view('product');
 });
-Route::get('product-details', function () {
-    return view('details');
-});
+Route::get('details/{id}', [AdminProductController::class, 'UserProductDetails']);
+
 
 Route::get('shop', function () {
     return view('shop');
