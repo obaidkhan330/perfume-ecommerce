@@ -60,20 +60,20 @@
 
 <section class="container py-5">
     <h2 class="mb-4 text-center">Featured Products</h2>
-    <div class="row">
-        @forelse($products as $product)
-            <div class="col-md-3 mb-4">
-                <div class="card shadow-sm h-100">
-                  <img src="{{ asset('storage/' . $product->image) }}"
-                       class="card-img-top"
-                       alt="{{ $product->name }}"
-                       style="height: 200px; object-fit: cover;">
 
-                    <div class="card-body text-center">
-                        <h5 class="card-title">{{ $product->name }}</h5>
-                        <p class="card-text">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>
-                        <a href="{{ url('details/' . $product->id) }}" class="btn btn-sm btn-outline-primary">View Details</a>
-                    </div>
+    <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
+        @forelse($products as $product)
+            <div class="card shadow-sm h-100 d-inline-block"
+                 style="min-width: 250px; max-width: 250px; flex: 0 0 auto;">
+                <img src="{{ asset('storage/' . $product->image) }}"
+                     class="card-img-top"
+                     alt="{{ $product->name }}"
+                     style="height: 200px; object-fit: cover;">
+
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ $product->name }}</h5>
+                    <p class="card-text">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>
+                    <a href="{{ url('details/' . $product->id) }}" class="btn btn-sm btn-outline-primary">View Details</a>
                 </div>
             </div>
         @empty
@@ -81,6 +81,7 @@
         @endforelse
     </div>
 </section>
+
 
 
 
