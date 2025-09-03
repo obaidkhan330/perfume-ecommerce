@@ -1,27 +1,14 @@
 <?php
 
-
-
-
-use App\Http\Controllers\Admin\AdminOrderController;
-use App\Http\Controllers\Admin\AdminProductController;
-use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-
+use App\Http\Controllers\Admin\AdminProductController;
+use App\Http\Controllers\Admin\AdminVariationController;
 use App\Http\Controllers\Auth\AuthController;
-
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ShopController;
-use App\Http\Controllers\ShopProductController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
-
-use App\Http\Controllers\Admin\AdminCategoryController;
-
-
-
-use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -103,10 +90,12 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::put('product/{id}', [AdminProductController::class, 'updateProduct'])->name('admin.products.update');
     Route::delete('product/{id}', [AdminProductController::class, 'destroyProduct'])->name('admin.products.destroy');
 
-
+    Route::get('variations', [AdminVariationController::class, 'index'])->name('admin.variations.index');
+    Route::post('/variations', [AdminVariationController::class, 'store'])->name('admin.variations.store');
+    Route::put('/variations/update/{id}', [AdminVariationController::class, 'update'])->name('admin.variations.update');
+    Route::delete('/variations/destroy/{id}', [AdminVariationController::class, 'destroy'])->name('admin.variations.destroy');
 });
 
 
 
 // fetch products
-

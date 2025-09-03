@@ -18,45 +18,39 @@ use Laravel\Socialite\Facades\Socialite;
 class AuthController extends Controller
 {
     //
-    /**
-     * Redirect to Google for authentication
-     */
+
+    // continue with google
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')
-            ->stateless()
-            ->with(['prompt' => 'select_account']) // force Google account chooser
-            ->redirect();
+        return Socialite::driver('google')->redirect();
     }
 
-    /**
-     * Handle callback from Google
-     */
     public function handleGoogleCallback()
     {
-        $googleUser = Socialite::driver('google')
-            ->stateless()
-            ->user();
+        $googleUser = Socialite::driver('google')->stateless()->user();
+
+        // Debug: Show what we are receiving from Google
+        // dd($googleUser);
 
         $fullName = $googleUser->getName();
-        $email    = $googleUser->getEmail();
+        $email = $googleUser->getEmail();
         $googleId = $googleUser->getId();
-        $avatar   = $googleUser->getAvatar();
-        $token    = $googleUser->token;
+        $avatar = $googleUser->getAvatar();
+        $token = $googleUser->token;
 
-        // Generate a unique username
-        $username = Str::slug($fullName) . rand(100, 999);
+        // Generate a slug-based username
+        $username = Str::slug($fullName) . rand(100, 999); // Example: abdul-basit123
 
-        // Find user by email
+        // Check if the user already exists
         $user = User::where('email', $email)->first();
 
         if (!$user) {
-            // Create a new user
+            // Create new user
             $user = User::create([
                 'name'         => $fullName,
-                'user_name'    => $username,
+                'user_name' => $googleUser->name,
                 'email'        => $email,
-                'password'     => Hash::make(Str::random(16)), // random password
+                'password' => Hash::make(Str::random(16)),
                 'google_id'    => $googleId,
                 'google_token' => $token,
                 'image'        => $avatar,
@@ -64,16 +58,16 @@ class AuthController extends Controller
                 'role'         => 'user',
             ]);
         } else {
-            // Update Google info if user already exists
+            // Update Google ID, token, and avatar
             $user->update([
                 'google_id'    => $googleId,
                 'google_token' => $token,
-                'image'        => $avatar,
             ]);
         }
 
-        // Login the user
+        // Log the user in
         Auth::login($user);
+
 
         return redirect('/');
     }
@@ -118,10 +112,10 @@ class AuthController extends Controller
                 ->subject('Verify Your Email - TS Developers');
         });
 
-   session([
-        'email' => $user->email,
-         // optional, if you also want to compare from session
-    ]);
+        session([
+            'email' => $user->email,
+            // optional, if you also want to compare from session
+        ]);
 
         // Redirect to verify page
         return redirect()->route('verify.email')->with('success', 'Signup successful! Please verify your email.');

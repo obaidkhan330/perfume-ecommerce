@@ -23,8 +23,11 @@
         </select>
         <select name="fragrance_family" id="fragranceFamilyFilter" class="form-select w-25">
             <option value="">Select Fragrance Family</option>
-
+            @foreach ($fragranceFamilies as $family)
+            <option value="{{ $family }}">{{ $family }}</option>
+            @endforeach
         </select>
+
 
         <!-- Search Bar -->
         <form action="" method="GET" class="d-flex flex-grow-1 mx-2" style="max-width: 300px;">
@@ -106,8 +109,10 @@
 
 
         <div class="container">
-            <div class="row">
-                @forelse ($products as $product)
+            <div class="row d-flex justify-content-center">
+
+
+                @foreach ($products as $product)
                 <div class="col-md-3">
                     <div class="card p-2 shadow-sm product-card">
                         <div class="hover-icons">
@@ -265,10 +270,10 @@
                             </div>
                         </div>
                     </div>
-                    @empty
-                    <p>No products available.</p>
-                    @endforelse
+
                 </div>
+
+                @endforeach
 
 
             </div>
