@@ -565,6 +565,10 @@ h6,
 
 /* 🔹 Mobile screen style */
 @media (max-width: 576px) {
+      .sort {
+        width: 160px;
+    }
+
     .search-bar {
         flex-direction: column;
         align-items: stretch;
@@ -13665,17 +13669,25 @@ textarea.form-control {
 .about-author .desc h3 {
     font-size: 24px;
 }
+.sort {
+    position: relative;
+    width: 240px;
+    display: inline-block;
+    /* overflow: hidden; */
+}
 
 .ftco-section {
     padding: 6em 0;
     position: relative;
 }
 
+
 @media (max-width: 767.98px) {
     .ftco-section {
         padding: 6em 0;
     }
 }
+
 
 .ftco-no-pt {
     padding-top: 0;
