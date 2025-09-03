@@ -36,4 +36,10 @@ class Product extends Model
     {
         return $this->hasMany(ProductVariation::class);
     }
+    // App\Models\Product.php
+    public function smallestVariation()
+    {
+        return $this->hasOne(ProductVariation::class)
+            ->orderByRaw("CAST(REGEXP_REPLACE(variation_type, '[^0-9]', '') AS UNSIGNED) ASC");
+    }
 }
