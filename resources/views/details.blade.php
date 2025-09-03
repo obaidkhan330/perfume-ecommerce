@@ -4,107 +4,96 @@
 
 
 <style>
-    .thumbnail-bar {
-        display: flex;
-        gap: 10px;
-        margin-top: 10px;
-        margin-left: 10px;
-        margin-bottom: -20px;
-
-    }
-
-    .thumbnail-bar img {
-        width: 80px;
-        height: 80px;
-        object-fit: cover;
-        border: 2px solid #ccc;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: border-color 0.3s;
-    }
-
-    .thumbnail-bar img:hover {
-        border-color: #000;
-    }
+<style>
+.thumbnail-bar {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: -20px;
+}
+.thumbnail-bar img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+.thumbnail-bar img:hover {
+    border-color: #000;
+}
+</style>
 </style>
 
 
 
 <div class="thumbnail-bar">
-    <img src="{{ asset('naxham/assets/images/product1.jpg') }}"
-         onclick="changeImage('{{ asset('naxham/assets/images/product1.jpg') }}')"
-         alt="Thumb 1">
-    <img src="{{ asset('naxham/assets/images/perfume2.jpg') }}"
-         onclick="changeImage('{{ asset('naxham/assets/images/perfume2.jpg') }}')"
-         alt="Thumb 2">
+    @foreach(json_decode($product->gallery) as $img)
+        <img src="{{ asset('storage/' . $img) }}"
+             onclick="changeImage('{{ asset('storage/' . $img) }}')"
+             alt="Thumb">
+    @endforeach
 </div>
-
 <div class="container py-5">
     <div class="row">
+        <!-- Left: Main Image -->
         <div class="col-md-6">
- <img id="mainProductImage" src="{{ asset('naxham/assets/images/product1.jpg') }}"
-                 alt="Mahir Perfume" class="img-fluid rounded">
+            <img id="mainProductImage"
+                 src="{{ asset('storage/' . $product->image) }}"
+                 alt="{{ $product->name }}"
+                 class="img-fluid rounded mb-3"
+                 style="max-height: 400px; object-fit: cover;">
         </div>
+
+        <!-- Right: Product Info + Suggestions -->
         <div class="col-md-6">
-            <h2 class="fw-bold">Dioran 100ML</h2>
-            <p class="fs-4 text-danger">Rs. 2950 <del class="text-muted">Rs. 5,000</del></p>
+            <h2 class="fw-bold">{{ $product->name }}</h2>
+            <p class="fs-4 text-danger">Rs. {{ $product->price }}</p>
+            <p class="text-muted">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>
+            <p>{{ $product->description }}</p>
 
+   <h5 class="mt-4">You might also like these</h5>
 
+{{-- <form method="POST" action="{{ route('cart') }}"> --}}
+    @csrf
+    <div class="d-flex gap-3 flex-wrap">
+        @foreach($similarItems as $item)
+            <div class="card text-center p-2 shadow-sm position-relative" style="width: 120px; height: 220px;">
 
-            <h5 class="mt-4">You might also like these</h5>
-            <div class="d-flex gap-3 flex-wrap">
-             <div class="card text-center p-2 shadow-sm" style="width: 110px;">
-    <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
-                        <div class="card-body p-1">
-        <small class="fw-bold">Mystara</small>
-        <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
-        <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
-        <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
-        <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
-                      </div>
+                <!-- Checkbox Overlay -->
+                <input type="checkbox" name="selected_products[]" value="{{ $item->slug }}"
+                       class="form-check-input position-absolute"
+                       style="top: 8px; left: 8px; z-index: 2; background-color: white;">
+
+                <!-- Product Image -->
+                <img src="{{ asset('storage/' . $item->image) }}"
+                     class="card-img-top mb-2"
+                     alt="{{ $item->name }}"
+                     style="height: 100px; object-fit: cover; border-radius: 6px;">
+
+                <!-- Product Info -->
+                <div class="card-body p-1">
+                    <small class="fw-bold">{{ $item->name }}</small>
+                    <p class="mb-1" style="font-size: 0.75rem;">Size: 100ml</p>
+                    <p class="text-danger fw-semibold mb-1" style="font-size: 0.8rem;">Rs. {{ $item->price }}</p>
+                    <p class="text-muted" style="font-size: 0.7rem;">{{ $item->fragrance_family }}</p>
+                </div>
             </div>
-                    <div class="card text-center p-2 shadow-sm" style="width: 110px;">
-    <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
-    <div class="card-body p-1">
-        <small class="fw-bold">Mystara</small>
-        <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
-        <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
-        <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
-        <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
-              </div>
-               </div>
+        @endforeach
+    </div>
 
-             <div class="card text-center p-2 shadow-sm" style="width: 110px;">
-           <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
-           <div class="card-body p-1">
-               <small class="fw-bold">Mystara</small>
-               <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
-               <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
-               <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
-               <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
-           </div>
-              </div>
-
-
-                 <div class="card text-center p-2 shadow-sm" style="width: 110px;">
-           <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
-           <div class="card-body p-1">
-               <small class="fw-bold">Mystara</small>
-               <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
-               <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
-               <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
-               <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
-           </div>
-              </div>
-
+    <!-- Bulk Action Buttons -->
+    <div class="mt-3 d-flex gap-2">
+        <button type="submit" name="action" value="add" class="btn btn-sm btn-primary">Add Selected to Cart</button>
+        <button type="submit" name="action" value="buy" class="btn btn-sm btn-outline-dark">Buy Selected</button>
+    </div>
+</form>
             </div>
 
-            <div class="mt-4">
-                <strong>Size:</strong> 100ml
-            </div>
-
-
-
+            <!-- Optional: Size, Quantity, Buttons -->
+            <div class="mt-4"><strong>Size:</strong> 100ml</div>
 
             <div class="mt-3 d-flex align-items-center">
                 <label for="quantity" class="me-2">Qty:</label>
@@ -114,8 +103,6 @@
                     <button class="btn btn-outline-secondary" type="button" onclick="increaseQty()">+</button>
                 </div>
             </div>
-
-
 
             <div class="mt-4 d-flex gap-3">
                 <button class="btn btn-primary">Add to Cart</button>
@@ -147,12 +134,12 @@
             </p>
 
             <div class="mt-4">
-                <h6 class="fw-bold">Notes:</h6>
-                <ul class="list-unstyled">
-                    <li><strong>Top Note:</strong> Black Pepper, Pink Pepper, Saffron</li>
-                    <li><strong>Middle Note:</strong> Cade Oil, Labdanum, Gurjan Balsam, Rhubarb</li>
-                    <li><strong>Base Note:</strong> Leather, Cedar, Guaiac Wood, Patchouli, Moss</li>
-                </ul>
+           <h6 class="fw-bold">Notes:</h6>
+                   <ul class="list-unstyled">
+                      <li><strong>Top Note:</strong> {{ $product->notes_top }}</li>
+                     <li><strong>Middle Note:</strong> {{ $product->notes_middle }}</li>
+                      <li><strong>Base Note:</strong> {{ $product->notes_base }}</li>
+                   </ul>
             </div>
         </div>
     </div>
@@ -205,20 +192,20 @@
     <div class="d-flex flex-wrap gap-4 justify-content-start">
 
         {{-- Product Card --}}
-        <div class="card p-2 shadow-sm product-card">
-            <div class="hover-icons">
-                <a href="#"><i class="fas fa-search"></i></a>
-                <a href="#"><i class="fas fa-plus"></i></a>
-            </div>
-
-            <img src="{{ asset('naxham/assets/images/perfume1.jpg') }}" class="card-img-top mb-2" alt="Perfume 1" style="height: 180px; object-fit: cover;">
-            <div class="card-body p-2 text-center">
-                <small class="fw-bold" style="font-size: 1rem;">Fynora 100ml</small>
-                <p class="mb-1" style="font-size: 0.9rem;">Inspired by Mahir</p>
-                <p class="mb-1 text-danger fw-semibold" style="font-size: 1rem;">Rs. 1,399 <span class="text-muted text-decoration-line-through">Rs. 4,500</span></p>
-                <p class="text-danger fw-bold" style="font-size: 0.85rem;">Save 69%</p>
-            </div>
+       @foreach($similarItems as $item)
+    <div class="card p-2 shadow-sm product-card">
+        <div class="hover-icons">
+            <a href="{{ url('details/' . $item->slug) }}"><i class="fas fa-search"></i></a>
+            <a href="#"><i class="fas fa-plus"></i></a>
         </div>
+        <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top mb-2" alt="{{ $item->name }}" style="height: 180px; object-fit: cover;">
+        <div class="card-body p-2 text-center">
+            <small class="fw-bold">{{ $item->name }}</small>
+            <p class="mb-1">Inspired by {{ $item->brand->name }}</p>
+            <p class="mb-1 text-danger fw-semibold">Rs. {{ $item->price }}</p>
+        </div>
+    </div>
+@endforeach
 
 
 
@@ -296,20 +283,20 @@
     <div class="d-flex flex-wrap gap-4 justify-content-start">
 
         {{-- Product Card --}}
-        <div class="card p-2 shadow-sm product-card">
-            <div class="hover-icons">
-                <a href="#"><i class="fas fa-search"></i></a>
-                <a href="#"><i class="fas fa-plus"></i></a>
-            </div>
-
-            <img src="{{ asset('naxham/assets/images/perfume1.jpg') }}" class="card-img-top mb-2" alt="Perfume 1" style="height: 180px; object-fit: cover;">
-            <div class="card-body p-2 text-center">
-                <small class="fw-bold" style="font-size: 1rem;">Fynora 100ml</small>
-                <p class="mb-1" style="font-size: 0.9rem;">Inspired by Mahir</p>
-                <p class="mb-1 text-danger fw-semibold" style="font-size: 1rem;">Rs. 1,399 <span class="text-muted text-decoration-line-through">Rs. 4,500</span></p>
-                <p class="text-danger fw-bold" style="font-size: 0.85rem;">Save 69%</p>
-            </div>
+       @foreach($topPerfumes as $top)
+    <div class="card p-2 shadow-sm product-card">
+        <div class="hover-icons">
+            <a href="{{ url('details/' . $top->slug) }}"><i class="fas fa-search"></i></a>
+            <a href="#"><i class="fas fa-plus"></i></a>
         </div>
+        <img src="{{ asset('storage/' . $top->image) }}" class="card-img-top mb-2" alt="{{ $top->name }}" style="height: 180px; object-fit: cover;">
+        <div class="card-body p-2 text-center">
+            <small class="fw-bold">{{ $top->name }}</small>
+            <p class="mb-1">Inspired by {{ $top->brand->name }}</p>
+            <p class="mb-1 text-danger fw-semibold">Rs. {{ $top->price }}</p>
+        </div>
+    </div>
+@endforeach
 
 
 
@@ -432,3 +419,53 @@
 
 
 @endsection
+
+
+ {{-- <h5 class="mt-4">You might also like these</h5>
+            <div class="d-flex gap-3 flex-wrap">
+             <div class="card text-center p-2 shadow-sm" style="width: 110px;">
+    <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
+                        <div class="card-body p-1">
+        <small class="fw-bold">Mystara</small>
+        <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
+        <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
+        <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
+        <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
+                      </div>
+            </div>
+                    <div class="card text-center p-2 shadow-sm" style="width: 110px;">
+    <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
+    <div class="card-body p-1">
+        <small class="fw-bold">Mystara</small>
+        <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
+        <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
+        <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
+        <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
+              </div>
+               </div>
+
+             <div class="card text-center p-2 shadow-sm" style="width: 110px;">
+           <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
+           <div class="card-body p-1">
+               <small class="fw-bold">Mystara</small>
+               <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
+               <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
+               <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
+               <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
+           </div>
+              </div>
+
+
+                 <div class="card text-center p-2 shadow-sm" style="width: 110px;">
+           <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
+           <div class="card-body p-1">
+               <small class="fw-bold">Mystara</small>
+               <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
+               <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
+               <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
+               <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
+           </div>
+              </div>
+
+            </div> --}}
+

@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <section class="ftco-intro">
+    {{-- <section class="ftco-intro">
     	<div class="container">
     		<div class="row no-gutters">
     			<div class="col-md-4 d-flex ">
@@ -54,12 +54,70 @@
     			</div>
     		</div>
     	</div>
-    </section>
+    </section> --}}
+
+
+    {{-- catagories  --}}
+<section class="ftco-section ftco-no-pb">
+    <div class="container">
+        <h2 class="mb-4 text-center">Popular categories</h2>
+        <div class="row">
+            <div class="col-lg-2 col-md-4 col-4">
+                <div class="sort w-100 text-center ftco-animate">
+                    <a href="#">
+                        <div class="img" style="background-image: url(naxham/assets/images/perfume1.jpg);"></div>
+                        <h3>MALE</h3>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-4">
+                <div class="sort w-100 text-center ftco-animate">
+                    <a href="#">
+                        <div class="img" style="background-image: url(naxham/assets/images/perfume2.jpg);"></div>
+                        <h3>FEMALE</h3>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-4">
+                <div class="sort w-100 text-center ftco-animate">
+                    <a href="#">
+                        <div class="img" style="background-image: url(naxham/assets/images/perfume3.jpg);"></div>
+                        <h3>UNISEX</h3>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-4">
+                <div class="sort w-100 text-center ftco-animate">
+                    <a href="#">
+                        <div class="img" style="background-image: url(naxham/assets/images/perfume4.jpg);"></div>
+                        <h3>GOLDEDITION</h3>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-4">
+                <div class="sort w-100 text-center ftco-animate">
+                    <a href="#">
+                        <div class="img" style="background-image: url(naxham/assets/images/perfume5.jpg);"></div>
+                        <h3>LEXARO</h3>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-4">
+                <div class="sort w-100 text-center ftco-animate">
+                    <a href="#">
+                        <div class="img" style="background-image: url(naxham/assets/images/perfume6.jpg);"></div>
+                        <h3>VELORAIN</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {{-- all products fetch --}}
 
 <section class="container py-5">
-    <h2 class="mb-4 text-center">Featured Products</h2>
+    <h2 class="mb-4 text-center"> Male</h2>
 
     <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
         @forelse($products as $product)
@@ -73,7 +131,7 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">{{ $product->name }}</h5>
                     <p class="card-text">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>
-                    <a href="{{ url('details/' . $product->id) }}" class="btn btn-sm btn-outline-primary">View Details</a>
+                    <a href="{{ url('details/' . $product->slug) }}" class="btn btn-sm btn-outline-primary">View Details</a>
                 </div>
             </div>
         @empty
@@ -87,52 +145,6 @@
 
 
 
-
-
-
-		<section class="ftco-section ftco-no-pb">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-2 col-md-4 ">
-						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(naxham/assets/images/perfume1.jpg);"></div>
-							<h3>FYNORA</h3>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-4 ">
-						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(naxham/assets/images/perfume2.jpg);"></div>
-							<h3>FLORENZA</h3>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-4 ">
-						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(naxham/assets/images/perfume3.jpg);"></div>
-							<h3>MYSTARA</h3>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-4 ">
-						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(naxham/assets/images/perfume4.jpg);"></div>
-							<h3>ROUZAN</h3>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-4 ">
-						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(naxham/assets/images/perfume5.jpg);"></div>
-							<h3>LEXARO</h3>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-4 ">
-						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(naxham/assets/images/perfume6.jpg);"></div>
-							<h3>VELORAIN</h3>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</section>
 
 		<section class="ftco-section " id="abc">
 			<div class="container">

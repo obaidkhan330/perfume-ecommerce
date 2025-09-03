@@ -36,7 +36,7 @@ class AdminProductController extends Controller
             'description'    => 'nullable|string',
             'origin_country' => 'nullable|string|max:100',
             'website'        => 'nullable|url|max:255',
-            'logo'           => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1024',
+            'logo'           => 'nullable|image|mimes:jpeg,png,jpg,gif|max:11024',
         ]);
 
         $logoPath = null;
@@ -117,8 +117,8 @@ class AdminProductController extends Controller
             'fragrance_family' => 'nullable|string|max:255',
             'gender' => 'nullable|string|max:20',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:1024',
-            'gallery.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:1024',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:11024',
+            'gallery.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:11024',
             'notes_top_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:1024',
             'notes_middle_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:1024',
             'notes_base_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:1024',

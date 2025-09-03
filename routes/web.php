@@ -46,8 +46,8 @@ Route::get('contact', function () {
 Route::get('product', function () {
     return view('product');
 });
-Route::get('details/{id}', [AdminProductController::class, 'UserProductDetails']);
 
+Route::get('details/{slug}', [HomeController::class, 'productDetails'])->name('details');
 
 Route::get('shop', function () {
     return view('shop');
