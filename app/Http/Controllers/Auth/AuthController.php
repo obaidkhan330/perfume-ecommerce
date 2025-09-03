@@ -20,58 +20,57 @@ class AuthController extends Controller
     //
 
     // continue with google
- public function redirectToGoogle()
+    public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
-
     }
 
-public function handleGoogleCallback()
-{
-    $googleUser = Socialite::driver('google')->stateless()->user();
+    public function handleGoogleCallback()
+    {
+        $googleUser = Socialite::driver('google')->stateless()->user();
 
-    // Debug: Show what we are receiving from Google
-    // dd($googleUser);
+        // Debug: Show what we are receiving from Google
+        // dd($googleUser);
 
-    $fullName = $googleUser->getName();
-    $email = $googleUser->getEmail();
-    $googleId = $googleUser->getId();
-    $avatar = $googleUser->getAvatar();
-    $token = $googleUser->token;
+        $fullName = $googleUser->getName();
+        $email = $googleUser->getEmail();
+        $googleId = $googleUser->getId();
+        $avatar = $googleUser->getAvatar();
+        $token = $googleUser->token;
 
-    // Generate a slug-based username
-    $username = Str::slug($fullName) . rand(100, 999); // Example: abdul-basit123
+        // Generate a slug-based username
+        $username = Str::slug($fullName) . rand(100, 999); // Example: abdul-basit123
 
-    // Check if the user already exists
-    $user = User::where('email', $email)->first();
+        // Check if the user already exists
+        $user = User::where('email', $email)->first();
 
-    if (!$user) {
-        // Create new user
-        $user = User::create([
-            'name'         => $fullName,
-            'user_name' => $googleUser->name,
-            'email'        => $email,
-            'password' => Hash::make(Str::random(16)),
-            'google_id'    => $googleId,
-            'google_token' => $token,
-            'image'        => $avatar,
-            'is_active'    => 1,
-            'role'         => 'user',
-        ]);
-    } else {
-        // Update Google ID, token, and avatar
-        $user->update([
-            'google_id'    => $googleId,
-            'google_token' => $token,
-        ]);
+        if (!$user) {
+            // Create new user
+            $user = User::create([
+                'name'         => $fullName,
+                'user_name' => $googleUser->name,
+                'email'        => $email,
+                'password' => Hash::make(Str::random(16)),
+                'google_id'    => $googleId,
+                'google_token' => $token,
+                'image'        => $avatar,
+                'is_active'    => 1,
+                'role'         => 'user',
+            ]);
+        } else {
+            // Update Google ID, token, and avatar
+            $user->update([
+                'google_id'    => $googleId,
+                'google_token' => $token,
+            ]);
+        }
+
+        // Log the user in
+        Auth::login($user);
+
+
+        return redirect('/');
     }
-
-    // Log the user in
-    Auth::login($user);
-
-
-    return redirect('/');
-}
 
 
 
@@ -114,10 +113,10 @@ public function handleGoogleCallback()
                 ->subject('Verify Your Email - TS Developers');
         });
 
-   session([
-        'email' => $user->email,
-         // optional, if you also want to compare from session
-    ]);
+        session([
+            'email' => $user->email,
+            // optional, if you also want to compare from session
+        ]);
 
         // Redirect to verify page
         return redirect()->route('verify.email')->with('success', 'Signup successful! Please verify your email.');
