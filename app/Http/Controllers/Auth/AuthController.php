@@ -71,7 +71,8 @@ class AuthController extends Controller
 
         return redirect('/');
     }
-
+        return redirect('/');
+    }
 
 
     // Show Signup Page

@@ -294,4 +294,9 @@ class AdminProductController extends Controller
 
         return redirect()->back()->with('success', 'Product and its images deleted successfully!');
     }
+
+    public function UserProductDetails($id){
+        $product = Product::findOrFail($id);
+        return view('details', compact('product'));
+    }
 }
