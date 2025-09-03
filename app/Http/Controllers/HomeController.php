@@ -9,47 +9,43 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
 
-public function index()
-{
-    $products = Product::with(['brand', 'smallestVariation'])
-        ->where('status', 1) // sirf active products
-        ->get();
+    public function index()
+    {
+        $products = Product::with(['brand', 'smallestVariation'])
+            ->where('status', 1) // sirf active products
+            ->get();
 
-    return view('index', compact('products'));
-}
-<<<<<<< HEAD
-=======
+        return view('index', compact('products'));
+    }
 
 
-public function productDetails($slug)
-{
-    $product = Product::where('slug', $slug)->with('brand')->firstOrFail();
 
-    $similarItems = Product::where('id', '!=', $product->id)
-        ->where(function ($query) use ($product) {
-            $query->where('fragrance_family', $product->fragrance_family)
-                  ->orWhere('brand_id', $product->brand_id);
-        })
-        ->take(4)->get();
+    public function productDetails($slug)
+    {
+        $product = Product::where('slug', $slug)->with('brand')->firstOrFail();
 
-    $topPerfumes = Product::where('status', true)->inRandomOrder()->take(4)->get();
+        $similarItems = Product::where('id', '!=', $product->id)
+            ->where(function ($query) use ($product) {
+                $query->where('fragrance_family', $product->fragrance_family)
+                    ->orWhere('brand_id', $product->brand_id);
+            })
+            ->take(4)->get();
 
-    return view('details', compact('product', 'similarItems', 'topPerfumes'));
-}
+        $topPerfumes = Product::where('status', true)->inRandomOrder()->take(4)->get();
 
-public function show($slug)
-{
-    $product = Product::where('slug', $slug)->firstOrFail();
+        return view('details', compact('product', 'similarItems', 'topPerfumes'));
+    }
 
-    $similarItems = Product::where('slug', '!=', $product->slug)
-        ->where('category_slug', $product->category_slug)           //   assuming category_slug is stored in product table
-        ->inRandomOrder()
-        ->take(4)
-        ->get();
+    public function show($slug)
+    {
+        $product = Product::where('slug', $slug)->firstOrFail();
 
-    return view('details', compact('product', 'similarItems'));
-}
-}
->>>>>>> b99f6d79d961217b0151bda6a819d9993ae4d683
+        $similarItems = Product::where('slug', '!=', $product->slug)
+            ->where('category_slug', $product->category_slug)           //   assuming category_slug is stored in product table
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
 
+        return view('details', compact('product', 'similarItems'));
+    }
 }
