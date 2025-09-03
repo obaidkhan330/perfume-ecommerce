@@ -21,8 +21,11 @@ class AdminProductController extends Controller
 
         if ($user->role === 'admin') {
             $brands = Brand::all();
-            $products = Product::all();
-            return view('admin.products.index', compact('products', 'brands'));
+        $products = Product::with('brand')->get();
+        $fragranceFamilies = Product::pluck('fragrance_family')->unique();
+
+
+            return view('admin.products.index', compact('products', 'brands','fragranceFamilies'));
         } else {
             return redirect()->intended('/'); // yahan apna user panel route use karo
         }

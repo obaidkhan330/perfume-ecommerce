@@ -27,7 +27,7 @@ class Product extends Model
         'meta_description'
     ];
 
-        public function brand()
+    public function brand()
     {
         return $this->belongsTo(Brand::class);
     }
