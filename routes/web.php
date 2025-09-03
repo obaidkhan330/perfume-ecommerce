@@ -92,7 +92,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::get('variations', [AdminVariationController::class, 'index'])->name('admin.variations.index');
     Route::post('/variations', [AdminVariationController::class, 'store'])->name('admin.variations.store');
-    Route::post('/variations/update/{id}', [AdminVariationController::class, 'update'])->name('admin.variations.update');
+    Route::put('/variations/update/{id}', [AdminVariationController::class, 'update'])->name('admin.variations.update');
     Route::delete('/variations/destroy/{id}', [AdminVariationController::class, 'destroy'])->name('admin.variations.destroy');
 });
 
