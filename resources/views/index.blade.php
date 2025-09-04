@@ -149,17 +149,17 @@
                     <div class="img d-flex align-items-center justify-content-center" style="background-image: url({{asset('storage/'.$product->image)}});">
                         <div class="desc">
                             <p class="meta-prod d-flex">
-                                <a href="{{ url('shop') }}"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag"></i></a>
-                                <a href="{{ url('wishlist') }}"><i class=" d-flex align-items-center justify-content-center fa fa-heart"></i></a>
-                                <a href="{{ url('product') }}"><i class=" d-flex align-items-center justify-content-center fa fa-eye"></i></a>
+                                <a href="{{ url('shop') }}" class="text-decoration-none border-none"><i class=" d-flex align-items-center justify-content-center fa fa-shopping-bag fs-1 text-light"></i></a>
+                                <a href="{{ url('wishlist') }}" class="text-decoration-none border-none"><i class=" d-flex align-items-center justify-content-center fa fa-heart fs-1 text-light"></i></a>
+                                <a href="{{ url('product') }}" class="text-decoration-none border-none"><i class=" d-flex align-items-center justify-content-center fa fa-eye fs-1 text-light"></i></a>
 
                             </p>
                         </div>
                     </div>
                     <div class="text text-center">
                         <span class="sale">Sale</span>
-                        <span class="category">{{ $product->name }}</span>
-                        <h2>{{ $product->brand->name ?? 'N/A' }}</h2>
+                        <span class="category">{{ $product->brand->name ?? 'N/A' }}</span>
+                        <h2>{{ $product->name }}</h2>
                         @if($product->smallestVariation)
                         <p class="mb-0">
                            <span class="price price-sale">  {{ $product->smallestVariation->price }}-</span> <span class="price">{{ $product->smallestVariation->discount_price }}</span>
