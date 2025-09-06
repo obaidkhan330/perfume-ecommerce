@@ -259,7 +259,7 @@
                 </div>
             </div>
         @empty
-        <p class="text-center"> Female products Not Available.</p>
+        <p class="text-center"> Unisex products Not Available.</p>
         @endforelse
     </div>
 </section>
