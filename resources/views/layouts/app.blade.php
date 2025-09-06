@@ -220,8 +220,6 @@
                         <li><a class="dropdown-item" href="#">Men</a></li>
                         <li><a class="dropdown-item" href="#">Women</a></li>
                         <li><a class="dropdown-item" href="#">Unisex</a></li>
-                        <li><a class="dropdown-item" href="#">Range</a></li>
-                        {{-- <li><a class="dropdown-item" href="#">Under 1100</a></li> --}}
                     </ul>
                 </li>
 
@@ -237,7 +235,6 @@
                         <li><a class="dropdown-item" href="#">All Perfumes</a></li>
                         <li><a class="dropdown-item" href="#">EDP</a></li>
                         <li><a class="dropdown-item" href="#">Attar</a></li>
-                        <li><a class="dropdown-item" href="#">Body Spray</a></li>
                     </ul>
                 </li>
 
