@@ -18,11 +18,19 @@ class HomeController extends Controller
         return view('index', compact('maleProducts', 'femaleProducts', 'unisexProducts'));
     }
 
-    public function showProducts($gender)
-    {
+public function showProducts($gender = null)
+{
+    if ($gender) {
         $Products = Product::where('gender', $gender)->latest()->get();
-        return view('shop', compact('Products'));
+    } else {
+        $Products = Product::latest()->get(); // sab products
     }
+
+    return view('shop', compact('Products'));
+}
+
+
+
 
     public function productDetails($slug)
     {

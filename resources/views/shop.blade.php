@@ -2,6 +2,44 @@
 
 @section('content')
 
+
+<style>
+   .product-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+    .hover-icons {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+    }
+
+    .product-card:hover .hover-icons {
+        opacity: 1;
+    }
+
+    .hover-icons a {
+        background-color: white;
+        border-radius: 50%;
+        padding: 6px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        color: black;
+        font-size: 14px;
+        text-align: center;
+        width: 30px;
+        height: 30px;
+        line-height: 18px;
+    }
+</style>
+
 <section class="hero-wrap hero-wrap-2" style="background-image: url('naxham/assets/images/perfume4.jpg');" data-stellar-background-ratio="0.2">
       <div class="overlay"></div>
       <div class="container">
@@ -36,42 +74,42 @@
         </div>
     </div>
 
-    <section class="container py-5">
-    <h2 class="mb-4 text-center"> Male</h2>
+   <section class="container py-5">
+  <div class="row">
+    <h2 class="mb-4 text-center">
+    {{ ucfirst(request()->segment(2) ?? 'All') }} Products
+</h2>
+    @forelse($Products as $product)
+      <div class="col-lg-3 col-md-4 col-6 mb-4">
+        <div class="card p-2 shadow-sm product-card">
+          <div class="hover-icons">
+            <a href="{{ url('details/' . $product->slug) }}"><i class="fas fa-search"></i></a>
+            <a href="#"><i class="fas fa-plus"></i></a>
+          </div>
+          <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top mb-2" alt="{{ $product->name }}" style="height: 180px; object-fit: cover;">
+          <div class="card-body p-2 text-center">
+            <small class="fw-bold">{{ $product->name }}</small>
+            <p class="mb-1">Inspired by {{ $product->brand->name }}</p>
 
-    <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
-        @forelse($Products as $product)
-        <div class="card shadow-sm h-100 d-inline-block"
-            style="min-width: 300px; max-width: 300px; flex: 0 0 auto;">
-            <img src="{{ asset('storage/' . $product->image) }}"
-                class="card-img-top"
-                alt="{{ $product->name }}"
-                style="height: 300px; object-fit: cover;">
-                <div class="card-body text-center">
-
-                    <h5 class="card-title">{{ $product->name }}</h5>
-                    <h4 class="card-text">{{ $product->fragrance_family }} |  {{ $product->brand->name ?? 'N/A' }}
-                    </h4>
-                   @if($product->smallestVariation)
-                       <p class="mb-0">
-                                <span class="price text-muted" style="text-decoration: line-through;">
-                                   {{ $product->smallestVariation->price }}-
-                                 </span>
-                          <span class="price text-danger fw-bold">
-                             {{ $product->smallestVariation->discount_price }}
-                         </span>
-                           PKR
-                           </p>
-                       @endif
-            <a href="{{ url('details/' . $product->slug) }}" class="btn btn-sm btn-outline-primary">View Details</a>
-                </div>
-            </div>
-        @empty
-        <p class="text-center"> Male products Not available .</p>
-        @endforelse
-    </div>
+            @if($product->smallestVariation)
+              <p class="mb-0">
+                <span class="price text-muted" style="text-decoration: line-through;">
+                  {{ $product->smallestVariation->price }}-
+                </span>
+                <span class="price text-danger fw-bold">
+                  {{ $product->smallestVariation->discount_price }}
+                </span>
+                PKR
+              </p>
+            @endif
+          </div>
+        </div>
+      </div>
+    @empty
+      <p class="text-center">No products available.</p>
+    @endforelse
+  </div>
 </section>
-
 
 
 

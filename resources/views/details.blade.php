@@ -345,18 +345,6 @@
 
 
 
-    // function decreaseQty() {
-    //     let qty = document.getElementById('quantity');
-    //     if (qty.value > 1) qty.value--;
-    // }
-    // function increaseQty() {
-    //     let qty = document.getElementById('quantity');
-    //     qty.value++;
-    // }
-
-
-
-
 
  function updateVariation() {
   const select = document.getElementById('variationSelect');
@@ -392,55 +380,7 @@
   qtyInput.addEventListener('input', updatePrice);
 </script>
 
-
 @endsection
 
 
- {{-- <h5 class="mt-4">You might also like these</h5>
-            <div class="d-flex gap-3 flex-wrap">
-             <div class="card text-center p-2 shadow-sm" style="width: 110px;">
-    <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
-                        <div class="card-body p-1">
-        <small class="fw-bold">Mystara</small>
-        <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
-        <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
-        <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
-        <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
-                      </div>
-            </div>
-                    <div class="card text-center p-2 shadow-sm" style="width: 110px;">
-    <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
-    <div class="card-body p-1">
-        <small class="fw-bold">Mystara</small>
-        <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
-        <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
-        <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
-        <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
-              </div>
-               </div>
-
-             <div class="card text-center p-2 shadow-sm" style="width: 110px;">
-           <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
-           <div class="card-body p-1">
-               <small class="fw-bold">Mystara</small>
-               <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
-               <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
-               <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
-               <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
-           </div>
-              </div>
-
-
-                 <div class="card text-center p-2 shadow-sm" style="width: 110px;">
-           <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
-           <div class="card-body p-1">
-               <small class="fw-bold">Mystara</small>
-               <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
-               <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
-               <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
-               <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
-           </div>
-              </div>
-
-            </div> --}}
 

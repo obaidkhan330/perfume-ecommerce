@@ -219,7 +219,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="shopDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="shopDropdown">
-                        <li><a class="dropdown-item" href="#">Shop</a></li>
+                          <a href="{{ url('shop') }}" class="btn py-2 px-4">Shop</a>
                         <li><a class="dropdown-item" href="#">Men</a></li>
                         <li><a class="dropdown-item" href="#">Women</a></li>
                         <li><a class="dropdown-item" href="#">Unisex</a></li>
@@ -238,7 +238,10 @@
                         <li><a class="dropdown-item" href="#">All Perfumes</a></li>
                         <li><a class="dropdown-item" href="#">EDP</a></li>
                         <li><a class="dropdown-item" href="#">Attar</a></li>
+
+
                     </ul>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('about') }}">About US</a></li>
                 </li>
 
                 <!-- Add more nav-items as needed -->
@@ -328,7 +331,7 @@
                         <p class="mb-0" style="color: rgba(255,255,255,.5);">
                             Copyright &copy;<script>
                                 document.write(new Date().getFullYear());
-                            </script> All rights reserved | This template is made with <i class="fa fa-heart color-danger" aria-hidden="true"></i> by <a href="" target="_blank">Obaidullah Faisal</a>
+                            </script> All rights reserved | This template is made with <i class="fa fa-heart color-danger" aria-hidden="true"></i> by <a href="https://ts-developers.com/" target="_blank">TS-Developers</a>
                         </p>
                     </div>
                 </div>
@@ -357,8 +360,8 @@
       items: 1,
       loop: true,
       autoplay: true,
-      autoplayTimeout: 5000,
-      smartSpeed: 800,
+      autoplayTimeout: 8000,
+      smartSpeed: 900,
       nav: false,
       dots: true
     });

@@ -36,10 +36,9 @@ Route::get('product', function () {
 
 Route::get('details/{slug}', [HomeController::class, 'productDetails'])->name('details');
 
-Route::get('shop', function () {
-    return view('shop');
-});
+use App\Http\Controllers\ProductController;
 
+Route::get('shop/{gender?}', [HomeController::class, 'showProducts'])->name('shop');
 
 
 
