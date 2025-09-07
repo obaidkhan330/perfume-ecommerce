@@ -25,9 +25,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <!-- Owl Carousel CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-utbXrsoPp+UQvZ9X2ZkYwFZ1gGZz7sZ7ZKXvZ+gkZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-3fKZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-utbXrsoPp+UQvZ9X2ZkYwFZ1gGZz7ZKXvZ+gkZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-3fKZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
 
@@ -351,6 +350,20 @@
 <!-- Owl Carousel JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
+<!-- Carousel Initialization -->
+<script>
+  $(document).ready(function(){
+    $('#hero-carousel').owlCarousel({
+      items: 1,
+      loop: true,
+      autoplay: true,
+      autoplayTimeout: 5000,
+      smartSpeed: 800,
+      nav: false,
+      dots: true
+    });
+  });
+</script>
 
 
 <script src="{{ asset('naxham/assets/js/jquery.min.js') }}"></script>

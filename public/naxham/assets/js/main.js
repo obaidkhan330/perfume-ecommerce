@@ -63,17 +63,17 @@
 
 
 
-  $(document).ready(function(){
-    $('#hero-carousel').owlCarousel({
-      items: 1,
-      loop: true,
-      autoplay: true,
-      autoplayTimeout: 5000,
-      smartSpeed: 800,
-      nav: false,
-      dots: true
-    });
-  });
+//   $(document).ready(function(){
+//     $('#hero-carousel').owlCarousel({
+//       items: 1,
+//       loop: true,
+//       autoplay: true,
+//       autoplayTimeout: 5000,
+//       smartSpeed: 800,
+//       nav: false,
+//       dots: true
+//     });
+//   });
 
 
 	$('nav .dropdown').hover(function(){
