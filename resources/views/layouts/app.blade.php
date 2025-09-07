@@ -24,6 +24,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<!-- Owl Carousel CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-utbXrsoPp+UQvZ9X2ZkYwFZ1gGZz7sZ7ZKXvZ+gkZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-3fKZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
 
 
@@ -341,6 +345,13 @@
 
 
 </body>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Owl Carousel JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
 
 <script src="{{ asset('naxham/assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/jquery-migrate-3.0.1.min.js') }}"></script>
@@ -355,6 +366,9 @@
 <script src="{{ asset('naxham/assets/js/scrollax.min.js') }}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
 <script src="{{ asset('naxham/assets/js/google-map.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/main.js') }}"></script>
 
