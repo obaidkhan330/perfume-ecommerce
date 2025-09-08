@@ -47,48 +47,53 @@
                  style="max-height: 400px; object-fit: cover;">
         </div>
 
-        <!-- Right: Product Info + Suggestions -->
-        <div class="col-md-6">
-            <h2 class="fw-bold">{{ $product->name }}</h2>
-            @if($product->smallestVariation)
-                   <p class="fs-4 text-danger">
-                    Rs. <span id="price">{{ $product->smallestVariation->discount_price }}</span>
-                    </p>
+       <!-- Right: Product Info + Suggestions -->
+<div class="col-md-6">
+    <h2 class="fw-bold">{{ $product->name }}</h2>
 
-             <select id="variationSelect" class="form-select mb-3" onchange="updateVariation()">
-               @foreach($product->variations as $variation)
-                   <option value="{{ $variation->id }}"
-                         data-price="{{ $variation->discount_price }}"
-                         data-volume="{{ $variation->type }}">
-                       {{ $variation->type }}ml - Rs. {{ $variation->discount_price }}
-                  </option>
-              @endforeach
-            </select>
+    @if($product->smallestVariation)
+        <p class="fs-4 text-danger">
+            Rs. <span id="price">{{ $product->smallestVariation->discount_price }}</span>
+        </p>
 
-<p class="text-muted">Size: <span id="ml">{{ $product->variations->first()->type }}</span></p>            @endif
+        <select id="variationSelect" class="form-select mb-3" onchange="updateVariation()">
+            @foreach($product->variations as $variation)
+                <option value="{{ $variation->id }}"
+                        data-price="{{ $variation->discount_price }}"
+                        data-volume="{{ $variation->type }}">
+                    {{ $variation->type }}ml - Rs. {{ $variation->discount_price }}
+                </option>
+            @endforeach
+        </select>
 
-            <p class="text-muted">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>
-                <p>{{ $product->description }}</p>
+        <p class="text-muted">Size: <span id="ml">{{ $product->variations->first()->type }}</span></p>
+    @endif
 
-            <div class="mt-3 d-flex align-items-center">
-                <label for="quantity" class="me-2">Qty:</label>
-                <div class="input-group" style="width: 120px;">
-                    <button class="btn btn-outline-secondary" type="button" onclick="decreaseQty()">−</button>
-                    <input type="number" id="quantity" class="form-control text-center" value="1" min="1" onchange="updateVariation()">
-                    <button class="btn btn-outline-secondary" type="button" onclick="increaseQty()">+</button>
-                </div>
-            </div>
+    <p class="text-muted">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>
+    <p>{{ $product->description }}</p>
 
-
-
-
-            <div class="mt-4 d-flex gap-3">
-                <button class="btn btn-primary">Add to Cart</button>
-                <button class="btn btn-outline-dark">Buy Now</button>
-            </div>
+    <div class="mt-3 d-flex align-items-center">
+        <label for="quantity" class="me-2">Qty:</label>
+        <div class="input-group" style="width: 120px;">
+            <button class="btn btn-outline-secondary" type="button" onclick="decreaseQty()">−</button>
+            <input type="number" id="quantity" class="form-control text-center" value="1" min="1" onchange="updateVariation()">
+            <button class="btn btn-outline-secondary" type="button" onclick="increaseQty()">+</button>
         </div>
     </div>
 
+    <div class="mt-4 d-flex gap-3">
+        <form method="POST" action="{{ route('cart.add', $product->slug) }}">
+            @csrf
+            <input type="hidden" name="variation_id" id="variationId">
+            <input type="hidden" name="price" id="variationPrice">
+            <input type="hidden" name="volume" id="variationVolume">
+            <input type="hidden" name="quantity" id="variationQty">
+
+            <button type="submit" class="btn btn-primary">Add to Cart</button>
+        </form>
+        <button class="btn btn-outline-dark">Buy Now</button>
+    </div>
+</div>
 
     <h5 class="mt-4">You might also like these</h5>
 
@@ -337,49 +342,49 @@
 
 {{-- Button Scripts --}}
 <script>
-
-      function changeImage(src) {
-        document.getElementById('mainProductImage').src = src;
-    }
-
-
-
-
-
- function updateVariation() {
-  const select = document.getElementById('variationSelect');
-  const qty = parseInt(document.getElementById('quantity').value);
-  const selected = select.options[select.selectedIndex];
-  const price = selected.getAttribute('data-price');
-  const volume = selected.getAttribute('data-volume');
-
-  document.getElementById('price').textContent = (price * qty).toFixed(2);
-  document.getElementById('ml').textContent = volume + 'ml';
+function changeImage(src) {
+  document.getElementById('mainProductImage').src = src;
 }
 
+function updateVariation() {
+  const select = document.getElementById('variationSelect');
+  const selected = select.options[select.selectedIndex];
 
-  const basePrice = {{ $product->smallestVariation->discount_price }};
-  const priceElement = document.getElementById('price');
+  const price = parseFloat(selected.getAttribute('data-price'));
+  const volume = selected.getAttribute('data-volume');
+  const qty = parseInt(document.getElementById('quantity').value);
+
+  // Update visible price and volume
+  document.getElementById('price').textContent = (price * qty).toFixed(2);
+  document.getElementById('ml').textContent = volume;
+
+  // Update hidden form fields
+  document.getElementById('variationId').value = selected.value;
+  document.getElementById('variationPrice').value = price;
+  document.getElementById('variationVolume').value = volume;
+  document.getElementById('variationQty').value = qty;
+}
+
+function increaseQty() {
   const qtyInput = document.getElementById('quantity');
+  qtyInput.value = parseInt(qtyInput.value) + 1;
+  updateVariation();
+}
 
-  function updatePrice() {
-    const qty = parseInt(qtyInput.value);
-    priceElement.textContent = (basePrice * qty).toFixed(2);
+function decreaseQty() {
+  const qtyInput = document.getElementById('quantity');
+  if (parseInt(qtyInput.value) > 1) {
+    qtyInput.value = parseInt(qtyInput.value) - 1;
+    updateVariation();
   }
+}
 
-  function decreaseQty() {
-    if (qtyInput.value > 1) qtyInput.value--;
-    updatePrice();
-  }
+// Update on manual input
+document.getElementById('quantity').addEventListener('input', updateVariation);
 
-  function increaseQty() {
-    qtyInput.value++;
-    updatePrice();
-  }
-
-  qtyInput.addEventListener('input', updatePrice);
+// Initialize on page load
+window.onload = updateVariation;
 </script>
-
 @endsection
 
 

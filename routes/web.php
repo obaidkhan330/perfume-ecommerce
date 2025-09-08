@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -18,9 +20,20 @@ Route::get('about', function () {
 });
 
 
-Route::get('cart', function () {
-    return view('cart');
-});
+
+
+
+// Cart Routes
+
+Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
+Route::post('/cart/add/{slug}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/update', [CartController::class, 'updateQuantity'])->name('cart.update');
+Route::get('/cart/remove/{key}', [CartController::class, 'removeItem'])->name('cart.remove');
+// Checkout Route
+
+// Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
+
 
 Route::get('checkout', function () {
     return view('checkout');

@@ -106,10 +106,15 @@
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">0</span>
                             </a>
                         </li>
+                       @php
+                            $cart = session()->get('cart', []);
+                             $cartCount = array_sum(array_column($cart, 'quantity'));
+                       @endphp
+
                         <li class="nav-item me-2">
-                            <a href="#" class="position-relative text-white text-decoration-none">
+                            <a href="{{ route('cart.view') }}" class="position-relative text-white text-decoration-none">
                                 <i class="bi bi-bag fs-5"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">0</span>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">{{ $cartCount }}</span>
                             </a>
                         </li>
                         <li class="nav-item dropdown">
