@@ -42,4 +42,10 @@ class Product extends Model
         return $this->hasOne(ProductVariation::class)
             ->orderByRaw("CAST(REGEXP_REPLACE(variation_type, '[^0-9]', '') AS UNSIGNED) ASC");
     }
+
+    public function show($slug)
+{
+    $product = Product::where('slug', $slug)->with('variations')->firstOrFail();
+    return view('details', compact('product'));
+}
 }

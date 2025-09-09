@@ -47,14 +47,55 @@
                  style="max-height: 400px; object-fit: cover;">
         </div>
 
-        <!-- Right: Product Info + Suggestions -->
-        <div class="col-md-6">
-            <h2 class="fw-bold">{{ $product->name }}</h2>
-            <p class="fs-4 text-danger">Rs. {{ $product->price }}</p>
-            <p class="text-muted">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>
-            <p>{{ $product->description }}</p>
+       <!-- Right: Product Info + Suggestions -->
+<div class="col-md-6">
+    <h2 class="fw-bold">{{ $product->name }}</h2>
 
-   <h5 class="mt-4">You might also like these</h5>
+    @if($product->smallestVariation)
+        <p class="fs-4 text-danger">
+            Rs. <span id="price">{{ $product->smallestVariation->discount_price }}</span>
+        </p>
+
+        <select id="variationSelect" class="form-select mb-3" onchange="updateVariation()">
+            @foreach($product->variations as $variation)
+                <option value="{{ $variation->id }}"
+                        data-price="{{ $variation->discount_price }}"
+                        data-volume="{{ $variation->type }}">
+                    {{ $variation->type }}ml - Rs. {{ $variation->discount_price }}
+                </option>
+            @endforeach
+        </select>
+
+        <p class="text-muted">Size: <span id="ml">{{ $product->variations->first()->type }}</span></p>
+    @endif
+
+    <p class="text-muted">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>
+    <p>{{ $product->description }}</p>
+
+    <div class="mt-3 d-flex align-items-center">
+        <label for="quantity" class="me-2">Qty:</label>
+        <div class="input-group" style="width: 120px;">
+            <button class="btn btn-outline-secondary" type="button" onclick="decreaseQty()">−</button>
+            <input type="number" id="quantity" class="form-control text-center" value="1" min="1" onchange="updateVariation()">
+            <button class="btn btn-outline-secondary" type="button" onclick="increaseQty()">+</button>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex gap-3">
+        <form method="POST" action="{{ route('cart.add', $product->slug) }}">
+            @csrf
+            <input type="hidden" name="variation_id" id="variationId">
+            <input type="hidden" name="price" id="variationPrice">
+            <input type="hidden" name="volume" id="variationVolume">
+            <input type="hidden" name="quantity" id="variationQty">
+
+            <button type="submit" class="btn btn-primary">Add to Cart</button>
+        </form>
+        <button class="btn btn-outline-dark">Buy Now</button>
+    </div>
+</div>
+
+    <h5 class="mt-4">You might also like these</h5>
 
 {{-- <form method="POST" action="{{ route('cart') }}"> --}}
     @csrf
@@ -76,41 +117,34 @@
                 <!-- Product Info -->
                 <div class="card-body p-1">
                     <small class="fw-bold">{{ $item->name }}</small>
-                    <p class="mb-1" style="font-size: 0.75rem;">Size: 100ml</p>
-                    <p class="text-danger fw-semibold mb-1" style="font-size: 0.8rem;">Rs. {{ $item->price }}</p>
-                    <p class="text-muted" style="font-size: 0.7rem;">{{ $item->fragrance_family }}</p>
+                    {{-- <p class="mb-1" style="font-size: 0.75rem;">Size: 100ml</p> --}}
+               @if($item->smallestVariation)
+                       <p class="mb-0">
+                                <span class="price text-muted" style="text-decoration: line-through;">
+                                   {{ $item->smallestVariation->price }}-
+                                 </span>
+                          <span class="price text-danger fw-bold">
+                             {{ $item->smallestVariation->discount_price }}
+                         </span>
+                           PKR
+                           </p>
+                       @endif
+                     {{-- <p class="text-muted" style="font-size: 0.2rem;">{{ $item->fragrance_family }}</p> --}}
                 </div>
             </div>
         @endforeach
     </div>
-
-    <!-- Bulk Action Buttons -->
+     <!-- Bulk Action Buttons -->
     <div class="mt-3 d-flex gap-2">
         <button type="submit" name="action" value="add" class="btn btn-sm btn-primary">Add Selected to Cart</button>
         <button type="submit" name="action" value="buy" class="btn btn-sm btn-outline-dark">Buy Selected</button>
     </div>
 </form>
-            </div>
 
-            <!-- Optional: Size, Quantity, Buttons -->
-            <div class="mt-4"><strong>Size:</strong> 100ml</div>
 
-            <div class="mt-3 d-flex align-items-center">
-                <label for="quantity" class="me-2">Qty:</label>
-                <div class="input-group" style="width: 120px;">
-                    <button class="btn btn-outline-secondary" type="button" onclick="decreaseQty()">−</button>
-                    <input type="number" id="quantity" class="form-control text-center" value="1" min="1">
-                    <button class="btn btn-outline-secondary" type="button" onclick="increaseQty()">+</button>
-                </div>
-            </div>
-
-            <div class="mt-4 d-flex gap-3">
-                <button class="btn btn-primary">Add to Cart</button>
-                <button class="btn btn-outline-dark">Buy Now</button>
-            </div>
-        </div>
-    </div>
 </div>
+
+
 
 
   {{-- descripction  --}}
@@ -202,69 +236,23 @@
         <div class="card-body p-2 text-center">
             <small class="fw-bold">{{ $item->name }}</small>
             <p class="mb-1">Inspired by {{ $item->brand->name }}</p>
-            <p class="mb-1 text-danger fw-semibold">Rs. {{ $item->price }}</p>
+
+
+                 @if($item->smallestVariation)
+                       <p class="mb-0">
+                                <span class="price text-muted" style="text-decoration: line-through;">
+                                   {{ $item->smallestVariation->price }}-
+                                 </span>
+                          <span class="price text-danger fw-bold">
+                             {{ $item->smallestVariation->discount_price }}
+                         </span>
+                           PKR
+                           </p>
+                       @endif
         </div>
     </div>
 @endforeach
 
-
-
-
-
-
-                <div class="card p-2 shadow-sm product-card">
-            <div class="hover-icons">
-                <a href="#"><i class="fas fa-search"></i></a>
-                <a href="#"><i class="fas fa-plus"></i></a>
-            </div>
-
-            <img src="{{ asset('naxham/assets/images/perfume1.jpg') }}" class="card-img-top mb-2" alt="Perfume 1" style="height: 180px; object-fit: cover;">
-            <div class="card-body p-2 text-center">
-                <small class="fw-bold" style="font-size: 1rem;">florenza 100ml</small>
-                <p class="mb-1" style="font-size: 0.9rem;">Inspired by Mahir</p>
-                <p class="mb-1 text-danger fw-semibold" style="font-size: 1rem;">Rs. 1,399 <span class="text-muted text-decoration-line-through">Rs. 4,500</span></p>
-                <p class="text-danger fw-bold" style="font-size: 0.85rem;">Save 69%</p>
-            </div>
-        </div>
-
-
-
-
-
-                <div class="card p-2 shadow-sm product-card">
-            <div class="hover-icons">
-                <a href="#"><i class="fas fa-search"></i></a>
-                <a href="#"><i class="fas fa-plus"></i></a>
-            </div>
-
-            <img src="{{ asset('naxham/assets/images/perfume1.jpg') }}" class="card-img-top mb-2" alt="Perfume 1" style="height: 180px; object-fit: cover;">
-            <div class="card-body p-2 text-center">
-                <small class="fw-bold" style="font-size: 1rem;">Dioran 100ml</small>
-                <p class="mb-1" style="font-size: 0.9rem;">Inspired by Mahir</p>
-                <p class="mb-1 text-danger fw-semibold" style="font-size: 1rem;">Rs. 1,399 <span class="text-muted text-decoration-line-through">Rs. 4,500</span></p>
-                <p class="text-danger fw-bold" style="font-size: 0.85rem;">Save 69%</p>
-            </div>
-        </div>
-
-
-
-
-
-
-                <div class="card p-2 shadow-sm product-card">
-            <div class="hover-icons">
-                <a href="#"><i class="fas fa-search"></i></a>
-                <a href="#"><i class="fas fa-plus"></i></a>
-            </div>
-
-            <img src="{{ asset('naxham/assets/images/perfume1.jpg') }}" class="card-img-top mb-2" alt="Perfume 1" style="height: 180px; object-fit: cover;">
-            <div class="card-body p-2 text-center">
-                <small class="fw-bold" style="font-size: 1rem;">Fynora 100ml</small>
-                <p class="mb-1" style="font-size: 0.9rem;">Inspired by Mahir</p>
-                <p class="mb-1 text-danger fw-semibold" style="font-size: 1rem;">Rs. 1,399 <span class="text-muted text-decoration-line-through">Rs. 4,500</span></p>
-                <p class="text-danger fw-bold" style="font-size: 0.85rem;">Save 69%</p>
-            </div>
-        </div>
 
     </div>
 </div>
@@ -293,68 +281,23 @@
         <div class="card-body p-2 text-center">
             <small class="fw-bold">{{ $top->name }}</small>
             <p class="mb-1">Inspired by {{ $top->brand->name }}</p>
-            <p class="mb-1 text-danger fw-semibold">Rs. {{ $top->price }}</p>
+            {{-- <p class="mb-1 text-danger fw-semibold">Rs. {{ $top->price }}</p> --}}
+
+             @if($top->smallestVariation)
+                       <p class="mb-0">
+                                <span class="price text-muted" style="text-decoration: line-through;">
+                                   {{ $top->smallestVariation->price }}-
+                                 </span>
+                          <span class="price text-danger fw-bold">
+                             {{ $top->smallestVariation->discount_price }}
+                         </span>
+                           PKR
+                           </p>
+                       @endif
         </div>
     </div>
 @endforeach
 
-
-
-
-                <div class="card p-2 shadow-sm product-card">
-            <div class="hover-icons">
-                <a href="#"><i class="fas fa-search"></i></a>
-                <a href="#"><i class="fas fa-plus"></i></a>
-            </div>
-
-            <img src="{{ asset('naxham/assets/images/perfume1.jpg') }}" class="card-img-top mb-2" alt="Perfume 1" style="height: 180px; object-fit: cover;">
-            <div class="card-body p-2 text-center">
-                <small class="fw-bold" style="font-size: 1rem;">Fynora 100ml</small>
-                <p class="mb-1" style="font-size: 0.9rem;">Inspired by Mahir</p>
-                <p class="mb-1 text-danger fw-semibold" style="font-size: 1rem;">Rs. 1,399 <span class="text-muted text-decoration-line-through">Rs. 4,500</span></p>
-                <p class="text-danger fw-bold" style="font-size: 0.85rem;">Save 69%</p>
-            </div>
-        </div>
-
-
-
-
-
-                <div class="card p-2 shadow-sm product-card">
-
-            <div class="hover-icons">
-                <a href="#"><i class="fas fa-search"></i></a>
-                <a href="#"><i class="fas fa-plus"></i></a>
-            </div>
-
-            <img src="{{ asset('naxham/assets/images/perfume1.jpg') }}" class="card-img-top mb-2" alt="Perfume 1" style="height: 180px; object-fit: cover;">
-            <div class="card-body p-2 text-center">
-                <small class="fw-bold" style="font-size: 1rem;">Fynora 100ml</small>
-                <p class="mb-1" style="font-size: 0.9rem;">Inspired by Mahir</p>
-                <p class="mb-1 text-danger fw-semibold" style="font-size: 1rem;">Rs. 1,399 <span class="text-muted text-decoration-line-through">Rs. 4,500</span></p>
-                <p class="text-danger fw-bold" style="font-size: 0.85rem;">Save 69%</p>
-            </div>
-        </div>
-
-
-
-
-
-                <div class="card p-2 shadow-sm product-card">
-
-            <div class="hover-icons">
-                <a href="#"><i class="fas fa-search"></i></a>
-                <a href="#"><i class="fas fa-plus"></i></a>
-            </div>
-
-            <img src="{{ asset('naxham/assets/images/perfume1.jpg') }}" class="card-img-top mb-2" alt="Perfume 1" style="height: 180px; object-fit: cover;">
-            <div class="card-body p-2 text-center">
-                <small class="fw-bold" style="font-size: 1rem;">Fynora 100ml</small>
-                <p class="mb-1" style="font-size: 0.9rem;">Inspired by Mahir</p>
-                <p class="mb-1 text-danger fw-semibold" style="font-size: 1rem;">Rs. 1,399 <span class="text-muted text-decoration-line-through">Rs. 4,500</span></p>
-                <p class="text-danger fw-bold" style="font-size: 0.85rem;">Save 69%</p>
-            </div>
-        </div>
 
 
 
@@ -399,73 +342,50 @@
 
 {{-- Button Scripts --}}
 <script>
+function changeImage(src) {
+  document.getElementById('mainProductImage').src = src;
+}
 
-      function changeImage(src) {
-        document.getElementById('mainProductImage').src = src;
-    }
+function updateVariation() {
+  const select = document.getElementById('variationSelect');
+  const selected = select.options[select.selectedIndex];
 
+  const price = parseFloat(selected.getAttribute('data-price'));
+  const volume = selected.getAttribute('data-volume');
+  const qty = parseInt(document.getElementById('quantity').value);
 
+  // Update visible price and volume
+  document.getElementById('price').textContent = (price * qty).toFixed(2);
+  document.getElementById('ml').textContent = volume;
 
+  // Update hidden form fields
+  document.getElementById('variationId').value = selected.value;
+  document.getElementById('variationPrice').value = price;
+  document.getElementById('variationVolume').value = volume;
+  document.getElementById('variationQty').value = qty;
+}
 
-    function decreaseQty() {
-        let qty = document.getElementById('quantity');
-        if (qty.value > 1) qty.value--;
-    }
-    function increaseQty() {
-        let qty = document.getElementById('quantity');
-        qty.value++;
-    }
+function increaseQty() {
+  const qtyInput = document.getElementById('quantity');
+  qtyInput.value = parseInt(qtyInput.value) + 1;
+  updateVariation();
+}
+
+function decreaseQty() {
+  const qtyInput = document.getElementById('quantity');
+  if (parseInt(qtyInput.value) > 1) {
+    qtyInput.value = parseInt(qtyInput.value) - 1;
+    updateVariation();
+  }
+}
+
+// Update on manual input
+document.getElementById('quantity').addEventListener('input', updateVariation);
+
+// Initialize on page load
+window.onload = updateVariation;
 </script>
-
-
 @endsection
 
 
- {{-- <h5 class="mt-4">You might also like these</h5>
-            <div class="d-flex gap-3 flex-wrap">
-             <div class="card text-center p-2 shadow-sm" style="width: 110px;">
-    <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
-                        <div class="card-body p-1">
-        <small class="fw-bold">Mystara</small>
-        <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
-        <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
-        <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
-        <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
-                      </div>
-            </div>
-                    <div class="card text-center p-2 shadow-sm" style="width: 110px;">
-    <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
-    <div class="card-body p-1">
-        <small class="fw-bold">Mystara</small>
-        <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
-        <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
-        <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
-        <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
-              </div>
-               </div>
-
-             <div class="card text-center p-2 shadow-sm" style="width: 110px;">
-           <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
-           <div class="card-body p-1">
-               <small class="fw-bold">Mystara</small>
-               <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
-               <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
-               <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
-               <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
-           </div>
-              </div>
-
-
-                 <div class="card text-center p-2 shadow-sm" style="width: 110px;">
-           <img src="{{ asset('naxham/assets/images/perfume3.jpg') }}" class="card-img-top mb-2" alt="Mystara" style="height: 130px; object-fit: cover;">
-           <div class="card-body p-1">
-               <small class="fw-bold">Mystara</small>
-               <p class="mb-1" style="font-size: 0.85rem;">Size: 100ml</p>
-               <p class="text-danger fw-semibold mb-1" style="font-size: 0.9rem;">Rs. 1,199</p>
-               <p class="text-muted" style="font-size: 0.75rem;">Unisex | Long-lasting</p>
-               <button class="btn btn-sm btn-dark w-100 mt-1">Add</button>
-           </div>
-              </div>
-
-            </div> --}}
 

@@ -11,12 +11,24 @@ class HomeController extends Controller
 
     public function index()
     {
-        $products = Product::with(['brand', 'smallestVariation'])
-            ->where('status', 1) // sirf active products
-            ->get();
+        $maleProducts = Product::where('gender', 'male')->latest()->get();
+        $femaleProducts = Product::where('gender', 'female')->latest()->get();
+       $unisexProducts = Product::where('gender', 'unisex')->latest()->get();
 
-        return view('index', compact('products'));
+        return view('index', compact('maleProducts', 'femaleProducts', 'unisexProducts'));
     }
+
+public function showProducts($gender = null)
+{
+    if ($gender) {
+        $Products = Product::where('gender', $gender)->latest()->get();
+    } else {
+        $Products = Product::latest()->get(); // sab products
+    }
+
+    return view('shop', compact('Products'));
+}
+
 
 
 
@@ -48,4 +60,7 @@ class HomeController extends Controller
 
         return view('details', compact('product', 'similarItems'));
     }
+
+
+
 }

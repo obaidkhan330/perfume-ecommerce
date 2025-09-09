@@ -24,6 +24,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<!-- Owl Carousel CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-utbXrsoPp+UQvZ9X2ZkYwFZ1gGZz7ZKXvZ+gkZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-3fKZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
 
@@ -103,10 +106,15 @@
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">0</span>
                             </a>
                         </li>
+                       @php
+                            $cart = session()->get('cart', []);
+                             $cartCount = array_sum(array_column($cart, 'quantity'));
+                       @endphp
+
                         <li class="nav-item me-2">
-                            <a href="#" class="position-relative text-white text-decoration-none">
+                            <a href="{{ route('cart.view') }}" class="position-relative text-white text-decoration-none">
                                 <i class="bi bi-bag fs-5"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">0</span>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">{{ $cartCount }}</span>
                             </a>
                         </li>
                         <li class="nav-item dropdown">
@@ -216,12 +224,10 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="shopDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="shopDropdown">
-                        <li><a class="dropdown-item" href="#">Shop</a></li>
+                          <a href="{{ url('shop') }}" class="btn py-2 px-4">Shop</a>
                         <li><a class="dropdown-item" href="#">Men</a></li>
                         <li><a class="dropdown-item" href="#">Women</a></li>
                         <li><a class="dropdown-item" href="#">Unisex</a></li>
-                        <li><a class="dropdown-item" href="#">Range</a></li>
-                        {{-- <li><a class="dropdown-item" href="#">Under 1100</a></li> --}}
                     </ul>
                 </li>
 
@@ -237,8 +243,10 @@
                         <li><a class="dropdown-item" href="#">All Perfumes</a></li>
                         <li><a class="dropdown-item" href="#">EDP</a></li>
                         <li><a class="dropdown-item" href="#">Attar</a></li>
-                        <li><a class="dropdown-item" href="#">Body Spray</a></li>
+
+
                     </ul>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('about') }}">About US</a></li>
                 </li>
 
                 <!-- Add more nav-items as needed -->
@@ -328,7 +336,7 @@
                         <p class="mb-0" style="color: rgba(255,255,255,.5);">
                             Copyright &copy;<script>
                                 document.write(new Date().getFullYear());
-                            </script> All rights reserved | This template is made with <i class="fa fa-heart color-danger" aria-hidden="true"></i> by <a href="" target="_blank">Obaidullah Faisal</a>
+                            </script> All rights reserved | This template is made with <i class="fa fa-heart color-danger" aria-hidden="true"></i> by <a href="https://ts-developers.com/" target="_blank">TS-Developers</a>
                         </p>
                     </div>
                 </div>
@@ -344,6 +352,27 @@
 
 
 </body>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Owl Carousel JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<!-- Carousel Initialization -->
+<script>
+  $(document).ready(function(){
+    $('#hero-carousel').owlCarousel({
+      items: 1,
+      loop: true,
+      autoplay: true,
+      autoplayTimeout: 8000,
+      smartSpeed: 900,
+      nav: false,
+      dots: true
+    });
+  });
+</script>
+
 
 <script src="{{ asset('naxham/assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/jquery-migrate-3.0.1.min.js') }}"></script>
@@ -358,6 +387,9 @@
 <script src="{{ asset('naxham/assets/js/scrollax.min.js') }}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
 <script src="{{ asset('naxham/assets/js/google-map.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/main.js') }}"></script>
 
