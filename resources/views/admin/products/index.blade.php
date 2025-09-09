@@ -14,35 +14,35 @@
 <div class="container mt-4 scroll-container ">
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <!-- Filters Button -->
-                            <a href="javascript:void(0)" id="runSync" class="btn btn-primary">
-                                Run Storage Sync
-                            </a>
+        <a href="javascript:void(0)" id="runSync" class="btn btn-primary d-none">
+            Run Storage Sync
+        </a>
 
-                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                            <script>
-                                function runStorageSync() {
-                                    $.ajax({
-                                        url: "{{ url('/sync-storage') }}",
-                                        type: "GET", // agar tum POST karna chahte ho to 'POST' likh dena
-                                        success: function(response) {
-                                            console.log("Storage Sync Success:", response);
-                                        },
-                                        error: function(xhr) {
-                                            console.error("Storage Sync Failed:", xhr.responseText);
-                                        }
-                                    });
-                                }
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            function runStorageSync() {
+                $.ajax({
+                    url: "{{ url('/sync-storage') }}",
+                    type: "GET", // agar tum POST karna chahte ho to 'POST' likh dena
+                    success: function(response) {
+                        console.log("Storage Sync Success:", response);
+                    },
+                    error: function(xhr) {
+                        console.error("Storage Sync Failed:", xhr.responseText);
+                    }
+                });
+            }
 
-                                // Button click par run karo
-                                $('#runSync').on('click', function() {
-                                    runStorageSync();
-                                });
+            // Button click par run karo
+            $('#runSync').on('click', function() {
+                runStorageSync();
+            });
 
-                                // Har 30 sec (30000 ms) me auto run karo
-                                setInterval(function() {
-                                    runStorageSync();
-                                }, 5000);
-                            </script>
+            // Har 30 sec (30000 ms) me auto run karo
+            setInterval(function() {
+                runStorageSync();
+            }, 5000);
+        </script>
         <select name="brand" id="brandFilter" class="form-select w-25">
             <option value="">Select Brand</option>
             @foreach($brands as $brand)
