@@ -93,6 +93,36 @@
   text-decoration: none;
 }
 
+
+.poster-wrapper {
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.poster-box {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+
+}
+
+.poster-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 400px;
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+  .poster-img {
+    max-height: 250px;
+    border-radius: 6px;
+  }
+}
+
 </style>
 
 <section class="ftco-section ftco-no-pb" id="abc">
@@ -182,6 +212,15 @@
         @endforelse
     </div>
 </section>
+
+
+<div class="poster-wrapper">
+  <div class="container">
+    <div class="poster-box">
+      <img src="{{ asset('naxham/assets/images/slider2.jpg') }}" alt="Female Collection Poster" class="poster-img">
+    </div>
+  </div>
+</div>
 
 
 

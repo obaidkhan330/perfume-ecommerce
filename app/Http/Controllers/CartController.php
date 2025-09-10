@@ -83,4 +83,36 @@ public function removeItem($key)
 
     return redirect()->route('cart.view')->with('success', 'Item removed!');
 }
+
+public function bulkAdd(Request $request)
+{
+    $cart = session()->get('cart', []);
+
+    foreach ($request->selected_products ?? [] as $slug) {
+        $variationId = $request->variation_id[$slug];
+        $price = $request->price[$slug];
+        $volume = $request->volume[$slug];
+        $quantity = $request->quantity[$slug];
+
+        $key = $slug . '-' . $variationId;
+
+        if (isset($cart[$key])) {
+            $cart[$key]['quantity'] += $quantity;
+        } else {
+            $product = Product::where('slug', $slug)->first();
+            if ($product) {
+                $cart[$key] = [
+                    'name' => $product->name,
+                    'price' => $price,
+                    'image' => $product->image,
+                    'volume' => $volume,
+                    'quantity' => $quantity
+                ];
+            }
+        }
+    }
+
+    session()->put('cart', $cart);
+    return redirect()->route('cart.view')->with('success', 'Selected products added to cart!');
+}
 }

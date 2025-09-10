@@ -29,6 +29,7 @@ Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
 Route::post('/cart/add/{slug}', [CartController::class, 'addToCart'])->name('cart.add');
 Route::post('/cart/update', [CartController::class, 'updateQuantity'])->name('cart.update');
 Route::get('/cart/remove/{key}', [CartController::class, 'removeItem'])->name('cart.remove');
+Route::post('/cart/bulk', [CartController::class, 'bulkAdd'])->name('cart.bulk');
 // Checkout Route
 
 // Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');

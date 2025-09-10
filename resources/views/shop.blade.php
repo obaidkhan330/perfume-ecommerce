@@ -82,10 +82,23 @@
     @forelse($Products as $product)
       <div class="col-lg-3 col-md-4 col-6 mb-4">
         <div class="card p-2 shadow-sm product-card">
-          <div class="hover-icons">
-            <a href="{{ url('details/' . $product->slug) }}"><i class="fas fa-search"></i></a>
-            <a href="#"><i class="fas fa-plus"></i></a>
-          </div>
+         <div class="hover-icons">
+  <a href="{{ url('details/' . $product->slug) }}"><i class="fas fa-search"></i></a>
+
+  @if($product->smallestVariation)
+    <form action="{{ route('cart.add', $product->slug) }}" method="POST" style="display:inline;">
+      @csrf
+      <input type="hidden" name="variation_id" value="{{ $product->smallestVariation->id }}">
+      <input type="hidden" name="price" value="{{ $product->smallestVariation->discount_price }}">
+      <input type="hidden" name="volume" value="{{ $product->smallestVariation->type }}">
+      <input type="hidden" name="quantity" value="1">
+
+      <button type="submit" style="border:none; background:none;">
+        <i class="fas fa-plus text-white"></i>
+      </button>
+    </form>
+  @endif
+</div>
           <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top mb-2" alt="{{ $product->name }}" style="height: 180px; object-fit: cover;">
           <div class="card-body p-2 text-center">
             <small class="fw-bold">{{ $product->name }}</small>
