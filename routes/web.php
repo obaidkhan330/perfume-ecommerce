@@ -12,6 +12,19 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 
 
+
+// cronjobs
+
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/sync-storage', function () {
+    Artisan::call('storage:sync');
+    return "Storage synced successfully!";
+});
+
+// cronjobs end
+
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
