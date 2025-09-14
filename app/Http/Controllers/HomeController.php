@@ -18,7 +18,7 @@ class HomeController extends Controller
        $unisexProducts = Product::where('gender', 'unisex')->latest()->get();
         $testers = Tester::with('variations', 'brand')->latest()->get();
 
-        return view('index', compact('maleProducts', 'femaleProducts', 'unisexProducts' , 'testers'));
+        return view('index', compact('maleProducts', 'femaleProducts', 'unisexProducts', 'testers'));
     }
 
 public function showProducts($gender = null)
