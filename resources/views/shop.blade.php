@@ -128,6 +128,52 @@
 
 
 
+{{-- tester  --}}
+
+
+  {{-- <section class="container py-5">
+    <h2 class="mb-4 text-center"> Testers </h2>
+
+    <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
+        @forelse($testers as $tester)
+        <div class="card shadow-sm h-100 d-inline-block"
+            style="min-width: 300px; max-width: 300px; flex: 0 0 auto;">
+            <img src="{{ asset('storage/' . $tester->image) }}"
+                class="card-img-top"
+                alt="{{ $tester->name }}"
+                style="height: 300px; object-fit: cover;">
+
+            <div class="card-body text-center">
+                <h5 class="card-title">{{ $tester->name }}</h5>
+                <h6 class="card-text">{{ $tester->brand->name ?? 'N/A' }}</h6>
+
+                @if($tester->smallestVariation())
+                    <p class="mb-0">
+                        <span class="price text-muted" style="text-decoration: line-through;">
+                            {{ $tester->smallestVariation()->price }}
+                        </span>
+                        <span class="price text-danger fw-bold">
+                            {{ $tester->smallestVariation()->discount_price ?? $tester->smallestVariation()->price }}
+                        </span>
+                        PKR
+                    </p>
+                @endif
+
+<a href="{{ route('testers.show', $tester->slug) }}" class="btn btn-sm btn-outline-primary">View Details</a>
+            </div>
+        </div>
+        @empty
+        <p class="text-center"> No testers available.</p>
+        @endforelse
+    </div>
+</section> --}}
+
+
+
+
+
+
+
 
 
 

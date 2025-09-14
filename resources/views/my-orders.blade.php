@@ -1,0 +1,76 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container py-5">
+    <h2 class="mb-4">My Orders</h2>
+
+    @if($orders->count() > 0)
+        @foreach($orders as $order)
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><strong>Order </strong> - {{ $order->created_at->format('d M, Y h:i A') }}</span>
+                <span class="badge bg-dark">Total: PKR {{ number_format($order->total, 0) }}</span>
+            </div>
+            <div class="card-body">
+                <!-- Items -->
+                <h6 class="fw-bold mb-2">Items</h6>
+                <ul class="list-group mb-3">
+                    @foreach($order->items as $item)
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>{{ $item->product_name }} (x{{ $item->quantity }})</span>
+                            <span>PKR {{ number_format($item->price * $item->quantity, 0) }}</span>
+                        </li>
+                    @endforeach
+                </ul>
+
+                <!-- Address -->
+                <h6 class="fw-bold mb-2">Shipping Details</h6>
+                <p class="mb-1">
+                    {{ $order->address }}, {{ $order->city }}, {{ $order->postal }} <br>
+                    <strong>Phone:</strong> {{ $order->phone }}
+                </p>
+                @if($order->shipping_address)
+                    <p class="text-muted small">
+                        <strong>Ship To:</strong> {{ $order->shipping_address }}, {{ $order->shipping_city }}, {{ $order->shipping_postal }}
+                    </p>
+                @endif
+
+                <h6 class="fw-bold mb-2">Payment Method</h6>
+                <p>{{ ucfirst($order->payment_method) }}</p>
+
+                <!-- Order Tracking -->
+                <h6 class="fw-bold mb-2">Order Status</h6>
+                <div class="progress mb-3" style="height: 25px;">
+                    <div class="progress-bar
+                        @if($order->status == 'pending') bg-secondary
+                        @elseif($order->status == 'processing') bg-info
+                        @elseif($order->status == 'shipped') bg-warning
+                        @elseif($order->status == 'delivered') bg-success
+                        @endif"
+                        role="progressbar"
+                        style="width:
+                            @if($order->status == 'pending') 25%
+                            @elseif($order->status == 'processing') 50%
+                            @elseif($order->status == 'shipped') 75%
+                            @elseif($order->status == 'delivered') 100%
+                            @endif">
+                        {{ ucfirst($order->status ?? 'Pending') }}
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between small text-muted">
+                    <span>Pending</span>
+                    <span>Processing</span>
+                    <span>Shipped</span>
+                    <span>Delivered</span>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    @else
+        <div class="alert alert-info text-center">
+            <i class="bi bi-box-seam"></i> You have not placed any orders yet.
+        </div>
+    @endif
+</div>
+@endsection

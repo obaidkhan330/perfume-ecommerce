@@ -196,12 +196,12 @@
             </div>
 
             <div class="row g-3 align-items-center mt-3">
-              <div class="col-md-6">
+              {{-- <div class="col-md-6">
                 <form class="coupon d-flex gap-2">
                   <input class="form-control" placeholder="Coupon code (try AROMA10)">
                   <button class="btn btn-dark" type="submit">Apply Coupon</button>
                 </form>
-              </div>
+              </div> --}}
               <div class="col-md-6 text-md-end">
                 <a href="{{ route('shop') }}" class="btn btn-outline-secondary">Continue Shopping</a>
               </div>
@@ -232,8 +232,9 @@
        <form action="{{ route('checkout.process') }}" method="post">
     @csrf
     <input type="hidden" name="total" value="{{ $total }}">
-    <button type="submit" class="btn btn-dark w-100">Proceed to Checkout</button>
-</form>
+<a href="{{ route('checkout') }}" class="btn btn-dark w-100">
+    Proceed to Checkout
+</a></form>
             <p class="small text-muted mt-2 mb-0">Taxes and shipping calculated at checkout.</p>
           </div>
         </div>

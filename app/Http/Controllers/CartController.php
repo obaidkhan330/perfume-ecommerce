@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Tester;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -115,4 +116,31 @@ public function bulkAdd(Request $request)
     session()->put('cart', $cart);
     return redirect()->route('cart.view')->with('success', 'Selected products added to cart!');
 }
+
+
+
+
+
+
+// tester
+
+public function addTester(Request $request, $id)
+{
+    $tester = Tester::with('variations')->findOrFail($id);
+    $variation = $tester->variations()->findOrFail($request->variation_id);
+
+    $cart = session()->get('cart', []);
+
+    $cart['tester_'.$variation->id] = [
+        'name' => $tester->name . ' (' . $variation->pack_size . ')',
+        'quantity' => $request->quantity,
+        'price' => $variation->discount_price ?? $variation->price,
+        'image' => $tester->image,
+    ];
+
+    session()->put('cart', $cart);
+
+    return back()->with('success', 'Tester added to cart!');
+}
+
 }
