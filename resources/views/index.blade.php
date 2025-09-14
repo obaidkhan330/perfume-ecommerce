@@ -182,22 +182,22 @@
 
     <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
         @forelse($maleProducts as $product)
-        <div class="card shadow-sm h-100 d-inline-block"
-            style="min-width: 300px; max-width: 300px; flex: 0 0 auto;">
+        <div class="card shadow-sm h-30 d-inline-block"
+            style="min-width: 150px; max-width: 150px; flex: 0 0 auto;">
             <img src="{{ asset('storage/' . $product->image) }}"
                 class="card-img-top"
                 alt="{{ $product->name }}"
-                style="height: 300px; object-fit: cover;">
+                style="height: 150px; object-fit: cover;">
                 <div class="card-body text-center">
 
-                    <h5 class="card-title">{{ $product->name }}</h5>
-                    <h4 class="card-text">{{ $product->fragrance_family }} |  {{ $product->brand->name ?? 'N/A' }}
-                    </h4>
+                    <h6 class="card-title">{{ $product->name }}</h6>
+                    <h6 class="card-text">{{ $product->fragrance_family }} |  {{ $product->brand->name ?? 'N/A' }}
+                    </h6>
                    @if($product->smallestVariation)
                        <p class="mb-0">
-                                <span class="price text-muted" style="text-decoration: line-through;">
+                                <h6 class="price text-muted" style="text-decoration: line-through;">
                                    {{ $product->smallestVariation->price }}-
-                                 </span>
+                                </h6>
                           <span class="price text-danger fw-bold">
                              {{ $product->smallestVariation->discount_price }}
                          </span>
