@@ -17,12 +17,12 @@ use App\Http\Controllers\Admin\TesterController;
 
 // cronjobs
 
-use Illuminate\Support\Facades\Artisan;
+// use Illuminate\Support\Facades\Artisan;
 
-Route::get('/sync-storage', function () {
-    Artisan::call('storage:sync');
-    return "Storage synced successfully!";
-});
+// Route::get('/sync-storage', function () {
+//     Artisan::call('storage:sync');
+//     return "Storage synced successfully!";
+// });
 
 // cronjobs end
 

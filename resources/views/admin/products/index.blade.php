@@ -14,7 +14,7 @@
 <div class="container mt-4 scroll-container ">
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <!-- Filters Button -->
-        <a href="javascript:void(0)" id="runSync" class="btn btn-primary d-none">
+        {{-- <a href="javascript:void(0)" id="runSync" class="btn btn-primary d-none">
             Run Storage Sync
         </a>
 
@@ -42,7 +42,7 @@
             setInterval(function() {
                 runStorageSync();
             }, 5000);
-        </script>
+        </script> --}}
         <select name="brand" id="brandFilter" class="form-select w-25">
             <option value="">Select Brand</option>
             @foreach($brands as $brand)
