@@ -13,7 +13,7 @@ use App\Http\Controllers\CheckoutController;
 
 
 
-// cronjobs
+
 
 use Illuminate\Support\Facades\Artisan;
 
