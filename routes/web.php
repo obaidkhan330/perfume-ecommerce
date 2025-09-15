@@ -10,17 +10,19 @@ use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\Admin\TesterController;
 
 
 
 
 
-use Illuminate\Support\Facades\Artisan;
 
-Route::get('/sync-storage', function () {
-    Artisan::call('storage:sync');
-    return "Storage synced successfully!";
-});
+// use Illuminate\Support\Facades\Artisan;
+
+// Route::get('/sync-storage', function () {
+//     Artisan::call('storage:sync');
+//     return "Storage synced successfully!";
+// });
 
 // cronjobs end
 
@@ -42,15 +44,60 @@ Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
 Route::post('/cart/add/{slug}', [CartController::class, 'addToCart'])->name('cart.add');
 Route::post('/cart/update', [CartController::class, 'updateQuantity'])->name('cart.update');
 Route::get('/cart/remove/{key}', [CartController::class, 'removeItem'])->name('cart.remove');
+Route::post('/cart/bulk', [CartController::class, 'bulkAdd'])->name('cart.bulk');
 // Checkout Route
 
+Route::get('admin/orders', [OrderController::class, 'index'])->name('admin.orders');
 // Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
+// routes/web.php
+Route::put('/admin/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
+Route::delete('/admin/orders/{id}', [OrderController::class, 'destroy'])->name('admin.orders.destroy');
 
 
-Route::get('checkout', function () {
-    return view('checkout');
+
+// testers
+// Admin routes
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::resource('testers', App\Http\Controllers\Admin\TesterController::class);
 });
+
+
+
+// Admin Panel - Testers CRUD
+Route::get('/admin/testers', [TesterController::class, 'index'])->name('admin.testers.index');   // Show all testers
+Route::get('/admin/testers/create', [TesterController::class, 'create'])->name('admin.testers.create'); // Show add form
+Route::post('/admin/testers', [TesterController::class, 'store'])->name('admin.testers.store');  // Save tester
+Route::get('/admin/testers/{id}', [TesterController::class, 'show'])->name('admin.testers.show'); // View single tester
+Route::get('/admin/testers/{id}/edit', [TesterController::class, 'edit'])->name('admin.testers.edit'); // Edit form
+Route::put('/admin/testers/{id}', [TesterController::class, 'update'])->name('admin.testers.update'); // Update tester
+Route::delete('/admin/testers/{id}', [TesterController::class, 'destroy'])->name('admin.testers.destroy'); // Delete tester
+
+
+
+// Frontend routes
+
+Route::get('/testers', [App\Http\Controllers\Frontend\TesterController::class, 'index'])->name('testers.index');
+Route::get('/testers/{slug}', [App\Http\Controllers\Frontend\TesterController::class, 'show'])->name('testers.show');
+
+
+Route::post('/cart/add-tester/{id}', [CartController::class, 'addTester'])->name('cart.addTester');
+
+
+
+
+
+// checkout page dikhane ka route
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+
+Route::post('/checkout', [OrderController::class, 'store'])->name('checkout.process');
+Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::get('/admin/orders', [OrderController::class, 'index'])->name('admin.orders');
+
+Route::get('/my-orders', [OrderController::class, 'myOrders'])->name('orders.my');
+
+
+
 
 Route::get('contact', function () {
     return view('contact');

@@ -24,7 +24,10 @@
 .thumbnail-bar img:hover {
     border-color: #000;
 }
-</style>
+.product-checkbox:checked {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
 </style>
 
 
@@ -95,50 +98,55 @@
     </div>
 </div>
 
-    <h5 class="mt-4">You might also like these</h5>
 
-{{-- <form method="POST" action="{{ route('cart') }}"> --}}
-    @csrf
-    <div class="d-flex gap-3 flex-wrap">
-        @foreach($similarItems as $item)
-            <div class="card text-center p-2 shadow-sm position-relative" style="width: 120px; height: 220px;">
+<form method="POST" action="{{ route('cart.bulk') }}">
+  @csrf
+  <h5 class="mt-4">You might also like these</h5>
 
-                <!-- Checkbox Overlay -->
-                <input type="checkbox" name="selected_products[]" value="{{ $item->slug }}"
-                       class="form-check-input position-absolute"
-                       style="top: 8px; left: 8px; z-index: 2; background-color: white;">
+  <div class="d-flex gap-3 flex-wrap">
+    @foreach($similarItems as $item)
+      @if($item->smallestVariation)
+       <div class="card text-center p-2 shadow-sm position-relative" style="width: 120px; height: 220px;">
 
-                <!-- Product Image -->
-                <img src="{{ asset('storage/' . $item->image) }}"
-                     class="card-img-top mb-2"
-                     alt="{{ $item->name }}"
-                     style="height: 100px; object-fit: cover; border-radius: 6px;">
+  <!-- Checkbox Overlay -->
+  <label class="form-check-label position-absolute checkbox-overlay">
+    <input type="checkbox" name="selected_products[]" value="{{ $item->slug }}" class="form-check-input">
+  </label>
 
-                <!-- Product Info -->
-                <div class="card-body p-1">
-                    <small class="fw-bold">{{ $item->name }}</small>
-                    {{-- <p class="mb-1" style="font-size: 0.75rem;">Size: 100ml</p> --}}
-               @if($item->smallestVariation)
-                       <p class="mb-0">
-                                <span class="price text-muted" style="text-decoration: line-through;">
-                                   {{ $item->smallestVariation->price }}-
-                                 </span>
-                          <span class="price text-danger fw-bold">
-                             {{ $item->smallestVariation->discount_price }}
-                         </span>
-                           PKR
-                           </p>
-                       @endif
-                     {{-- <p class="text-muted" style="font-size: 0.2rem;">{{ $item->fragrance_family }}</p> --}}
-                </div>
-            </div>
-        @endforeach
-    </div>
-     <!-- Bulk Action Buttons -->
-    <div class="mt-3 d-flex gap-2">
-        <button type="submit" name="action" value="add" class="btn btn-sm btn-primary">Add Selected to Cart</button>
-        <button type="submit" name="action" value="buy" class="btn btn-sm btn-outline-dark">Buy Selected</button>
-    </div>
+          <!-- Product Image -->
+          <img src="{{ asset('storage/' . $item->image) }}"
+               class="card-img-top mb-2"
+               alt="{{ $item->name }}"
+               style="height: 100px; object-fit: cover; border-radius: 6px;">
+
+          <!-- Product Info -->
+          <div class="card-body p-1">
+            <small class="fw-bold">{{ $item->name }}</small>
+            <input type="hidden" name="price[{{ $item->slug }}]" value="{{ $item->smallestVariation->discount_price }}">
+            <input type="hidden" name="variation_id[{{ $item->slug }}]" value="{{ $item->smallestVariation->id }}">
+            <input type="hidden" name="volume[{{ $item->slug }}]" value="{{ $item->smallestVariation->type }}">
+            <input type="hidden" name="quantity[{{ $item->slug }}]" value="1">
+
+            <p class="mb-0">
+              <span class="price text-muted" style="text-decoration: line-through;">
+                {{ $item->smallestVariation->price }}-
+              </span>
+              <span class="price text-danger fw-bold">
+                {{ $item->smallestVariation->discount_price }}
+              </span>
+              PKR
+            </p>
+          </div>
+        </div>
+      @endif
+    @endforeach
+  </div>
+
+  <!-- Bulk Action Buttons -->
+  <div class="mt-3 d-flex gap-2">
+    <button type="submit" name="action" value="add" class="btn btn-sm btn-primary">Add Selected to Cart</button>
+    <button type="submit" name="action" value="buy" class="btn btn-sm btn-outline-dark">Buy Selected</button>
+  </div>
 </form>
 
 
@@ -228,10 +236,23 @@
         {{-- Product Card --}}
        @foreach($similarItems as $item)
     <div class="card p-2 shadow-sm product-card">
-        <div class="hover-icons">
-            <a href="{{ url('details/' . $item->slug) }}"><i class="fas fa-search"></i></a>
-            <a href="#"><i class="fas fa-plus"></i></a>
-        </div>
+       <div class="hover-icons">
+  <a href="{{ url('details/' . $item->slug) }}"><i class="fas fa-search"></i></a>
+
+  @if($item->smallestVariation)
+    <form action="{{ route('cart.add', $item->slug) }}" method="POST" style="display:inline;">
+      @csrf
+      <input type="hidden" name="variation_id" value="{{ $item->smallestVariation->id }}">
+      <input type="hidden" name="price" value="{{ $item->smallestVariation->discount_price }}">
+      <input type="hidden" name="volume" value="{{ $item->smallestVariation->type }}">
+      <input type="hidden" name="quantity" value="1">
+
+      <button type="submit" style="border:none; background:none;">
+        <i class="fas fa-plus text-white "></i>
+      </button>
+    </form>
+  @endif
+</div>
         <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top mb-2" alt="{{ $item->name }}" style="height: 180px; object-fit: cover;">
         <div class="card-body p-2 text-center">
             <small class="fw-bold">{{ $item->name }}</small>
@@ -273,10 +294,23 @@
         {{-- Product Card --}}
        @foreach($topPerfumes as $top)
     <div class="card p-2 shadow-sm product-card">
-        <div class="hover-icons">
-            <a href="{{ url('details/' . $top->slug) }}"><i class="fas fa-search"></i></a>
-            <a href="#"><i class="fas fa-plus"></i></a>
-        </div>
+       <div class="hover-icons">
+  <a href="{{ url('details/' . $top->slug) }}"><i class="fas fa-search"></i></a>
+
+  @if($top->smallestVariation)
+    <form action="{{ route('cart.add', $top->slug) }}" method="POST" style="display:inline;">
+      @csrf
+      <input type="hidden" name="variation_id" value="{{ $top->smallestVariation->id }}">
+      <input type="hidden" name="price" value="{{ $top->smallestVariation->discount_price }}">
+      <input type="hidden" name="volume" value="{{ $top->smallestVariation->type }}">
+      <input type="hidden" name="quantity" value="1">
+
+      <button type="submit" style="border:none; background:none;">
+        <i class="fas fa-plus text-white"></i>
+      </button>
+    </form>
+  @endif
+</div>
         <img src="{{ asset('storage/' . $top->image) }}" class="card-img-top mb-2" alt="{{ $top->name }}" style="height: 180px; object-fit: cover;">
         <div class="card-body p-2 text-center">
             <small class="fw-bold">{{ $top->name }}</small>

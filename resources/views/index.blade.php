@@ -93,6 +93,36 @@
   text-decoration: none;
 }
 
+
+.poster-wrapper {
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.poster-box {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+
+}
+
+.poster-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 400px;
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+  .poster-img {
+    max-height: 250px;
+    border-radius: 6px;
+  }
+}
+
 </style>
 
 <section class="ftco-section ftco-no-pb" id="abc">
@@ -152,22 +182,22 @@
 
     <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
         @forelse($maleProducts as $product)
-        <div class="card shadow-sm h-100 d-inline-block"
-            style="min-width: 300px; max-width: 300px; flex: 0 0 auto;">
+        <div class="card shadow-sm h-30 d-inline-block"
+            style="min-width: 150px; max-width: 150px; flex: 0 0 auto;">
             <img src="{{ asset('storage/' . $product->image) }}"
                 class="card-img-top"
                 alt="{{ $product->name }}"
-                style="height: 300px; object-fit: cover;">
+                style="height: 150px; object-fit: cover;">
                 <div class="card-body text-center">
 
-                    <h5 class="card-title">{{ $product->name }}</h5>
-                    <h4 class="card-text">{{ $product->fragrance_family }} |  {{ $product->brand->name ?? 'N/A' }}
-                    </h4>
+                    <h6 class="card-title">{{ $product->name }}</h6>
+                    <h6 class="card-text">{{ $product->fragrance_family }} |  {{ $product->brand->name ?? 'N/A' }}
+                    </h6>
                    @if($product->smallestVariation)
                        <p class="mb-0">
-                                <span class="price text-muted" style="text-decoration: line-through;">
+                                <h6 class="price text-muted" style="text-decoration: line-through;">
                                    {{ $product->smallestVariation->price }}-
-                                 </span>
+                                </h6>
                           <span class="price text-danger fw-bold">
                              {{ $product->smallestVariation->discount_price }}
                          </span>
@@ -182,6 +212,60 @@
         @endforelse
     </div>
 </section>
+
+
+
+ {{-- tester  --}}
+
+
+
+  <section class="container py-5">
+    <h2 class="mb-4 text-center"> Testers </h2>
+
+    <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
+        @forelse($testers as $tester)
+        <div class="card shadow-sm h-100 d-inline-block"
+            style="min-width: 300px; max-width: 300px; flex: 0 0 auto;">
+            <img src="{{ asset('storage/' . $tester->image) }}"
+                class="card-img-top"
+                alt="{{ $tester->name }}"
+                style="height: 300px; object-fit: cover;">
+
+            <div class="card-body text-center">
+                <h5 class="card-title">{{ $tester->name }}</h5>
+                <h6 class="card-text">{{ $tester->brand->name ?? 'N/A' }}</h6>
+
+                @if($tester->smallestVariation())
+                    <p class="mb-0">
+                        <span class="price text-muted" style="text-decoration: line-through;">
+                            {{ $tester->smallestVariation()->price }}
+                        </span>
+                        <span class="price text-danger fw-bold">
+                            {{ $tester->smallestVariation()->discount_price ?? $tester->smallestVariation()->price }}
+                        </span>
+                        PKR
+                    </p>
+                @endif
+
+<a href="{{ route('testers.show', $tester->slug) }}" class="btn btn-sm btn-outline-primary">View Details</a>
+            </div>
+        </div>
+        @empty
+        <p class="text-center"> No testers available.</p>
+        @endforelse
+    </div>
+</section>
+
+
+
+
+<div class="poster-wrapper">
+  <div class="container">
+    <div class="poster-box">
+      <img src="{{ asset('naxham/assets/images/slider2.jpg') }}" alt="Female Collection Poster" class="poster-img">
+    </div>
+  </div>
+</div>
 
 
 
@@ -224,6 +308,17 @@
 </section>
 
 
+
+
+
+
+<div class="poster-wrapper">
+  <div class="container">
+    <div class="poster-box">
+      <img src="{{ asset('naxham/assets/images/slider2.jpg') }}" alt="Female Collection Poster" class="poster-img">
+    </div>
+  </div>
+</div>
 {{-- unisex  --}}
 
 

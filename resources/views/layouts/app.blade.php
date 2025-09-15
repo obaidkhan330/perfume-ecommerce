@@ -4,11 +4,12 @@
 <head>
     <title>@yield('title', 'Nexhem')</title>
     <title>@yield('description', 'Nexham')</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Nexham-Perfumes</title>
     <meta charset="UTF-8">
-    <meta name="description" content="EndGam Gaming Magazine Template">
-    <meta name="keywords" content="endGam,gGaming, magazine, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="nexham">
+
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
 
@@ -45,6 +46,34 @@
 
 
 </head>
+
+
+{{-- resources/views/layouts/app.blade.php ya jis layout ko use kar rahe ho --}}
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show mt-2 mx-3" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger alert-dismissible fade show mt-2 mx-3" role="alert">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if ($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show mt-2 mx-3" role="alert">
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
 
 <body>
 
@@ -248,6 +277,13 @@
                     </ul>
                     <li class="nav-item"><a class="nav-link" href="{{ url('about') }}">About US</a></li>
                 </li>
+
+                @if(Auth::check())
+                  <li class="nav-item">
+                     <a class="nav-link" href="{{ route('orders.my') }}">My Orders</a>
+                 </li>
+               @endif
+
 
                 <!-- Add more nav-items as needed -->
             </ul>

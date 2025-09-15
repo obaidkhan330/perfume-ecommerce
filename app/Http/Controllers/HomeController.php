@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Tester;
+
 
 use Illuminate\Http\Request;
 
@@ -14,8 +16,9 @@ class HomeController extends Controller
         $maleProducts = Product::where('gender', 'male')->latest()->get();
         $femaleProducts = Product::where('gender', 'female')->latest()->get();
        $unisexProducts = Product::where('gender', 'unisex')->latest()->get();
+        $testers = Tester::with('variations', 'brand')->latest()->get();
 
-        return view('index', compact('maleProducts', 'femaleProducts', 'unisexProducts'));
+        return view('index', compact('maleProducts', 'femaleProducts', 'unisexProducts', 'testers'));
     }
 
 public function showProducts($gender = null)

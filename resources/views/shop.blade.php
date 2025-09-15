@@ -82,10 +82,23 @@
     @forelse($Products as $product)
       <div class="col-lg-3 col-md-4 col-6 mb-4">
         <div class="card p-2 shadow-sm product-card">
-          <div class="hover-icons">
-            <a href="{{ url('details/' . $product->slug) }}"><i class="fas fa-search"></i></a>
-            <a href="#"><i class="fas fa-plus"></i></a>
-          </div>
+         <div class="hover-icons">
+  <a href="{{ url('details/' . $product->slug) }}"><i class="fas fa-search"></i></a>
+
+  @if($product->smallestVariation)
+    <form action="{{ route('cart.add', $product->slug) }}" method="POST" style="display:inline;">
+      @csrf
+      <input type="hidden" name="variation_id" value="{{ $product->smallestVariation->id }}">
+      <input type="hidden" name="price" value="{{ $product->smallestVariation->discount_price }}">
+      <input type="hidden" name="volume" value="{{ $product->smallestVariation->type }}">
+      <input type="hidden" name="quantity" value="1">
+
+      <button type="submit" style="border:none; background:none;">
+        <i class="fas fa-plus text-white"></i>
+      </button>
+    </form>
+  @endif
+</div>
           <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top mb-2" alt="{{ $product->name }}" style="height: 180px; object-fit: cover;">
           <div class="card-body p-2 text-center">
             <small class="fw-bold">{{ $product->name }}</small>
@@ -110,6 +123,52 @@
     @endforelse
   </div>
 </section>
+
+
+
+
+
+{{-- tester  --}}
+
+
+  {{-- <section class="container py-5">
+    <h2 class="mb-4 text-center"> Testers </h2>
+
+    <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
+        @forelse($testers as $tester)
+        <div class="card shadow-sm h-100 d-inline-block"
+            style="min-width: 300px; max-width: 300px; flex: 0 0 auto;">
+            <img src="{{ asset('storage/' . $tester->image) }}"
+                class="card-img-top"
+                alt="{{ $tester->name }}"
+                style="height: 300px; object-fit: cover;">
+
+            <div class="card-body text-center">
+                <h5 class="card-title">{{ $tester->name }}</h5>
+                <h6 class="card-text">{{ $tester->brand->name ?? 'N/A' }}</h6>
+
+                @if($tester->smallestVariation())
+                    <p class="mb-0">
+                        <span class="price text-muted" style="text-decoration: line-through;">
+                            {{ $tester->smallestVariation()->price }}
+                        </span>
+                        <span class="price text-danger fw-bold">
+                            {{ $tester->smallestVariation()->discount_price ?? $tester->smallestVariation()->price }}
+                        </span>
+                        PKR
+                    </p>
+                @endif
+
+<a href="{{ route('testers.show', $tester->slug) }}" class="btn btn-sm btn-outline-primary">View Details</a>
+            </div>
+        </div>
+        @empty
+        <p class="text-center"> No testers available.</p>
+        @endforelse
+    </div>
+</section> --}}
+
+
 
 
 

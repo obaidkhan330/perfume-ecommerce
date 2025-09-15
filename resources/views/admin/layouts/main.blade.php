@@ -64,7 +64,9 @@
             <a href="{{ route('admin.dashboard') }}">Dashboard</a>
             <a href="{{route('admin.products.index')}}">Products</a>
             <a href="{{ route('admin.variations.index') }}">Variations</a>
-            <a href="">Orders</a>
+            <a href="{{ route('admin.orders') }}">Orders</a>
+            <a href="{{ route('admin.testers.index') }}">Testers</a>
+
             <a href="">Users</a>
             <a href="{{ route('logout') }}">Logout</a>
         </div>
