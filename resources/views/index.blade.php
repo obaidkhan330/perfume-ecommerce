@@ -143,7 +143,13 @@
         min-width: 150px;
         max-width: 150px;
 
+
     }
+    .product-card h5{
+        font-size: 18px;
+    }
+    .product-card h6{
+        font-size: 22px;}
     .product-card span{
         font-size: 9px;
     }
