@@ -15,7 +15,7 @@ use App\Http\Controllers\Admin\TesterController;
 
 
 
-// cronjobs
+
 
 // use Illuminate\Support\Facades\Artisan;
 
