@@ -123,6 +123,37 @@
   }
 }
 
+/* cards  */
+.product-card {
+    min-width: 300px;
+    max-width: 300px;
+    flex: 0 0 auto;
+
+}
+
+
+.product-img {
+    height: 300px;
+    object-fit: cover;
+}
+
+/* Mobile view fix */
+@media (max-width: 576px) {
+    .product-card {
+        min-width: 150px;
+        max-width: 150px;
+
+    }
+    .product-card span{
+        font-size: 9px;
+    }
+    .product-img {
+        height: 150px;
+    }
+}
+
+
+
 </style>
 
 <section class="ftco-section ftco-no-pb" id="abc">
@@ -182,28 +213,26 @@
 
     <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
         @forelse($maleProducts as $product)
-        <div class="card shadow-sm h-30 d-inline-block"
-            style="min-width: 150px; max-width: 150px; flex: 0 0 auto;">
-            <img src="{{ asset('storage/' . $product->image) }}"
-                class="card-img-top"
-                alt="{{ $product->name }}"
-                style="height: 150px; object-fit: cover;">
-                <div class="card-body text-center">
+    <div class="card shadow-sm h-30 d-inline-block product-card">
+        <img src="{{ asset('storage/' . $product->image) }}"
+            class="card-img-top product-img"
+            alt="{{ $product->name }}">
+        <div class="card-body text-center">
 
-                    <h6 class="card-title">{{ $product->name }}</h6>
-                    <h6 class="card-text">{{ $product->fragrance_family }} |  {{ $product->brand->name ?? 'N/A' }}
-                    </h6>
-                   @if($product->smallestVariation)
-                       <p class="mb-0">
-                                <h6 class="price text-muted" style="text-decoration: line-through;">
-                                   {{ $product->smallestVariation->price }}-
-                                </h6>
-                          <span class="price text-danger fw-bold">
-                             {{ $product->smallestVariation->discount_price }}
-                         </span>
-                           PKR
-                           </p>
-                       @endif
+            <h5 class="card-title">{{ $product->name }}</h5>
+            <h5 class="card-text">{{ $product->fragrance_family }} | {{ $product->brand->name ?? 'N/A' }}</h5>
+
+            @if($product->smallestVariation)
+                <p class="mb-0">
+                    <span class="price text-muted" style="text-decoration: line-through;">
+                        {{ $product->smallestVariation->price }}-
+                    </span>
+                    <span class="price text-danger fw-bold">
+                        {{ $product->smallestVariation->discount_price }}
+                    </span>
+                    PKR
+                </p>
+            @endif
             <a href="{{ url('details/' . $product->slug) }}" class="btn btn-sm btn-outline-primary">View Details</a>
                 </div>
             </div>
@@ -224,29 +253,26 @@
 
     <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
         @forelse($testers as $tester)
-        <div class="card shadow-sm h-100 d-inline-block"
-            style="min-width: 300px; max-width: 300px; flex: 0 0 auto;">
-            <img src="{{ asset('storage/' . $tester->image) }}"
-                class="card-img-top"
-                alt="{{ $tester->name }}"
-                style="height: 300px; object-fit: cover;">
+    <div class="card shadow-sm h-100 d-inline-block product-card">
+        <img src="{{ asset('storage/' . $tester->image) }}"
+             class="card-img-top product-img"
+             alt="{{ $tester->name }}">
 
-            <div class="card-body text-center">
-                <h5 class="card-title">{{ $tester->name }}</h5>
-                <h6 class="card-text">{{ $tester->brand->name ?? 'N/A' }}</h6>
+        <div class="card-body text-center">
+            <h5 class="card-title">{{ $tester->name }}</h5>
+            <h6 class="card-text">{{ $tester->brand->name ?? 'N/A' }}</h6>
 
-                @if($tester->smallestVariation())
-                    <p class="mb-0">
-                        <span class="price text-muted" style="text-decoration: line-through;">
-                            {{ $tester->smallestVariation()->price }}
-                        </span>
-                        <span class="price text-danger fw-bold">
-                            {{ $tester->smallestVariation()->discount_price ?? $tester->smallestVariation()->price }}
-                        </span>
-                        PKR
-                    </p>
-                @endif
-
+            @if($tester->smallestVariation())
+                <p class="mb-0">
+                    <span class="price text-muted" style="text-decoration: line-through;">
+                        {{ $tester->smallestVariation()->price }}
+                    </span>
+                    <span class="price text-danger fw-bold">
+                        {{ $tester->smallestVariation()->discount_price ?? $tester->smallestVariation()->price }}
+                    </span>
+                    PKR
+                </p>
+            @endif
 <a href="{{ route('testers.show', $tester->slug) }}" class="btn btn-sm btn-outline-primary">View Details</a>
             </div>
         </div>
@@ -275,30 +301,28 @@
 
     <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
         @forelse($femaleProducts as $product)
+    <div class="card shadow-sm h-100 d-inline-block product-card">
+        <img src="{{ asset('storage/' . $product->image) }}"
+             class="card-img-top product-img"
+             alt="{{ $product->name }}">
 
-        <div class="card shadow-sm h-100 d-inline-block"
-            style="min-width: 300px; max-width: 300px; flex: 0 0 auto;">
-            <img src="{{ asset('storage/' . $product->image) }}"
-                class="card-img-top"
-                alt="{{ $product->name }}"
-                style="height: 300px; object-fit: cover;">
-                <div class="card-body text-center">
+        <div class="card-body text-center">
+            <h5 class="card-title">{{ $product->name }}</h5>
+            <h5 class="card-text">
+                {{ $product->fragrance_family }} | {{ $product->brand->name ?? 'N/A' }}
+            </h5>
 
-                    <h5 class="card-title">{{ $product->name }}</h5>
-                    <h4 class="card-text">{{ $product->fragrance_family }} |  {{ $product->brand->name ?? 'N/A' }}
-                    </h4>
-                   @if($product->smallestVariation)
-                       <p class="mb-0">
-                                <span class="price text-muted" style="text-decoration: line-through;">
-                                   {{ $product->smallestVariation->price }}-
-                                 </span>
-                          <span class="price text-danger fw-bold">
-                             {{ $product->smallestVariation->discount_price }}
-                         </span>
-                           PKR
-                           </p>
-                       @endif
-            <a href="{{ url('details/' . $product->slug) }}" class="btn btn-sm btn-outline-primary">View Details</a>
+            @if($product->smallestVariation)
+                <p class="mb-0">
+                    <span class="price text-muted" style="text-decoration: line-through;">
+                        {{ $product->smallestVariation->price }}-
+                    </span>
+                    <span class="price text-danger fw-bold">
+                        {{ $product->smallestVariation->discount_price }}
+                    </span>
+                    PKR
+                </p>
+            @endif    <a href="{{ url('details/' . $product->slug) }}" class="btn btn-sm btn-outline-primary">View Details</a>
                 </div>
             </div>
         @empty
@@ -327,30 +351,26 @@
 
     <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
         @forelse($unisexProducts as $product)
-
-        <div class="card shadow-sm h-100 d-inline-block"
-            style="min-width: 300px; max-width: 300px; flex: 0 0 auto;">
-            <img src="{{ asset('storage/' . $product->image) }}"
-                class="card-img-top"
-                alt="{{ $product->name }}"
-                style="height: 300px; object-fit: cover;">
-                <div class="card-body text-center">
-
-                    <h5 class="card-title">{{ $product->name }}</h5>
-                    <h4 class="card-text">{{ $product->fragrance_family }} |  {{ $product->brand->name ?? 'N/A' }}
-                    </h4>
-                   @if($product->smallestVariation)
-                       <p class="mb-0">
-                                <span class="price text-muted" style="text-decoration: line-through;">
-                                   {{ $product->smallestVariation->price }}-
-                                 </span>
-                          <span class="price text-danger fw-bold">
-                             {{ $product->smallestVariation->discount_price }}
-                         </span>
-                           PKR
-                           </p>
-                       @endif
-            <a href="{{ url('details/' . $product->slug) }}" class="btn btn-sm btn-outline-primary">View Details</a>
+    <div class="card shadow-sm h-100 d-inline-block product-card">
+        <img src="{{ asset('storage/' . $product->image) }}"
+             class="card-img-top product-img"
+             alt="{{ $product->name }}">
+        <div class="card-body text-center">
+            <h5 class="card-title">{{ $product->name }}</h5>
+            <h5 class="card-text">
+                {{ $product->fragrance_family }} | {{ $product->brand->name ?? 'N/A' }}
+            </h5>
+            @if($product->smallestVariation)
+                <p class="mb-0">
+                    <span class="price text-muted" style="text-decoration: line-through;">
+                        {{ $product->smallestVariation->price }}-
+                    </span>
+                    <span class="price text-danger fw-bold">
+                        {{ $product->smallestVariation->discount_price }}
+                    </span>
+                    PKR
+                </p>
+            @endif    <a href="{{ url('details/' . $product->slug) }}" class="btn btn-sm btn-outline-primary">View Details</a>
                 </div>
             </div>
         @empty
