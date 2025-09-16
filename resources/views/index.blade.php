@@ -225,10 +225,10 @@
             @if($product->smallestVariation)
                 <p class="mb-0">
                     <span class="price text-muted" style="text-decoration: line-through;">
-                        {{ $product->smallestVariation->price }}-
+                        {{ number_format( $product->smallestVariation->price,0) }}-
                     </span>
                     <span class="price text-danger fw-bold">
-                        {{ $product->smallestVariation->discount_price }}
+                        {{ number_format($product->smallestVariation->discount_price,0) }}
                     </span>
                     PKR
                 </p>
@@ -265,10 +265,10 @@
             @if($tester->smallestVariation())
                 <p class="mb-0">
                     <span class="price text-muted" style="text-decoration: line-through;">
-                        {{ $tester->smallestVariation()->price }}
+                        {{ number_format( $tester->smallestVariation()->price,0) }}
                     </span>
                     <span class="price text-danger fw-bold">
-                        {{ $tester->smallestVariation()->discount_price ?? $tester->smallestVariation()->price }}
+                        {{ number_format( $tester->smallestVariation()->discount_price ?? $tester->smallestVariation()->price,0) }}
                     </span>
                     PKR
                 </p>
@@ -314,11 +314,11 @@
 
             @if($product->smallestVariation)
                 <p class="mb-0">
-                    <span class="price text-muted" style="text-decoration: line-through;">
-                        {{ $product->smallestVariation->price }}-
+                    <span class="price text-muted m-0" style="text-decoration: line-through;">
+                        {{ number_format($product->smallestVariation->price, 0) }}-
                     </span>
                     <span class="price text-danger fw-bold">
-                        {{ $product->smallestVariation->discount_price }}
+                        {{ number_format($product->smallestVariation->discount_price, 0) }}
                     </span>
                     PKR
                 </p>
@@ -363,10 +363,10 @@
             @if($product->smallestVariation)
                 <p class="mb-0">
                     <span class="price text-muted" style="text-decoration: line-through;">
-                        {{ $product->smallestVariation->price }}-
+                        {{ number_format($product->smallestVariation->price, 0)  }}-
                     </span>
                     <span class="price text-danger fw-bold">
-                        {{ $product->smallestVariation->discount_price }}
+                        {{ number_format($product->smallestVariation->discount_price,0) }}
                     </span>
                     PKR
                 </p>
