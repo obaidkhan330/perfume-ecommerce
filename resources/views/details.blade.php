@@ -145,15 +145,17 @@
   @csrf
   <h5 class="mt-4">You might also like these</h5>
 
-  <div class="d-flex gap-3 flex-wrap">
+  <!-- Horizontal Scroll -->
+  <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
     @foreach($similarItems as $item)
       @if($item->smallestVariation)
-       <div class="card text-center p-2 shadow-sm position-relative" style="width: 120px; height: 220px;">
+        <div class="card text-center p-2 shadow-sm position-relative d-inline-block"
+             style="min-width: 120px; height: 220px;">
 
-  <!-- Checkbox Overlay -->
-  <label class="form-check-label position-absolute checkbox-overlay">
-    <input type="checkbox" name="selected_products[]" value="{{ $item->slug }}" class="form-check-input">
-  </label>
+          <!-- Checkbox Overlay -->
+          <label class="form-check-label position-absolute checkbox-overlay">
+            <input type="checkbox" name="selected_products[]" value="{{ $item->slug }}" class="form-check-input">
+          </label>
 
           <!-- Product Image -->
           <img src="{{ asset('storage/' . $item->image) }}"
@@ -170,9 +172,9 @@
             <input type="hidden" name="quantity[{{ $item->slug }}]" value="1">
 
             <p class="mb-0">
-              <span class="price text-muted" style="text-decoration: line-through;">
+              <h5 class="price text-muted" style="text-decoration: line-through;">
                 {{ $item->smallestVariation->price }}-
-              </span>
+              </h5>
               <span class="price text-danger fw-bold">
                 {{ $item->smallestVariation->discount_price }}
               </span>
@@ -273,52 +275,56 @@
 
 <div class="container my-5">
     <h3 class="fw-bold mb-4">Similar Items</h3>
-    <div class="d-flex flex-wrap gap-4 justify-content-start">
 
+    <!-- Horizontal Scroll -->
+    <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
         {{-- Product Card --}}
-       @foreach($similarItems as $item)
-    <div class="card p-2 shadow-sm product-card">
-       <div class="hover-icons">
-  <a href="{{ url('details/' . $item->slug) }}"><i class="fas fa-search"></i></a>
+        @foreach($similarItems as $item)
+            <div class="card p-2 shadow-sm product-card d-inline-block" style="min-width: 220px;">
+                <div class="hover-icons">
+                    <a href="{{ url('details/' . $item->slug) }}"><i class="fas fa-search"></i></a>
 
-  @if($item->smallestVariation)
-    <form action="{{ route('cart.add', $item->slug) }}" method="POST" style="display:inline;">
-      @csrf
-      <input type="hidden" name="variation_id" value="{{ $item->smallestVariation->id }}">
-      <input type="hidden" name="price" value="{{ $item->smallestVariation->discount_price }}">
-      <input type="hidden" name="volume" value="{{ $item->smallestVariation->type }}">
-      <input type="hidden" name="quantity" value="1">
+                    @if($item->smallestVariation)
+                        <form action="{{ route('cart.add', $item->slug) }}" method="POST" style="display:inline;">
+                            @csrf
+                            <input type="hidden" name="variation_id" value="{{ $item->smallestVariation->id }}">
+                            <input type="hidden" name="price" value="{{ $item->smallestVariation->discount_price }}">
+                            <input type="hidden" name="volume" value="{{ $item->smallestVariation->type }}">
+                            <input type="hidden" name="quantity" value="1">
 
-      <button type="submit" style="border:none; background:none;">
-        <i class="fas fa-plus text-white "></i>
-      </button>
-    </form>
-  @endif
-</div>
-        <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top mb-2" alt="{{ $item->name }}" style="height: 180px; object-fit: cover;">
-        <div class="card-body p-2 text-center">
-            <small class="fw-bold">{{ $item->name }}</small>
-            <p class="mb-1">Inspired by {{ $item->brand->name }}</p>
+                            <button type="submit" style="border:none; background:none;">
+                                <i class="fas fa-plus text-white"></i>
+                            </button>
+                        </form>
+                    @endif
+                </div>
 
+                <img src="{{ asset('storage/' . $item->image) }}"
+                     class="card-img-top mb-2"
+                     alt="{{ $item->name }}"
+                     style="height: 180px; object-fit: cover;">
 
-                 @if($item->smallestVariation)
-                       <p class="mb-0">
-                                <span class="price text-muted" style="text-decoration: line-through;">
-                                   {{ $item->smallestVariation->price }}-
-                                 </span>
-                          <span class="price text-danger fw-bold">
-                             {{ $item->smallestVariation->discount_price }}
-                         </span>
-                           PKR
-                           </p>
-                       @endif
-        </div>
+                <div class="card-body p-2 text-center">
+                    <small class="fw-bold">{{ $item->name }}</small>
+                    <p class="mb-1">Inspired by {{ $item->brand->name }}</p>
+
+                    @if($item->smallestVariation)
+                        <p class="mb-0">
+                            <span class="price text-muted" style="text-decoration: line-through;">
+                                {{ $item->smallestVariation->price }}-
+                            </span>
+                            <span class="price text-danger fw-bold">
+                                {{ $item->smallestVariation->discount_price }}
+                            </span>
+                            PKR
+                        </p>
+                    @endif
+                </div>
+            </div>
+        @endforeach
     </div>
-@endforeach
-
-
-    </div>
 </div>
+
 
     </div>
 </div>
@@ -328,57 +334,58 @@
 
  {{-- top perfume  --}}
 
-
 <div class="container my-5">
     <h3 class="fw-bold mb-4">TOP PERFUMES</h3>
-    <div class="d-flex flex-wrap gap-4 justify-content-start">
 
+    <!-- Horizontal Scroll -->
+    <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
         {{-- Product Card --}}
-       @foreach($topPerfumes as $top)
-    <div class="card p-2 shadow-sm product-card">
-       <div class="hover-icons">
-  <a href="{{ url('details/' . $top->slug) }}"><i class="fas fa-search"></i></a>
+        @foreach($topPerfumes as $top)
+            <div class="card p-2 shadow-sm product-card d-inline-block" style="min-width: 220px;">
+                <div class="hover-icons">
+                    <a href="{{ url('details/' . $top->slug) }}"><i class="fas fa-search"></i></a>
 
-  @if($top->smallestVariation)
-    <form action="{{ route('cart.add', $top->slug) }}" method="POST" style="display:inline;">
-      @csrf
-      <input type="hidden" name="variation_id" value="{{ $top->smallestVariation->id }}">
-      <input type="hidden" name="price" value="{{ $top->smallestVariation->discount_price }}">
-      <input type="hidden" name="volume" value="{{ $top->smallestVariation->type }}">
-      <input type="hidden" name="quantity" value="1">
+                    @if($top->smallestVariation)
+                        <form action="{{ route('cart.add', $top->slug) }}" method="POST" style="display:inline;">
+                            @csrf
+                            <input type="hidden" name="variation_id" value="{{ $top->smallestVariation->id }}">
+                            <input type="hidden" name="price" value="{{ $top->smallestVariation->discount_price }}">
+                            <input type="hidden" name="volume" value="{{ $top->smallestVariation->type }}">
+                            <input type="hidden" name="quantity" value="1">
 
-      <button type="submit" style="border:none; background:none;">
-        <i class="fas fa-plus text-white"></i>
-      </button>
-    </form>
-  @endif
-</div>
-        <img src="{{ asset('storage/' . $top->image) }}" class="card-img-top mb-2" alt="{{ $top->name }}" style="height: 180px; object-fit: cover;">
-        <div class="card-body p-2 text-center">
-            <small class="fw-bold">{{ $top->name }}</small>
-            <p class="mb-1">Inspired by {{ $top->brand->name }}</p>
-            {{-- <p class="mb-1 text-danger fw-semibold">Rs. {{ $top->price }}</p> --}}
+                            <button type="submit" style="border:none; background:none;">
+                                <i class="fas fa-plus text-white"></i>
+                            </button>
+                        </form>
+                    @endif
+                </div>
 
-             @if($top->smallestVariation)
-                       <p class="mb-0">
-                                <span class="price text-muted" style="text-decoration: line-through;">
-                                   {{ $top->smallestVariation->price }}-
-                                 </span>
-                          <span class="price text-danger fw-bold">
-                             {{ $top->smallestVariation->discount_price }}
-                         </span>
-                           PKR
-                           </p>
-                       @endif
-        </div>
+                <img src="{{ asset('storage/' . $top->image) }}"
+                     class="card-img-top mb-2"
+                     alt="{{ $top->name }}"
+                     style="height: 180px; object-fit: cover;">
+
+                <div class="card-body p-2 text-center">
+                    <small class="fw-bold">{{ $top->name }}</small>
+                    <p class="mb-1">Inspired by {{ $top->brand->name }}</p>
+
+                    @if($top->smallestVariation)
+                        <p class="mb-0">
+                            <span class="price text-muted" style="text-decoration: line-through;">
+                                {{ $top->smallestVariation->price }}-
+                            </span>
+                            <span class="price text-danger fw-bold">
+                                {{ $top->smallestVariation->discount_price }}
+                            </span>
+                            PKR
+                        </p>
+                    @endif
+                </div>
+            </div>
+        @endforeach
     </div>
-@endforeach
-
-
-
-
-    </div>
 </div>
+
 
 
 

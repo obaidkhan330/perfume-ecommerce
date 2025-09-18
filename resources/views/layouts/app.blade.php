@@ -9,17 +9,15 @@
     <title>Nexham-Perfumes</title>
     <meta charset="UTF-8">
     <meta name="description" content="nexham">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-
-    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
+<!-- Font Awesome 6 (latest icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
@@ -310,11 +308,12 @@
                             <img src="naxham/assets/images/logo.png" alt="logo" class="navbar-logo  ">
                         </a>
                         <p>Far far away, behind the word mountains, far from the countries.</p>
-                        <ul class="ftco-footer-social list-unstyled mt-2">
-                            <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
-                            <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
-                            <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
-                        </ul>
+                      <ul class="ftco-footer-social list-unstyled mt-2">
+    <li class="ftco-animate"><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+    <li class="ftco-animate"><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+    <li class="ftco-animate"><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+</ul>
+
                     </div>
                 </div>
                 <div class="col-sm-12 col-md">
@@ -322,9 +321,9 @@
                         <h2 class="ftco-heading-2">My Accounts</h2>
                         <ul class="list-unstyled">
                             <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>My Account</a></li>
-                            <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Register</a></li>
-                            <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Log In</a></li>
-                            <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>My Order</a></li>
+                            <li><a href="{{ url('register') }}"><span class="fa fa-chevron-right mr-2"></span>Register</a></li>
+                            <li><a href="{{ url('login') }}"><span class="fa fa-chevron-right mr-2"></span>Log In</a></li>
+                            <li><a href="{{ url('my-orders') }}"><span class="fa fa-chevron-right mr-2"></span>My Order</a></li>
                         </ul>
                     </div>
                 </div>
@@ -332,9 +331,9 @@
                     <div class="ftco-footer-widget mb-4 ml-md-4">
                         <h2 class="ftco-heading-2">Information</h2>
                         <ul class="list-unstyled">
-                            <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>About us</a></li>
-                            <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Catalog</a></li>
-                            <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Contact us</a></li>
+                            <li><a href="{{ url('about') }}"><span class="fa fa-chevron-right mr-2"></span>About us</a></li>
+                            {{-- <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Catalog</a></li> --}}
+                            <li><a href="{{ url('contact') }}"><span class="fa fa-chevron-right mr-2"></span>Contact us</a></li>
                             <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Term &amp; Conditions</a></li>
                         </ul>
                     </div>
@@ -343,9 +342,9 @@
                     <div class="ftco-footer-widget mb-4">
                         <h2 class="ftco-heading-2">Quick Link</h2>
                         <ul class="list-unstyled">
-                            <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>New User</a></li>
+                            {{-- <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>New User</a></li> --}}
                             <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Help Center</a></li>
-                            <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Report Spam</a></li>
+                            {{-- <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Report Spam</a></li> --}}
                             <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Faq's</a></li>
                         </ul>
                     </div>

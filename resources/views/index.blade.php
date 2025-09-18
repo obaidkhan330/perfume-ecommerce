@@ -109,7 +109,7 @@
 
 .poster-img {
   width: 100%;
-  height: auto;
+  /* height: ; */
   display: block;
   object-fit: cover;
   max-height: 400px;
@@ -188,7 +188,7 @@
       <div class="category-box text-center">
         <a href="#" class="d-block">
           <div class="img" style="background-image: url(naxham/assets/images/perfume4.jpg);"></div>
-          <h3>DALIYWEAR</h3>
+          <h3>Summer DEal</h3>
         </a>
       </div>
       <div class="category-box text-center">
