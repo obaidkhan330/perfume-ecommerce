@@ -42,6 +42,7 @@ Route::get('about', function () {
 
 Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
 Route::post('/cart/add/{slug}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/{slug}/buy-now', [CartController::class, 'buyNow'])->name('cart.buyNow');
 Route::post('/cart/update', [CartController::class, 'updateQuantity'])->name('cart.update');
 Route::get('/cart/remove/{key}', [CartController::class, 'removeItem'])->name('cart.remove');
 Route::post('/cart/bulk', [CartController::class, 'bulkAdd'])->name('cart.bulk');
@@ -107,6 +108,8 @@ Route::get('product', function () {
     return view('product');
 });
 
+Route::get('male/{gender?}', [HomeController::class, 'maleProducts'])->name('male');
+
 Route::get('details/{slug}', [HomeController::class, 'productDetails'])->name('details');
 
 use App\Http\Controllers\ProductController;
@@ -171,3 +174,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 
 // fetch products
+
+
+

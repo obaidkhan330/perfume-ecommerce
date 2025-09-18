@@ -2,8 +2,6 @@
 
 @section('content')
 
-
-<style>
 <style>
 .thumbnail-bar {
     display: flex;
@@ -28,6 +26,15 @@
   background-color: #0d6efd;
   border-color: #0d6efd;
 }
+
+/* Custom button size handling */
+@media (min-width: 768px) {
+    .btn-md {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+}
+
 </style>
 
 
@@ -54,22 +61,44 @@
 <div class="col-md-6">
     <h2 class="fw-bold">{{ $product->name }}</h2>
 
-    @if($product->smallestVariation)
+    @if($product->variations->count() > 0)
         <p class="fs-4 text-danger">
             Rs. <span id="price">{{ $product->smallestVariation->discount_price }}</span>
         </p>
 
-        <select id="variationSelect" class="form-select mb-3" onchange="updateVariation()">
-            @foreach($product->variations as $variation)
-                <option value="{{ $variation->id }}"
-                        data-price="{{ $variation->discount_price }}"
-                        data-volume="{{ $variation->type }}">
-                    {{ $variation->type }}ml - Rs. {{ $variation->discount_price }}
-                </option>
-            @endforeach
-        </select>
+        {{-- Buttons for Variations --}}
+<div class="d-flex flex-wrap gap-2 mb-3">
+    @foreach([30, 50, 100] as $size)
+        @php
+            $variation = $product->variations
+                ->filter(function($v) use ($size) {
+                    return (int) filter_var($v->variation_type, FILTER_SANITIZE_NUMBER_INT) === $size;
+                })
+                ->first();
+        @endphp
+
+        @if($variation)
+            <button type="button"
+                    class="btn btn-outline-primary variation-btn btn-sm btn-md"
+                    data-id="{{ $variation->id }}"
+                    data-price="{{ $variation->discount_price }}"
+                    data-volume="{{ $variation->variation_type }}">
+                {{ $variation->variation_type }}
+            </button>
+        @else
+            <button type="button" class="btn btn-outline-secondary btn-sm btn-md" disabled>
+                {{ $size }}ml (Not Available)
+            </button>
+        @endif
+    @endforeach
+</div>
+
+
+
 
         <p class="text-muted">Size: <span id="ml">{{ $product->variations->first()->type }}</span></p>
+    @else
+        <p class="text-danger">No variations available for this product.</p>
     @endif
 
     <p class="text-muted">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>
@@ -79,23 +108,36 @@
         <label for="quantity" class="me-2">Qty:</label>
         <div class="input-group" style="width: 120px;">
             <button class="btn btn-outline-secondary" type="button" onclick="decreaseQty()">−</button>
-            <input type="number" id="quantity" class="form-control text-center" value="1" min="1" onchange="updateVariation()">
+            <input type="number" id="quantity" class="form-control text-center" value="1" min="1">
             <button class="btn btn-outline-secondary" type="button" onclick="increaseQty()">+</button>
         </div>
     </div>
 
-    <div class="mt-4 d-flex gap-3">
-        <form method="POST" action="{{ route('cart.add', $product->slug) }}">
-            @csrf
-            <input type="hidden" name="variation_id" id="variationId">
-            <input type="hidden" name="price" id="variationPrice">
-            <input type="hidden" name="volume" id="variationVolume">
-            <input type="hidden" name="quantity" id="variationQty">
+<div class="mt-4 d-flex gap-3">
+ {{-- Add to Cart --}}
+<form method="POST" action="{{ route('cart.add', $product->slug) }}">
+    @csrf
+    <input type="hidden" name="variation_id" id="variationIdAdd">
+    <input type="hidden" name="price" id="variationPriceAdd">
+    <input type="hidden" name="volume" id="variationVolumeAdd">
+    <input type="hidden" name="quantity" id="variationQtyAdd">
 
-            <button type="submit" class="btn btn-primary">Add to Cart</button>
-        </form>
-        <button class="btn btn-outline-dark">Buy Now</button>
-    </div>
+    <button type="submit" class="btn btn-primary">Add to Cart</button>
+</form>
+
+{{-- Buy Now --}}
+<form method="POST" action="{{ route('cart.buyNow', $product->slug) }}">
+    @csrf
+    <input type="hidden" name="variation_id" id="variationIdBuy">
+    <input type="hidden" name="price" id="variationPriceBuy">
+    <input type="hidden" name="volume" id="variationVolumeBuy">
+    <input type="hidden" name="quantity" id="variationQtyBuy">
+
+    <button type="submit" class="btn btn-outline-dark">Buy Now</button>
+</form>
+
+</div>
+
 </div>
 
 
@@ -376,49 +418,96 @@
 
 {{-- Button Scripts --}}
 <script>
-function changeImage(src) {
-  document.getElementById('mainProductImage').src = src;
-}
+document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll(".variation-btn");
+    const priceElement = document.getElementById("price");
+    const mlElement = document.getElementById("ml");
+    const qtyInput = document.getElementById("quantity");
 
-function updateVariation() {
-  const select = document.getElementById('variationSelect');
-  const selected = select.options[select.selectedIndex];
+    const variationIdInput = document.getElementById("variationId");
+    const variationPriceInput = document.getElementById("variationPrice");
+    const variationVolumeInput = document.getElementById("variationVolume");
+    const variationQtyInput = document.getElementById("variationQty");
 
-  const price = parseFloat(selected.getAttribute('data-price'));
-  const volume = selected.getAttribute('data-volume');
-  const qty = parseInt(document.getElementById('quantity').value);
+    let currentPrice = parseFloat(priceElement.innerText) || 0;
 
-  // Update visible price and volume
-  document.getElementById('price').textContent = (price * qty).toFixed(2);
-  document.getElementById('ml').textContent = volume;
+    // Function to update price
+    function updatePrice() {
+        const qty = parseInt(qtyInput.value) || 1;
+        priceElement.innerText = (currentPrice * qty).toFixed(0); // .00 hata diya
+        variationQtyInput.value = qty;
+    }
 
-  // Update hidden form fields
-  document.getElementById('variationId').value = selected.value;
-  document.getElementById('variationPrice').value = price;
-  document.getElementById('variationVolume').value = volume;
-  document.getElementById('variationQty').value = qty;
-}
+// Variation button click
+buttons.forEach(btn => {
+    btn.addEventListener("click", function () {
+        const price = parseFloat(this.getAttribute("data-price"));
+        const volume = this.getAttribute("data-volume");
+        const id = this.getAttribute("data-id");
 
-function increaseQty() {
-  const qtyInput = document.getElementById('quantity');
-  qtyInput.value = parseInt(qtyInput.value) + 1;
-  updateVariation();
-}
+        currentPrice = price;
+        mlElement.innerText = volume;
 
-function decreaseQty() {
-  const qtyInput = document.getElementById('quantity');
-  if (parseInt(qtyInput.value) > 1) {
-    qtyInput.value = parseInt(qtyInput.value) - 1;
-    updateVariation();
-  }
-}
+        const qtyInput = document.getElementById("quantity");
 
-// Update on manual input
-document.getElementById('quantity').addEventListener('input', updateVariation);
+        // Add to Cart hidden inputs
+        document.getElementById("variationIdAdd").value = id;
+        document.getElementById("variationPriceAdd").value = price;
+        document.getElementById("variationVolumeAdd").value = volume;
+        document.getElementById("variationQtyAdd").value = qtyInput.value;
 
-// Initialize on page load
-window.onload = updateVariation;
+        // Buy Now hidden inputs
+        document.getElementById("variationIdBuy").value = id;
+        document.getElementById("variationPriceBuy").value = price;
+        document.getElementById("variationVolumeBuy").value = volume;
+        document.getElementById("variationQtyBuy").value = qtyInput.value;
+
+        // Active button highlight
+        buttons.forEach(b => {
+            b.classList.remove("btn-primary");
+            b.classList.add("btn-outline-primary");
+        });
+        this.classList.remove("btn-outline-primary");
+        this.classList.add("btn-primary");
+
+        updatePrice();
+    });
+});
+
+// Sync quantity to both forms
+document.getElementById("quantity").addEventListener("input", function () {
+    document.getElementById("variationQtyAdd").value = this.value;
+    document.getElementById("variationQtyBuy").value = this.value;
+});
+
+// Qty input change event (extra safe)
+// document.getElementById("quantity").addEventListener("input", function () {
+//     variationQtyInput.value = this.value;
+// });
+
+    // + / - functions
+    window.increaseQty = function () {
+        qtyInput.value = parseInt(qtyInput.value) + 1;
+        updatePrice();
+    };
+
+    window.decreaseQty = function () {
+        if (parseInt(qtyInput.value) > 1) {
+            qtyInput.value = parseInt(qtyInput.value) - 1;
+            updatePrice();
+        }
+    };
+
+    // Image change function
+    window.changeImage = function (src) {
+        document.getElementById('mainProductImage').src = src;
+    };
+
+    // Init
+    updatePrice();
+});
 </script>
+
 @endsection
 
 

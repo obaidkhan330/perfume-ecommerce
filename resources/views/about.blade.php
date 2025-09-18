@@ -4,7 +4,7 @@
 
 
 
-    <section class="hero-wrap hero-wrap-2" style="background-image: url('naxham/assets/images/perfume3.jpg'); margin-bottom: 100px;" data-stellar-background-ratio="0.1">
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('naxham/assets/images/perfume3.jpg'); margin-bottom: 10px;" data-stellar-background-ratio="0.2">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center">

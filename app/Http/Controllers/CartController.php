@@ -12,35 +12,35 @@ class CartController extends Controller
    public function viewCart() {
     return view('cart');
 }
-
 public function addToCart(Request $request, $slug)
 {
     $product = Product::where('slug', $slug)->firstOrFail();
+
     $cart = session()->get('cart', []);
 
-    $variationId = $request->variation_id;
-    $price = $request->price;
-    $volume = $request->volume;
-    $quantity = $request->quantity;
+    $price    = (float) $request->price;
+    $volume   = $request->volume;
+    $quantity = (int) $request->quantity;
 
-    $key = $slug . '-' . $variationId;
-
-    if (isset($cart[$key])) {
-        $cart[$key]['quantity'] += $quantity;
+    if (isset($cart[$slug])) {
+        $cart[$slug]['quantity'] += $quantity;
     } else {
-        $cart[$key] = [
-            'name' => $product->name,
-            'price' => $price,
-            'image' => $product->image,
-            'volume' => $volume,
+        $cart[$slug] = [
+            'slug'     => $slug,
+            'name'     => $product->name,
+            'price'    => $price,
+            'image'    => $product->image,
+            'volume'   => $volume,
             'quantity' => $quantity
         ];
     }
 
-    session()->put('cart', $cart);
-    return redirect()->route('cart.view')->with('success', 'Product added to cart!');
-}
 
+
+    session()->put('cart', $cart);
+
+    return back()->with('success', 'Product added to cart successfully!');
+}
 public function updateQuantity(Request $request)
 {
     $cart = session()->get('cart', []);
@@ -48,13 +48,11 @@ public function updateQuantity(Request $request)
     $quantity = (int) $request->quantity;
 
     if (isset($cart[$key])) {
-        $cart[$key]['quantity'] = max(1, $quantity); // Prevent zero or negative
+        $cart[$key]['quantity'] = max(1, $quantity);
         session()->put('cart', $cart);
 
-        // Recalculate subtotal for this item
         $subtotal = $cart[$key]['price'] * $cart[$key]['quantity'];
 
-        // Recalculate total for entire cart
         $total = 0;
         foreach ($cart as $item) {
             $total += $item['price'] * $item['quantity'];
@@ -142,5 +140,40 @@ public function addTester(Request $request, $id)
 
     return back()->with('success', 'Tester added to cart!');
 }
+public function buyNow(Request $request, $slug)
+{
+    $product = Product::where('slug', $slug)->firstOrFail();
+
+    $cart = session()->get('cart', []);
+
+    $price    = (float) $request->price;
+    $volume   = $request->volume;
+    $quantity = (int) $request->quantity;
+
+    // ✅ slug ko hi unique key banaya
+    if (isset($cart[$slug])) {
+        $cart[$slug]['quantity'] += $quantity;
+    } else {
+        $cart[$slug] = [
+            'slug'     => $slug,
+            'name'     => $product->name,
+            'price'    => $price,            
+            'image'    => $product->image,
+            'volume'   => $volume,
+            'quantity' => $quantity
+        ];
+    }
+
+    session()->put('cart', $cart);
+
+    // ✅ direct checkout par redirect
+    return redirect()->route('checkout')
+        ->with('success', 'Product added. Proceed to checkout.');
+
+
+}
+
+
+
 
 }

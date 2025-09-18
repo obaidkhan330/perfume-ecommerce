@@ -254,16 +254,16 @@
                     <a class="nav-link dropdown-toggle" href="#" id="shopDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="shopDropdown">
                           <a href="{{ url('shop') }}" class="btn py-2 px-4">Shop</a>
-                        <li><a class="dropdown-item" href="#">Men</a></li>
-                        <li><a class="dropdown-item" href="#">Women</a></li>
+                        <li><a class="dropdown-item" href="#">Male</a></li>
+                        <li><a class="dropdown-item" href="#">Female</a></li>
                         <li><a class="dropdown-item" href="#">Unisex</a></li>
                     </ul>
                 </li>
 
                 <li class="nav-item"><a class="nav-link" href="#">Summer Deal</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Daliywear</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Men Perfume</a></li>
-               <li class="nav-item"><a class="nav-link" href="#">Women Perfume</a></li>
+                {{-- <li class="nav-item"><a class="nav-link" href="#">Daliywear</a></li> --}}
+                <li class="nav-item"><a class="nav-link" href="#">Male Perfume</a></li>
+               <li class="nav-item"><a class="nav-link" href="#">Female Perfume</a></li>
 
 
                 <li class="nav-item dropdown">

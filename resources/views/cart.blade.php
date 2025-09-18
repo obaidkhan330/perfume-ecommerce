@@ -155,60 +155,57 @@
                 </thead>
                 <tbody>
                   @php $total = 0; @endphp
-                 @foreach(session('cart') as $slug => $item)
-@php
-  $subtotal = $item['price'] * $item['quantity'];
-  $total += $subtotal;
-@endphp
-<tr class="cart-row">
-  <td class="cart-remove">
-    <a href="{{ route('cart.remove', $slug) }}" class="text-danger" title="Remove">
-      <i class="bi bi-x-lg"></i>
-    </a>
-  </td>
-  <td class="cart-product">
-    <div class="cart-thumb">
-      <img src="{{ asset('storage/' . $item['image']) }}" alt="">
-    </div>
-    <div class="cart-details">
-      <a class="text-dark fw-bold text-decoration-none" href="{{ url('product/' . $slug) }}">{{ $item['name'] }}</a>
-      <div class="small text-muted">{{ $item['description'] ?? '100ml • EDP' }}</div>
-    </div>
-  </td>
-  <td class="cart-price text-center fw-bold">
-    PKR {{ number_format($item['price']) }}
-  </td>
-  <td class="cart-qty text-center">
-    <div class="qty-controls">
-      <button class="btn btn-sm btn-outline-dark" onclick="changeQty('{{ $slug }}', -1)">−</button>
-      <input type="number" id="qty-{{ $slug }}" value="{{ $item['quantity'] }}" min="1"
-             class="form-control text-center" onchange="updateCart('{{ $slug }}')">
-      <button class="btn btn-sm btn-outline-dark" onclick="changeQty('{{ $slug }}', 1)">+</button>
-    </div>
-  </td>
-  <td class="cart-subtotal text-end fw-bold">
-    <span id="subtotal-{{ $slug }}">PKR {{ number_format($item['price'] * $item['quantity']) }}</span>
-  </td>
-</tr>
-@endforeach
+                  @foreach(session('cart') as $slug => $item)
+                    @php
+                      $subtotal = $item['price'] * $item['quantity'];
+                      $total += $subtotal;
+                    @endphp
+                    <tr class="cart-row">
+                      <td class="cart-remove">
+                        <a href="{{ route('cart.remove', $slug) }}" class="text-danger" title="Remove">
+                          <i class="bi bi-x-lg"></i>
+                        </a>
+                      </td>
+                      <td class="cart-product">
+                        <div class="cart-thumb">
+                          <img src="{{ asset('storage/' . ($item['image'] ?? 'default.png')) }}" alt="">
+                        </div>
+                        <div class="cart-details">
+                          <a class="text-dark fw-bold text-decoration-none"
+                             href="{{ url('product/' . $item['slug']) }}">
+                            {{ $item['name'] }}
+                          </a>
+                          <div class="small text-muted">{{ $item['volume'] }}</div>
+                        </div>
+                      </td>
+                      <td class="cart-price text-center fw-bold">
+                        PKR {{ number_format($item['price']) }}
+                      </td>
+                      <td class="cart-qty text-center">
+                        <div class="qty-controls">
+                          <button class="btn btn-sm btn-outline-dark" onclick="changeQty('{{ $slug }}', -1)">−</button>
+                          <input type="number" id="qty-{{ $slug }}" value="{{ $item['quantity'] }}" min="1"
+                                 class="form-control text-center" onchange="updateCart('{{ $slug }}')">
+                          <button class="btn btn-sm btn-outline-dark" onclick="changeQty('{{ $slug }}', 1)">+</button>
+                        </div>
+                      </td>
+                      <td class="cart-subtotal text-end fw-bold">
+                        <span id="subtotal-{{ $slug }}">PKR {{ number_format($subtotal) }}</span>
+                      </td>
+                    </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
 
             <div class="row g-3 align-items-center mt-3">
-              {{-- <div class="col-md-6">
-                <form class="coupon d-flex gap-2">
-                  <input class="form-control" placeholder="Coupon code (try AROMA10)">
-                  <button class="btn btn-dark" type="submit">Apply Coupon</button>
-                </form>
-              </div> --}}
               <div class="col-md-6 text-md-end">
                 <a href="{{ route('shop') }}" class="btn btn-outline-secondary">Continue Shopping</a>
               </div>
             </div>
             @else
-            <p>Your cart is empty.</p>
-            <a href="{{ route('shop') }}" class="btn btn-outline-primary">Go to Shop</a>
+              <p>Your cart is empty.</p>
+              <a href="{{ route('shop') }}" class="btn btn-outline-primary">Go to Shop</a>
             @endif
           </div>
         </div>
@@ -219,36 +216,29 @@
         <div class="card box">
           <div class="card-body p-4">
             <h6 class="box-title">Cart Totals</h6>
-   <ul class="list-unstyled totals mb-3">
-  <li><span>Subtotal</span> <strong id="cart-subtotal">PKR {{ number_format($total) }}</strong></li>
-  <li><span>Shipping</span> <span>PKR 0</span></li>
-  <li class="total"><span>Total</span> <span id="cart-total">PKR {{ number_format($total) }}</span></li>
-</ul>
+            <ul class="list-unstyled totals mb-3">
+              <li><span>Subtotal</span> <strong id="cart-subtotal">PKR {{ number_format($total) }}</strong></li>
+              <li><span>Shipping</span> <span>PKR 0</span></li>
+              <li class="total"><span>Total</span> <span id="cart-total">PKR {{ number_format($total) }}</span></li>
+            </ul>
 
-
-
-
-
-       <form action="{{ route('checkout.process') }}" method="post">
-    @csrf
-    <input type="hidden" name="total" value="{{ $total }}">
-<a href="{{ route('checkout') }}" class="btn btn-dark w-100">
-    Proceed to Checkout
-</a></form>
+            <form action="{{ route('checkout.process') }}" method="post">
+              @csrf
+              <input type="hidden" name="total" value="{{ $total }}">
+              <a href="{{ route('checkout') }}" class="btn btn-dark w-100">
+                Proceed to Checkout
+              </a>
+            </form>
             <p class="small text-muted mt-2 mb-0">Taxes and shipping calculated at checkout.</p>
           </div>
         </div>
       </div>
-      @if(count($cart) > 0)
-    <!-- Show cart table and totals -->
-@else
-    <p>Your cart is empty.</p>
-    <a href="{{ route('shop') }}" class="btn btn-outline-primary">Go to Shop</a>
-@endif
 
     </div>
   </div>
 </section>
+
+
 <script>
 function changeQty(slug, delta) {
   const input = document.getElementById('qty-' + slug);
