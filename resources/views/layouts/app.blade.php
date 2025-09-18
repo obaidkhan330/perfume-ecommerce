@@ -9,23 +9,23 @@
     <title>Nexham-Perfumes</title>
     <meta charset="UTF-8">
     <meta name="description" content="nexham">
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Font Awesome 6 (latest icons) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Font Awesome 6 (latest icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<!-- Owl Carousel CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-utbXrsoPp+UQvZ9X2ZkYwFZ1gGZz7ZKXvZ+gkZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-3fKZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-utbXrsoPp+UQvZ9X2ZkYwFZ1gGZz7ZKXvZ+gkZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-3fKZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
 
@@ -48,28 +48,28 @@
 
 {{-- resources/views/layouts/app.blade.php ya jis layout ko use kar rahe ho --}}
 @if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show mt-2 mx-3" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+<div class="alert alert-success alert-dismissible fade show mt-2 mx-3" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 @endif
 
 @if (session('error'))
-    <div class="alert alert-danger alert-dismissible fade show mt-2 mx-3" role="alert">
-        {{ session('error') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+<div class="alert alert-danger alert-dismissible fade show mt-2 mx-3" role="alert">
+    {{ session('error') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 @endif
 
 @if ($errors->any())
-    <div class="alert alert-danger alert-dismissible fade show mt-2 mx-3" role="alert">
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+<div class="alert alert-danger alert-dismissible fade show mt-2 mx-3" role="alert">
+    <ul class="mb-0">
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 @endif
 
 
@@ -133,10 +133,10 @@
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">0</span>
                             </a>
                         </li>
-                       @php
-                            $cart = session()->get('cart', []);
-                             $cartCount = array_sum(array_column($cart, 'quantity'));
-                       @endphp
+                        @php
+                        $cart = session()->get('cart', []);
+                        $cartCount = array_sum(array_column($cart, 'quantity'));
+                        @endphp
 
                         <li class="nav-item me-2">
                             <a href="{{ route('cart.view') }}" class="position-relative text-white text-decoration-none">
@@ -151,7 +151,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow bg-dark " aria-labelledby="userMenu">
                                 <li><a class="dropdown-item text-light" href="#">{{ Auth::user()->name }}</a></li>
-                                 <hr class="dropdown-divider bg-dark">
+                                <hr class="dropdown-divider bg-dark">
                                 <li><a class="dropdown-item text-light" href="#">My Profile</a></li>
                                 <li><a class="dropdown-item text-light" href="#">Settings</a></li>
                                 <li>
@@ -225,69 +225,83 @@
     </div>
     <hr class=" bg-light p-0 m-0">
     <!-- Row 3: Main navigation -->
-<style>
-/* White toggler icon */
-.navbar-dark .navbar-toggler {
-    border-color: rgba(255, 255, 255, 0.5);
-}
-.navbar-dark .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255,255,255,1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-</style>
+    <style>
+        /* White toggler icon */
+        .navbar-dark .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <!-- Left Side Toggler -->
-        <button class="navbar-toggler me-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
-            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        .navbar-dark .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255,255,255,1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+    </style>
 
-        <!-- Collapse Menu -->
-        <div class="collapse navbar-collapse justify-content-end" id="mainNav">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="{{url('/')}}">Home</a></li>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <!-- Left Side Toggler -->
+            <button class="navbar-toggler me-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="shopDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="shopDropdown">
-                          <a href="{{ url('shop') }}" class="btn py-2 px-4">Shop</a>
-                        <li><a class="dropdown-item" href="#">Male</a></li>
-                        <li><a class="dropdown-item" href="#">Female</a></li>
-                        <li><a class="dropdown-item" href="#">Unisex</a></li>
-                    </ul>
-                </li>
+            <!-- Collapse Menu -->
+            <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{{url('/')}}">Home</a></li>
 
-                <li class="nav-item"><a class="nav-link" href="#">Summer Deal</a></li>
-                {{-- <li class="nav-item"><a class="nav-link" href="#">Daliywear</a></li> --}}
-                <li class="nav-item"><a class="nav-link" href="#">Male Perfume</a></li>
-               <li class="nav-item"><a class="nav-link" href="#">Female Perfume</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="shopDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="shopDropdown">
+                            <a href="{{ url('shop') }}" class="btn py-2 px-4">Shop</a>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('male', ['gender' => 'male']) }}">
+                                    Male
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('male', ['gender' => 'female']) }}">
+                                    Female
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('male', ['gender' => 'unisex']) }}">
+                                    Unisex
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" href="#">Summer Deal</a></li>
+                    {{-- <li class="nav-item"><a class="nav-link" href="#">Daliywear</a></li> --}}
+                    <li class="nav-item"><a class="nav-link" href="#">Male Perfume</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Female Perfume</a></li>
 
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="perfumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Perfume</a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfumeDropdown">
-                        <li><a class="dropdown-item" href="#">All Perfumes</a></li>
-                        <li><a class="dropdown-item" href="#">EDP</a></li>
-                        <li><a class="dropdown-item" href="#">Attar</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="perfumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Perfume</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfumeDropdown">
+                            <li><a class="dropdown-item" href="#">All Perfumes</a></li>
+                            <li><a class="dropdown-item" href="#">EDP</a></li>
+                            <li><a class="dropdown-item" href="#">Attar</a></li>
 
 
-                    </ul>
+                        </ul>
                     <li class="nav-item"><a class="nav-link" href="{{ url('about') }}">About US</a></li>
-                </li>
+                    </li>
 
-                @if(Auth::check())
-                  <li class="nav-item">
-                     <a class="nav-link" href="{{ route('orders.my') }}">My Orders</a>
-                 </li>
-               @endif
+                    @if(Auth::check())
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('orders.my') }}">My Orders</a>
+                    </li>
+                    @endif
 
 
-                <!-- Add more nav-items as needed -->
-            </ul>
+                    <!-- Add more nav-items as needed -->
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 
 
@@ -308,11 +322,11 @@
                             <img src="naxham/assets/images/logo.png" alt="logo" class="navbar-logo  ">
                         </a>
                         <p>Far far away, behind the word mountains, far from the countries.</p>
-                      <ul class="ftco-footer-social list-unstyled mt-2">
-    <li class="ftco-animate"><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-    <li class="ftco-animate"><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
-    <li class="ftco-animate"><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-</ul>
+                        <ul class="ftco-footer-social list-unstyled mt-2">
+                            <li class="ftco-animate"><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                            <li class="ftco-animate"><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                            <li class="ftco-animate"><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                        </ul>
 
                     </div>
                 </div>
@@ -395,17 +409,17 @@
 
 <!-- Carousel Initialization -->
 <script>
-  $(document).ready(function(){
-    $('#hero-carousel').owlCarousel({
-      items: 1,
-      loop: true,
-      autoplay: true,
-      autoplayTimeout: 8000,
-      smartSpeed: 900,
-      nav: false,
-      dots: true
+    $(document).ready(function() {
+        $('#hero-carousel').owlCarousel({
+            items: 1,
+            loop: true,
+            autoplay: true,
+            autoplayTimeout: 8000,
+            smartSpeed: 900,
+            nav: false,
+            dots: true
+        });
     });
-  });
 </script>
 
 
