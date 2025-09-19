@@ -88,7 +88,7 @@
         @else
             <button type="button" class="btn btn-outline-secondary btn-sm btn-md" disabled>
                 {{ $size }}ml (Not Available)
-            </button>
+            </button >
         @endif
     @endforeach
 </div>
