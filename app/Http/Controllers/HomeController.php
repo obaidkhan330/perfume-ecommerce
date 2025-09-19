@@ -31,6 +31,21 @@ public function showProducts($gender = null)
 
     return view('shop', compact('Products'));
 }
+public function maleProducts($gender = null)
+{
+    $query = Product::query();
+
+    if ($gender) {
+        $query->where('gender', $gender);
+    } else {
+        $query->where('gender', 'male'); // default male products
+    }
+
+    $Products = $query->latest()->get();
+
+    return view('male', ['maleProducts' => $Products]);
+}
+
 
 
 
