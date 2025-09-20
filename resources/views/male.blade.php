@@ -17,7 +17,7 @@
 
 .product-img {
     object-fit: cover;
-    height: 200px;  /* cart ki fixed height maintain karna */
+    height: 180px;  /* cart ki fixed height maintain karna */
 }
 
 
