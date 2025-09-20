@@ -171,11 +171,29 @@
                           <img src="{{ asset('storage/' . ($item['image'] ?? 'default.png')) }}" alt="">
                         </div>
                         <div class="cart-details">
-                          <a class="text-dark fw-bold text-decoration-none"
-                             href="{{ url('product/' . $item['slug']) }}">
-                            {{ $item['name'] }}
-                          </a>
-                          <div class="small text-muted">{{ $item['volume'] }}</div>
+                         <a class="text-dark fw-bold text-decoration-none"
+   href="
+    @if(isset($item['slug']))
+        {{ url('product/' . $item['slug']) }}
+    @elseif(isset($item['tester_id']))
+        {{ url('tester/' . $item['tester_id']) }}
+    @else
+        #
+    @endif
+   ">
+   {{ $item['name'] }}
+</a>
+
+                          <div class="small text-muted">
+    @if(isset($item['volume']))
+        {{ $item['volume'] }}
+    @elseif(isset($item['tester_id']))
+        Tester
+    @else
+        -
+    @endif
+</div>
+
                         </div>
                       </td>
                       <td class="cart-price text-center fw-bold">

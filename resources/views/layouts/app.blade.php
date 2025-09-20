@@ -274,7 +274,7 @@
 
                     <li class="nav-item"><a class="nav-link" href="#">Summer Deal</a></li>
                     {{-- <li class="nav-item"><a class="nav-link" href="#">Daliywear</a></li> --}}
-                    <li class="nav-item"><a class="nav-link" href="#">Male Perfume</a></li>
+                    <li class="nav-item"><a class="nav-link" href="">Male Perfume</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Female Perfume</a></li>
 
 

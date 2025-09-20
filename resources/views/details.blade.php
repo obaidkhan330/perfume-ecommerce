@@ -2,7 +2,14 @@
 
 @section('content')
 
+
+
 <style>
+    #quantity:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 .thumbnail-bar {
     display: flex;
     gap: 10px;
@@ -104,34 +111,49 @@
     <p class="text-muted">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>
     <p>{{ $product->description }}</p>
 
-    <div class="mt-3 d-flex align-items-center">
-        <label for="quantity" class="me-2">Qty:</label>
-        <div class="input-group" style="width: 120px;">
-            <button class="btn btn-outline-secondary" type="button" onclick="decreaseQty()">−</button>
-            <input type="number" id="quantity" class="form-control text-center" value="1" min="1">
-            <button class="btn btn-outline-secondary" type="button" onclick="increaseQty()">+</button>
-        </div>
+<div class="mt-3 d-flex align-items-center">
+    <label for="quantity" class="me-2">Qty:</label>
+    <div class="d-flex align-items-center rounded-pill border" style="overflow: hidden; width: 150px;">
+
+        <!-- Minus Button -->
+        <button type="button"
+                onclick="decreaseQty()"
+                class="btn  border-0 flex-fill"
+                style="max-width: 70px;">−</button>
+
+        <!-- Number Input -->
+        <input type="number" id="quantity"
+               class="form-control text-center border-0 flex-fill"
+               value="1" min="1"
+               style="max-width: 50px; box-shadow: none;">
+
+        <!-- Plus Button -->
+        <button type="button"
+                onclick="increaseQty()"
+                class="btn  border-0 flex-fill"
+                style="max-width: 70px;">+</button>
     </div>
+</div>
+
 
 <div class="mt-4 d-flex gap-3">
  {{-- Add to Cart --}}
 <form method="POST" action="{{ route('cart.add', $product->slug) }}">
     @csrf
-    <input type="hidden" name="variation_id" id="variationIdAdd">
-    <input type="hidden" name="price" id="variationPriceAdd">
-    <input type="hidden" name="volume" id="variationVolumeAdd">
-    <input type="hidden" name="quantity" id="variationQtyAdd">
+    <input type="hidden" name="variation_id" id="variationIdAdd" value="{{ $product->smallestVariation->id }}">
+    <input type="hidden" name="price" id="variationPriceAdd" value="{{ $product->smallestVariation->discount_price }}">
+    <input type="hidden" name="volume" id="variationVolumeAdd" value="{{ $product->smallestVariation->variation_type }}">
+    <input type="hidden" name="quantity" id="variationQtyAdd" value="1">
 
     <button type="submit" class="btn btn-primary">Add to Cart</button>
 </form>
 
-{{-- Buy Now --}}
 <form method="POST" action="{{ route('cart.buyNow', $product->slug) }}">
     @csrf
-    <input type="hidden" name="variation_id" id="variationIdBuy">
-    <input type="hidden" name="price" id="variationPriceBuy">
-    <input type="hidden" name="volume" id="variationVolumeBuy">
-    <input type="hidden" name="quantity" id="variationQtyBuy">
+    <input type="hidden" name="variation_id" id="variationIdBuy" value="{{ $product->smallestVariation->id }}">
+    <input type="hidden" name="price" id="variationPriceBuy" value="{{ $product->smallestVariation->discount_price }}">
+    <input type="hidden" name="volume" id="variationVolumeBuy" value="{{ $product->smallestVariation->variation_type }}">
+    <input type="hidden" name="quantity" id="variationQtyBuy" value="1">
 
     <button type="submit" class="btn btn-outline-dark">Buy Now</button>
 </form>
@@ -431,62 +453,52 @@ document.addEventListener("DOMContentLoaded", function () {
     const mlElement = document.getElementById("ml");
     const qtyInput = document.getElementById("quantity");
 
-    const variationIdInput = document.getElementById("variationId");
-    const variationPriceInput = document.getElementById("variationPrice");
-    const variationVolumeInput = document.getElementById("variationVolume");
-    const variationQtyInput = document.getElementById("variationQty");
-
     let currentPrice = parseFloat(priceElement.innerText) || 0;
 
-    // Function to update price
+    // Function to update displayed price
     function updatePrice() {
         const qty = parseInt(qtyInput.value) || 1;
-        priceElement.innerText = (currentPrice * qty).toFixed(0); // .00 hata diya
-        variationQtyInput.value = qty;
+        priceElement.innerText = (currentPrice * qty).toFixed(0);
+        document.getElementById("variationQtyAdd").value = qty;
+        document.getElementById("variationQtyBuy").value = qty;
     }
 
-// Variation button click
-buttons.forEach(btn => {
-    btn.addEventListener("click", function () {
-        const price = parseFloat(this.getAttribute("data-price"));
-        const volume = this.getAttribute("data-volume");
-        const id = this.getAttribute("data-id");
+    // Variation button click
+    buttons.forEach(btn => {
+        btn.addEventListener("click", function () {
+            const price = parseFloat(this.getAttribute("data-price"));
+            const volume = this.getAttribute("data-volume");
+            const id = this.getAttribute("data-id");
 
-        currentPrice = price;
-        mlElement.innerText = volume;
+            currentPrice = price;
+            mlElement.innerText = volume;
 
-        const qtyInput = document.getElementById("quantity");
+            // Add to Cart hidden inputs
+            document.getElementById("variationIdAdd").value = id;
+            document.getElementById("variationPriceAdd").value = price;
+            document.getElementById("variationVolumeAdd").value = volume;
+            document.getElementById("variationQtyAdd").value = qtyInput.value;
 
-        // Add to Cart hidden inputs
-        document.getElementById("variationIdAdd").value = id;
-        document.getElementById("variationPriceAdd").value = price;
-        document.getElementById("variationVolumeAdd").value = volume;
-        document.getElementById("variationQtyAdd").value = qtyInput.value;
+            // Buy Now hidden inputs
+            document.getElementById("variationIdBuy").value = id;
+            document.getElementById("variationPriceBuy").value = price;
+            document.getElementById("variationVolumeBuy").value = volume;
+            document.getElementById("variationQtyBuy").value = qtyInput.value;
 
-        // Buy Now hidden inputs
-        document.getElementById("variationIdBuy").value = id;
-        document.getElementById("variationPriceBuy").value = price;
-        document.getElementById("variationVolumeBuy").value = volume;
-        document.getElementById("variationQtyBuy").value = qtyInput.value;
+            // Highlight active button
+            buttons.forEach(b => {
+                b.classList.remove("btn-primary");
+                b.classList.add("btn-outline-primary");
+            });
+            this.classList.remove("btn-outline-primary");
+            this.classList.add("btn-primary");
 
-        // Active button highlight
-        buttons.forEach(b => {
-            b.classList.remove("btn-primary");
-            b.classList.add("btn-outline-primary");
+            updatePrice();
         });
-        this.classList.remove("btn-outline-primary");
-        this.classList.add("btn-primary");
-
-        updatePrice();
     });
-});
 
-// Sync quantity to both forms
-document.getElementById("quantity").addEventListener("input", function () {
-    document.getElementById("variationQtyAdd").value = this.value;
-    document.getElementById("variationQtyBuy").value = this.value;
-});
-
+    // Sync quantity with both forms
+    qtyInput.addEventListener("input", updatePrice);
 // Qty input change event (extra safe)
 // document.getElementById("quantity").addEventListener("input", function () {
 //     variationQtyInput.value = this.value;
@@ -514,6 +526,24 @@ document.getElementById("quantity").addEventListener("input", function () {
     updatePrice();
 });
 </script>
+
+{{-- selected products  --}}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form[action='{{ route('cart.bulk') }}']");
+    form.addEventListener("submit", function (e) {
+        const checked = form.querySelectorAll("input[name='selected_products[]']:checked");
+        if (checked.length === 0) {
+            e.preventDefault();
+            alert("Please select the product"); // Simple alert (ya bootstrap alert bhi laga sakte ho)
+        }
+    });
+});
+</script>
+
+
+
+
 
 @endsection
 

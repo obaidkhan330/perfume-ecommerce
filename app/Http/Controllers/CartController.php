@@ -85,36 +85,50 @@ public function removeItem($key)
 
 public function bulkAdd(Request $request)
 {
+    $selected = $request->input('selected_products', []);
+
+    if (empty($selected)) {
+        return back()->with('error', 'Please select the product');
+    }
+
     $cart = session()->get('cart', []);
 
-    foreach ($request->selected_products ?? [] as $slug) {
-        $variationId = $request->variation_id[$slug];
-        $price = $request->price[$slug];
-        $volume = $request->volume[$slug];
-        $quantity = $request->quantity[$slug];
+    foreach ($selected as $slug) {
+        $product = Product::where('slug', $slug)->first();
+        if (!$product) continue;
 
-        $key = $slug . '-' . $variationId;
+        $variationId = $request->variation_id[$slug] ?? null;
+        $price       = $request->price[$slug] ?? 0;
+        $volume      = $request->volume[$slug] ?? '';
+        $quantity    = $request->quantity[$slug] ?? 1;
 
-        if (isset($cart[$key])) {
-            $cart[$key]['quantity'] += $quantity;
-        } else {
-            $product = Product::where('slug', $slug)->first();
-            if ($product) {
-                $cart[$key] = [
-                    'name' => $product->name,
-                    'price' => $price,
-                    'image' => $product->image,
-                    'volume' => $volume,
-                    'quantity' => $quantity
+        if ($variationId) {
+            if (isset($cart[$slug])) {
+                $cart[$slug]['quantity'] += $quantity;
+            } else {
+                $cart[$slug] = [
+                    'slug'     => $slug,
+                    'name'     => $product->name,
+                    'price'    => (float) $price,
+                    'image'    => $product->image,
+                    'volume'   => $volume,
+                    'quantity' => (int) $quantity,
                 ];
             }
         }
     }
 
     session()->put('cart', $cart);
-    return redirect()->route('cart.view')->with('success', 'Selected products added to cart!');
-}
 
+    // ✅ Agar buy select kiya to direct checkout
+    if ($request->action === 'buy') {
+        return redirect()->route('checkout')
+            ->with('success', 'Selected products added. Proceed to checkout.');
+    }
+
+    // ✅ Add to cart case
+    return back()->with('success', 'Selected products added to cart.');
+}
 
 
 
@@ -157,7 +171,7 @@ public function buyNow(Request $request, $slug)
         $cart[$slug] = [
             'slug'     => $slug,
             'name'     => $product->name,
-            'price'    => $price,            
+            'price'    => $price,
             'image'    => $product->image,
             'volume'   => $volume,
             'quantity' => $quantity
