@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Notifications\OrderStatusChangedNotification;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Notifications\NewOrderNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -62,11 +67,13 @@ class OrderController extends Controller
 
     // Clear cart
     session()->forget('cart');
+$admins = User::where('role', 'admin')->get();
+Notification::send($admins, new NewOrderNotification($order));
 
     return redirect()->route('orders.my')->with('success', 'Order placed successfully!');
 }
 
-    // view user orders
+        // view user orders
    public function myOrders()
     {
         if (!Auth::check()) {
@@ -87,8 +94,14 @@ class OrderController extends Controller
 public function updateStatus(Request $request, $id)
 {
     $order = Order::findOrFail($id);
+        $old = $order->status;
     $order->status = $request->status;
     $order->save();
+
+    // ✅ notify the customer
+    if ($order->user) {
+        $order->user->notify(new OrderStatusChangedNotification($order, $old, $order->status));
+    }
 
     return back()->with('success', 'Order status updated successfully.');
 }
@@ -100,4 +113,16 @@ public function destroy($id)
 
     return back()->with('success', 'Order deleted successfully.');
 }
+
+
+
+public function getOrderStatus($id)
+{
+    $order = Order::find($id);
+    if($order){
+        return response()->json(['status' => $order->status]);
+    }
+    return response()->json(['status' => 'pending']);
+}
+
 }

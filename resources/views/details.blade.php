@@ -136,17 +136,27 @@
 </div>
 
 
-<div class="mt-4 d-flex gap-3">
- {{-- Add to Cart --}}
-<form method="POST" action="{{ route('cart.add', $product->slug) }}">
-    @csrf
-    <input type="hidden" name="variation_id" id="variationIdAdd" value="{{ $product->smallestVariation->id }}">
-    <input type="hidden" name="price" id="variationPriceAdd" value="{{ $product->smallestVariation->discount_price }}">
-    <input type="hidden" name="volume" id="variationVolumeAdd" value="{{ $product->smallestVariation->variation_type }}">
-    <input type="hidden" name="quantity" id="variationQtyAdd" value="1">
 
-    <button type="submit" class="btn btn-primary">Add to Cart</button>
-</form>
+<div class="mt-4 d-flex gap-3 align-items-center">
+    {{-- Add to Cart Form --}}
+    <form method="POST" action="{{ route('cart.add', $product->slug) }}" class="d-flex gap-2 align-items-center">
+        @csrf
+        <input type="hidden" name="variation_id" id="variationIdAdd" value="{{ $product->smallestVariation->id }}">
+        <input type="hidden" name="price" id="variationPriceAdd" value="{{ $product->smallestVariation->discount_price }}">
+        <input type="hidden" name="volume" id="variationVolumeAdd" value="{{ $product->smallestVariation->variation_type }}">
+        <input type="hidden" name="quantity" id="variationQtyAdd" value="1">
+
+        <button type="submit" class="btn btn-primary">Add to Cart</button>
+
+{{-- Wishlist Heart Icon --}}
+<button type="button"
+        class="wishlist-btn btn btn-outline-danger ms-2"
+        data-product-id="{{ $product->id }}">
+    <i class="bi bi-heart{{ auth()->user()->wishlists->contains('product_id', $product->id) ? '-fill' : '' }}"></i>
+</button>
+
+    </form>
+
 
 <form method="POST" action="{{ route('cart.buyNow', $product->slug) }}">
     @csrf
@@ -441,6 +451,65 @@
         ← Back to Home
     </a>
 </div>
+
+
+{{-- Toast Container --}}
+<div id="wishlist-toast" style="position: fixed; top: 20px; right: 20px; z-index: 9999; display: none;">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <span id="wishlist-toast-message"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+
+    function showToast(message) {
+        $('#wishlist-toast-message').text(message);
+        $('#wishlist-toast').fadeIn();
+
+        // Auto hide after 3 seconds
+        setTimeout(function(){
+            $('#wishlist-toast').fadeOut();
+        }, 3000);
+    }
+
+    $('.wishlist-btn').click(function(e){
+        e.preventDefault();
+        var btn = $(this);
+        var productId = btn.data('product-id');
+        var icon = btn.find('i');
+
+        if(icon.hasClass('bi-heart')) {
+            // Add to wishlist
+            $.post('/wishlist/' + productId, {_token: '{{ csrf_token() }}'}, function(res){
+                icon.removeClass('bi-heart').addClass('bi-heart-fill');
+                $('#wishlist-count').text(res.count);
+                showToast('Product added to wishlist successfully!');
+            });
+        } else {
+            // Remove from wishlist
+            $.ajax({
+                url: '/wishlist/' + productId,
+                type: 'DELETE',
+                data: {_token: '{{ csrf_token() }}'},
+                success: function(res){
+                    icon.removeClass('bi-heart-fill').addClass('bi-heart');
+                    $('#wishlist-count').text(res.count);
+                    showToast('Product removed from wishlist.');
+                }
+            });
+        }
+    });
+
+});
+</script>
+
 
 
 

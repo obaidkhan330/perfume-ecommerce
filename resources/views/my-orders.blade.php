@@ -6,7 +6,7 @@
 
     @if($orders->count() > 0)
         @foreach($orders as $order)
-        <div class="card mb-4 shadow-sm">
+        <div class="card mb-4 shadow-sm" id="order-{{ $order->id }}">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span><strong>Order </strong> - {{ $order->created_at->format('d M, Y h:i A') }}</span>
                 <span class="badge bg-dark">Total: PKR {{ number_format($order->total, 0) }}</span>
@@ -41,18 +41,19 @@
                 <!-- Order Tracking -->
                 <h6 class="fw-bold mb-2">Order Status</h6>
                 <div class="progress mb-3" style="height: 25px;">
-                    <div class="progress-bar
-                        @if($order->status == 'pending') bg-secondary
-                        @elseif($order->status == 'processing') bg-info
-                        @elseif($order->status == 'shipped') bg-warning
-                        @elseif($order->status == 'delivered') bg-success
-                        @endif"
+                    <div class="progress-bar status-bar"
+                        data-order-id="{{ $order->id }}"
                         role="progressbar"
                         style="width:
                             @if($order->status == 'pending') 25%
                             @elseif($order->status == 'processing') 50%
                             @elseif($order->status == 'shipped') 75%
                             @elseif($order->status == 'delivered') 100%
+                            @endif;
+                            @if($order->status == 'pending') background-color: #6c757d;
+                            @elseif($order->status == 'processing') background-color: #0dcaf0;
+                            @elseif($order->status == 'shipped') background-color: #ffc107;
+                            @elseif($order->status == 'delivered') background-color: #198754;
                             @endif">
                         {{ ucfirst($order->status ?? 'Pending') }}
                     </div>
@@ -73,4 +74,41 @@
         </div>
     @endif
 </div>
+@endsection
+
+@section('scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+
+    function fetchOrderStatuses(){
+        $('.status-bar').each(function(){
+            var orderId = $(this).data('order-id');
+            var bar = $(this);
+
+            $.ajax({
+                url: '/user/order-status/' + orderId,
+                method: 'GET',
+                success: function(response){
+                    // Update width and color based on status
+                    var status = response.status;
+                    var width = '25%';
+                    var color = '#6c757d'; // default pending
+
+                    if(status == 'processing'){ width='50%'; color='#0dcaf0'; }
+                    else if(status == 'shipped'){ width='75%'; color='#ffc107'; }
+                    else if(status == 'delivered'){ width='100%'; color='#198754'; }
+
+                    bar.css('width', width);
+                    bar.css('background-color', color);
+                    bar.text(status.charAt(0).toUpperCase() + status.slice(1));
+                }
+            });
+        });
+    }
+
+    // Check every 5 seconds
+    setInterval(fetchOrderStatuses, 5000);
+});
+</script>
 @endsection

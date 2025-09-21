@@ -127,11 +127,28 @@
                         @endguest
 
                         @auth
-                        <li class="nav-item me-2">
-                            <a href="#" class="position-relative text-white text-decoration-none">
-                                <i class="bi bi-heart fs-5"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">0</span>
-                            </a>
+                      <li class="nav-item me-2">
+    <a href="{{ route('wishlist.index') }}" class="position-relative text-white text-decoration-none">
+        <i class="bi bi-heart fs-5"></i>
+        <span id="wishlist-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">
+            {{ auth()->user()->wishlists()->count() ?? 0 }}
+        </span>
+    </a>
+</li>
+
+        {{-- <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="userNotifDropdown" role="button"
+       data-bs-toggle="dropdown" aria-expanded="false">
+        🔔 <span id="user-notif-count" class="badge bg-danger">0</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" id="user-notif-list" aria-labelledby="userNotifDropdown">
+        <li><span class="dropdown-item">Loading...</span></li>
+    </ul>
+</li>
+<div id="user-notif-popup" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;"></div>
+ --}}
+
+
                         </li>
                         @php
                         $cart = session()->get('cart', []);
@@ -279,16 +296,16 @@
 
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="perfumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Perfume</a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfumeDropdown">
+                        {{-- <a class="nav-link dropdown-toggle" href="#" id="perfumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Perfume</a> --}}
+                        {{-- <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfumeDropdown">
                             <li><a class="dropdown-item" href="#">All Perfumes</a></li>
                             <li><a class="dropdown-item" href="#">EDP</a></li>
                             <li><a class="dropdown-item" href="#">Attar</a></li>
 
 
-                        </ul>
+                        </ul> --}}
                     <li class="nav-item"><a class="nav-link" href="{{ url('about') }}">About US</a></li>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('contact') }}">Contact US</a></li>
 
                     @if(Auth::check())
                     <li class="nav-item">
@@ -398,6 +415,80 @@
             <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
             <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" />
         </svg></div>
+
+
+
+
+
+
+
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function loadUserNotifications() {
+    $.ajax({
+        url: "{{ route('notifications.fetch') }}",
+        method: 'GET',
+        success: function(data) {
+            let notifications = data.notifications;
+            let list = $("#user-notif-list");
+            let count = $("#user-notif-count");
+            let popup = $("#user-notif-popup");
+
+            list.empty();
+
+            if(notifications.length > 0){
+                count.text(notifications.length);
+
+                notifications.forEach(function(notif){
+                    // Dropdown
+                    list.append(`
+                        <li class="d-flex justify-content-between align-items-center px-2">
+                            <a class="dropdown-item" href="#">
+                                ${notif.data.message}
+                            </a>
+                            <button class="btn btn-sm btn-link text-danger" onclick="deleteUserNotif('${notif.id}')">
+                                ❌
+                            </button>
+                        </li>
+                    `);
+
+                    // Popup
+                    popup.append(`
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            ${notif.data.message}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    `);
+                });
+            } else {
+                count.text(0);
+                list.append('<li><span class="dropdown-item">No new notifications</span></li>');
+            }
+        }
+    });
+}
+
+function deleteUserNotif(id){
+    $.ajax({
+        url: "/notifications/delete/" + id,
+        method: 'DELETE',
+        data: {_token: "{{ csrf_token() }}"},
+        success: function(){
+            loadUserNotifications();
+        }
+    });
+}
+
+// Page load pe call
+loadUserNotifications();
+
+// Har 10 second baad refresh
+setInterval(loadUserNotifications, 10000);
+</script>
+
+
+ --}}
 
 
 </body>

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Admin\TesterController;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -96,6 +97,8 @@ Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('chec
 Route::get('/admin/orders', [OrderController::class, 'index'])->name('admin.orders');
 
 Route::get('/my-orders', [OrderController::class, 'myOrders'])->name('orders.my');
+Route::get('/user/order-status/{id}', [OrderController::class, 'getOrderStatus']);
+
 
 
 
@@ -151,7 +154,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
     Route::post('/wishlist/{productId}', [WishlistController::class, 'store'])->name('wishlist.store');
-    Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+    Route::delete('/wishlist/{productId}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+
+    Route::get('/notifications/fetch', [App\Http\Controllers\User\UserNotificationController::class, 'fetch'])
+        ->name('notifications.fetch');
+
+    Route::delete('/notifications/delete/{id}', [App\Http\Controllers\User\UserNotificationController::class, 'delete'])
+        ->name('notifications.delete');
 });
 
 
@@ -169,11 +178,24 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/variations', [AdminVariationController::class, 'store'])->name('admin.variations.store');
     Route::put('/variations/update/{id}', [AdminVariationController::class, 'update'])->name('admin.variations.update');
     Route::delete('/variations/destroy/{id}', [AdminVariationController::class, 'destroy'])->name('admin.variations.destroy');
+
+
+     Route::get('/notifications/fetch', [App\Http\Controllers\Admin\AdminNotificationController::class, 'fetch'])
+        ->name('admin.notifications.fetch');
+
+    Route::delete('/notifications/delete/{id}', [App\Http\Controllers\Admin\AdminNotificationController::class, 'delete'])
+        ->name('admin.notifications.delete');
 });
 
 
 
-// fetch products
+// notification routes
 
 
+// Route::get('/notifications', function () {
+//     return response()->json([
+//         'notifications' => Auth::user()->unreadNotifications
+//     ]);
+// })->name('notifications.fetch');
 
+// ✅ Admin Notifications routes

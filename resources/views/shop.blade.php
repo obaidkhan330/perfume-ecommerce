@@ -4,53 +4,88 @@
 
 
 <style>
-   .product-card {
-  position: relative;
-  display: block;
-  overflow: hidden;
+.product-card {
+    position: relative; /* Needed for absolute positioning of hover icons */
+    overflow: hidden;
 }
 
-    .hover-icons {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        z-index: 2;
-    }
+.product-card .hover-icons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
 
-    .product-card:hover .hover-icons {
-        opacity: 1;
-    }
+/* Show icons on card hover */
+.product-card:hover .hover-icons {
+    opacity: 1;
+    pointer-events: auto;
+}
 
-    .hover-icons a {
-        background-color: white;
-        border-radius: 50%;
-        padding: 6px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        color: black;
-        font-size: 14px;
-        text-align: center;
-        width: 30px;
-        height: 30px;
-        line-height: 18px;
+.hover-icons .hover-btn,
+.hover-icons .hover-btn-heart,
+.hover-icons a.hover-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: black;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 16px;
+}
+
+.hover-icons .hover-btn:hover,
+.hover-icons .hover-btn-heart:hover,
+.hover-icons a.hover-btn:hover {
+    background: black;
+    color: white;
+    transform: scale(1.1);
+}
+
+
+
+    .banner-container {
+    width: 100%;
+    height: 400px; /* desktop ki height fix */
+    overflow: hidden;
+    position: relative;
+    border-radius: 12px; /* optional rounded look */
+    margin-top: 1px;
+}
+
+.banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* crop karega lekin distort nahi karega */
+    object-position: center; /* image ko center rakhega */
+}
+
+/* Mobile ke liye responsive height */
+@media (max-width: 768px) {
+    .banner-container {
+        height: 250px; /* mobile me thoda chota */
     }
+}
+
+
 </style>
 
-<section class="hero-wrap hero-wrap-2" style="background-image: url('naxham/assets/images/perfume4.jpg');" data-stellar-background-ratio="0.2">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-end justify-content-center">
-          <div class="col-md-9 ftco-animate mb-7 text-center">
-          	{{-- <p class="breadcrumbs mb-0"><span class="mr-2"><a href="{{ url('/') }}">Home <i class="fa fa-chevron-right"></i></a></span> <span>Products <i class="fa fa-chevron-right"></i></span></p> --}}
-            {{-- <h2 class="mb-0 bread">Products</h2> --}}
-          </div>
-        </div>
-      </div>
-    </section>
+<section class="banner-section mb-4">
+    <div class="banner-container">
+        <img src="{{ asset('naxham/assets/images/slider1.jpg') }}" alt="Banner" class="banner-img">
+    </div>
+</section>
 
 
   <!-- Main content -->
@@ -80,44 +115,61 @@
     {{ ucfirst(request()->segment(2) ?? 'All') }} Products
 </h2>
     @forelse($Products as $product)
-      <div class="col-lg-3 col-md-4 col-6 mb-4">
-        <div class="card p-2 shadow-sm product-card">
-         <div class="hover-icons">
-  <a href="{{ url('details/' . $product->slug) }}"><i class="fas fa-search"></i></a>
+   <div class="col-lg-3 col-md-4 col-6 mb-4">
+    <div class="card p-2 shadow-sm product-card position-relative">
 
-  @if($product->smallestVariation)
+        {{-- Hover Icons --}}
+     <div class="hover-icons d-flex flex-column gap-2">
+    {{-- Search Icon --}}
+    <a href="{{ url('details/' . $product->slug) }}" class="hover-btn">
+        <i class="fas fa-search"></i>
+    </a>
+
+    {{-- Add to Cart Icon Button --}}
+    @if($product->smallestVariation)
     <form action="{{ route('cart.add', $product->slug) }}" method="POST" style="display:inline;">
-      @csrf
-      <input type="hidden" name="variation_id" value="{{ $product->smallestVariation->id }}">
-      <input type="hidden" name="price" value="{{ $product->smallestVariation->discount_price }}">
-      <input type="hidden" name="volume" value="{{ $product->smallestVariation->type }}">
-      <input type="hidden" name="quantity" value="1">
+        @csrf
+        <input type="hidden" name="variation_id" value="{{ $product->smallestVariation->id }}">
+        <input type="hidden" name="price" value="{{ $product->smallestVariation->discount_price }}">
+        <input type="hidden" name="volume" value="{{ $product->smallestVariation->type }}">
+        <input type="hidden" name="quantity" value="1">
 
-      <button type="submit" style="border:none; background:none;">
-        <i class="fas fa-plus text-white"></i>
-      </button>
+        <button type="submit" class="hover-btn">
+            <i class="fas fa-shopping-cart text-white"></i>
+        </button>
     </form>
-  @endif
+    @endif
+
+    {{-- Wishlist Heart --}}
+    <button type="button" class="wishlist-btn hover-btn-heart" data-product-id="{{ $product->id }}">
+        <i class="bi bi-heart{{ auth()->user()->wishlists->contains('product_id', $product->id) ? '-fill' : '' }}"></i>
+    </button>
 </div>
-          <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top mb-2" alt="{{ $product->name }}" style="height: 180px; object-fit: cover;">
-          <div class="card-body p-2 text-center">
+
+
+        {{-- Product Image --}}
+        <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top mb-2 product-img" alt="{{ $product->name }}" style="height: 180px; object-fit: cover;">
+
+        {{-- Card Body --}}
+        <div class="card-body p-2 text-center">
             <small class="fw-bold">{{ $product->name }}</small>
             <p class="mb-1">Inspired by {{ $product->brand->name }}</p>
 
             @if($product->smallestVariation)
-              <p class="mb-0">
+            <p class="mb-0">
                 <span class="price text-muted" style="text-decoration: line-through;">
-                  {{ $product->smallestVariation->price }}-
+                    {{ $product->smallestVariation->price }}-
                 </span>
                 <span class="price text-danger fw-bold">
-                  {{ $product->smallestVariation->discount_price }}
+                    {{ $product->smallestVariation->discount_price }}
                 </span>
                 PKR
-              </p>
+            </p>
             @endif
-          </div>
         </div>
-      </div>
+    </div>
+</div>
+
     @empty
       <p class="text-center">No products available.</p>
     @endforelse
