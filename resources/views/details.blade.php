@@ -42,6 +42,27 @@
     }
 }
 
+
+
+    /* sirf mobile ke liye */
+    @media (max-width: 767.98px) {
+        .whatsapp-mobile-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 14px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+        .whatsapp-mobile-btn i {
+            font-size: 20px;
+        }
+    }
+
+
 </style>
 
 
@@ -136,8 +157,7 @@
 </div>
 
 
-
-<div class="mt-4 d-flex gap-3 align-items-center">
+<div class="mt-4 d-flex flex-wrap gap-3 align-items-center product-actions">
     {{-- Add to Cart Form --}}
     <form method="POST" action="{{ route('cart.add', $product->slug) }}" class="d-flex gap-2 align-items-center">
         @csrf
@@ -147,26 +167,50 @@
         <input type="hidden" name="quantity" id="variationQtyAdd" value="1">
 
         <button type="submit" class="btn btn-primary">Add to Cart</button>
-
-{{-- Wishlist Heart Icon --}}
-<button type="button"
-        class="wishlist-btn btn btn-outline-danger ms-2"
-        data-product-id="{{ $product->id }}">
-    <i class="bi bi-heart{{ auth()->user()->wishlists->contains('product_id', $product->id) ? '-fill' : '' }}"></i>
-</button>
-
     </form>
 
+    <form method="POST" action="{{ route('cart.buyNow', $product->slug) }}">
+        @csrf
+        <input type="hidden" name="variation_id" id="variationIdBuy" value="{{ $product->smallestVariation->id }}">
+        <input type="hidden" name="price" id="variationPriceBuy" value="{{ $product->smallestVariation->discount_price }}">
+        <input type="hidden" name="volume" id="variationVolumeBuy" value="{{ $product->smallestVariation->variation_type }}">
+        <input type="hidden" name="quantity" id="variationQtyBuy" value="1">
 
-<form method="POST" action="{{ route('cart.buyNow', $product->slug) }}">
-    @csrf
-    <input type="hidden" name="variation_id" id="variationIdBuy" value="{{ $product->smallestVariation->id }}">
-    <input type="hidden" name="price" id="variationPriceBuy" value="{{ $product->smallestVariation->discount_price }}">
-    <input type="hidden" name="volume" id="variationVolumeBuy" value="{{ $product->smallestVariation->variation_type }}">
-    <input type="hidden" name="quantity" id="variationQtyBuy" value="1">
+        {{-- Buy Now Button --}}
+        <button type="submit" class="btn btn-outline-dark">Buy Now</button>
 
-    <button type="submit" class="btn btn-outline-dark">Buy Now</button>
+        {{-- Wishlist Heart Icon --}}
+        <button type="button"
+                class="wishlist-btn btn btn-outline-danger ms-2"
+                data-product-id="{{ $product->id }}">
+            <i class="bi bi-heart{{ auth()->user()->wishlists->contains('product_id', $product->id) ? '-fill' : '' }}"></i>
+        </button>
+    {{-- WhatsApp Order Button (Desktop Only) --}}
+    @php
+        $whatsappNumber = '923179452521'; // apna number
+        $productUrl = url('/details/' . $product->slug);
+    @endphp
+    <a id="whatsappBtnDesktop"
+       href="https://wa.me/{{ $whatsappNumber }}?text={{ urlencode('Hello, I want to order this product:') }}"
+       target="_blank"
+       class="btn btn-success ms-2 d-none d-md-inline-flex align-items-center">
+        <i class="bi bi-whatsapp fs-5 me-1"></i>
+        Order on WhatsApp
+    </a>
 </form>
+
+
+</div>
+{{-- WhatsApp Order Button (Mobile Only - New Row) --}}
+<div class="mt-3 d-block d-md-none">
+    <a id="whatsappBtnMobile"
+       href="https://wa.me/{{ $whatsappNumber }}?text={{ urlencode('Hello, I want to order this product:') }}"
+       target="_blank"
+       class="btn btn-success whatsapp-mobile-btn">
+        <i class="bi bi-whatsapp fs-4 me-2"></i>
+        Order on WhatsApp
+    </a>
+
 
 </div>
 
@@ -511,6 +555,54 @@ $(document).ready(function(){
 </script>
 
 
+
+
+{{-- Script to Update WhatsApp Link with Selected Variation --}}
+<script>
+    function updateWhatsAppLink() {
+        let productName = @json($product->name);
+        let productSlug = @json($product->slug);
+        let baseUrl = "{{ url('/details') }}/" + productSlug;
+        let volume = document.getElementById('variationVolumeBuy').value;
+        let qty = parseInt(document.getElementById('variationQtyBuy').value) || 1;
+        let number = "{{ $whatsappNumber }}";
+
+        // ✅ Sirf Name, Size aur Qty ka message
+        let message = `Hello, I want to order this product:\n\n` +
+                      `Product: ${productName}\n` +
+                      `Size: ${volume}\n` +
+                      `Quantity: ${qty}\n` +
+                      `Link: ${baseUrl}`;
+
+        // ✅ WhatsApp link update
+        let link = "https://wa.me/" + number + "?text=" + encodeURIComponent(message);
+
+        document.getElementById('whatsappBtnDesktop').href = link;
+        document.getElementById('whatsappBtnMobile').href = link;
+    }
+
+    // variation change hone par update
+    document.querySelectorAll('.variation-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            document.getElementById('variationIdBuy').value = this.dataset.id;
+            document.getElementById('variationPriceBuy').value = this.dataset.price;
+            document.getElementById('variationVolumeBuy').value = this.dataset.volume;
+            updateWhatsAppLink();
+        });
+    });
+
+    // agar visible qty input hai, uske change par hidden qty update karo
+    const qtyInput = document.getElementById('qtyInput');
+    if (qtyInput) {
+        qtyInput.addEventListener('input', function () {
+            document.getElementById('variationQtyBuy').value = this.value;
+            updateWhatsAppLink();
+        });
+    }
+
+    // page load hone par call karo
+    document.addEventListener('DOMContentLoaded', updateWhatsAppLink);
+</script>
 
 
 

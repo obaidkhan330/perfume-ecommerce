@@ -190,4 +190,8 @@ public function buyNow(Request $request, $slug)
 
 
 
+
+
+
+
 }
