@@ -86,7 +86,7 @@
                 </div>
             </div>
         @empty
-            <p class="text-center">Male products not available.</p>
+            <p class="text-center">products not available for this {{ $brandName }}.</p>
         @endforelse
     </div>
 </section>
