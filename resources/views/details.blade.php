@@ -178,13 +178,20 @@
 
         {{-- Buy Now Button --}}
         <button type="submit" class="btn btn-outline-dark">Buy Now</button>
+{{-- Wishlist Heart Icon --}}
+@php
+    $isInWishlist = false;
+    if (auth()->check()) {
+        $isInWishlist = auth()->user()->wishlists->contains('product_id', $product->id);
+    }
+@endphp
 
-        {{-- Wishlist Heart Icon --}}
-        <button type="button"
-                class="wishlist-btn btn btn-outline-danger ms-2"
-                data-product-id="{{ $product->id }}">
-            <i class="bi bi-heart{{ auth()->user()->wishlists->contains('product_id', $product->id) ? '-fill' : '' }}"></i>
-        </button>
+<button type="button"
+        class="wishlist-btn btn btn-outline-danger ms-2"
+        data-product-id="{{ $product->id }}">
+    <i class="bi bi-heart{{ $isInWishlist ? '-fill' : '' }}"></i>
+</button>
+
     {{-- WhatsApp Order Button (Desktop Only) --}}
     @php
         $whatsappNumber = '923179452521'; // apna number
@@ -199,6 +206,10 @@
     </a>
 
 
+
+</div>
+</form>
+
     <div class="mt-3 d-block d-md-none">
     <a id="whatsappBtnMobile"
        href="https://wa.me/{{ $whatsappNumber }}?text={{ urlencode('Hello, I want to order this product:') }}"
@@ -207,10 +218,6 @@
         <i class="bi bi-whatsapp fs-4 me-2"></i>
         Order on WhatsApp
     </a>
-
-
-</div>
-</form>
 
 
 </div>
