@@ -197,12 +197,9 @@
         <i class="bi bi-whatsapp fs-5 me-1"></i>
         Order on WhatsApp
     </a>
-</form>
 
 
-</div>
-{{-- WhatsApp Order Button (Mobile Only - New Row) --}}
-<div class="mt-3 d-block d-md-none">
+    <div class="mt-3 d-block d-md-none">
     <a id="whatsappBtnMobile"
        href="https://wa.me/{{ $whatsappNumber }}?text={{ urlencode('Hello, I want to order this product:') }}"
        target="_blank"
@@ -213,6 +210,12 @@
 
 
 </div>
+</form>
+
+
+</div>
+{{-- WhatsApp Order Button (Mobile Only - New Row) --}}
+
 
 </div>
 
