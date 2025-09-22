@@ -169,44 +169,37 @@
     <div class="container">
         <h2 class="mb-4 text-center">POPULAR CATEGORIES</h2>
 
-        <div class="scroll-row d-flex flex-nowrap overflow-auto">
+        <div class="scroll-row d-flex justify-content-center flex-nowrap overflow-auto">
             <div class="category-box text-center">
-                <a href="#" class="d-block">
+                <a href="{{ route('male', ['gender' => 'male']) }}" class="d-block">
                     <div class="img" style="background-image: url(naxham/assets/images/perfume1.jpg);"></div>
                     <h3>MALE</h3>
                 </a>
             </div>
             <div class="category-box text-center">
-                <a href="#" class="d-block">
+                <a href="{{ route('male', ['gender' => 'female']) }}" class="d-block">
                     <div class="img" style="background-image: url(naxham/assets/images/perfume2.jpg);"></div>
                     <h3>FEMALE</h3>
                 </a>
             </div>
             <div class="category-box text-center">
-                <a href="#" class="d-block">
+                <a href="{{ route('male', ['gender' => 'unisex']) }}" class="d-block">
                     <div class="img" style="background-image: url(naxham/assets/images/perfume3.jpg);"></div>
                     <h3>UNISEX</h3>
                 </a>
             </div>
+
+
+
+           @foreach ($brands as $brand)
             <div class="category-box text-center">
-                <a href="#" class="d-block">
-                    <div class="img" style="background-image: url(naxham/assets/images/perfume4.jpg);"></div>
-                    <h3>Summer DEal</h3>
-                </a>
-            </div>
-            <div class="category-box text-center">
-                <a href="#" class="d-block">
-                    <div class="img" style="background-image: url(naxham/assets/images/perfume5.jpg);"></div>
-                    <h3>LEXARO</h3>
-                </a>
-            </div>
-            <div class="category-box text-center">
-                <a href="#" class="d-block">
-                    <div class="img" style="background-image: url(naxham/assets/images/perfume6.jpg);"></div>
-                    <h3>VELORAIN</h3>
+                <a href="{{ route('brands.details', ['brand' => $brand->slug]) }}" class="d-block">
+                    <div class="img" style="background-image: url({{ asset('storage/' . $brand->logo) }});"></div>
+                    <h3>{{ $brand->name }}</h3>
                 </a>
             </div>
 
+           @endforeach
         </div>
     </div>
 </section>

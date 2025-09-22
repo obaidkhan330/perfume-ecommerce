@@ -112,6 +112,7 @@ Route::get('product', function () {
 });
 
 Route::get('male/{gender?}', [HomeController::class, 'maleProducts'])->name('male');
+Route::get('brands/{brand:slug}', [HomeController::class, 'brandProducts'])->name('brands.details');
 
 Route::get('details/{slug}', [HomeController::class, 'productDetails'])->name('details');
 
