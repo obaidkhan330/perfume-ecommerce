@@ -35,12 +35,12 @@ class CheckoutController extends Controller
 
         $cart = session('cart', []);
         if (empty($cart)) {
-            return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
+            return redirect()->route('/cart')->with('error', 'Your cart is empty.');
         }
 
         // Save order
         $order = Order::create([
-            'user_id'   => Auth::id(),
+            'user_id' => Auth::id() ?? null,
             'first_name'=> $request->first_name,
             'last_name' => $request->last_name,
             'email'     => $request->email,

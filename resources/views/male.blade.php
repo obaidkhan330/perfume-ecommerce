@@ -54,7 +54,7 @@
 </section>
 
 
-<section class="container py-5">
+<section class="container-fluid py-5">
     <div class="row g-3">
         @forelse($maleProducts as $product)
             <div class="col-6 col-md-4 col-lg-3">
@@ -91,3 +91,4 @@
 </section>
 
 @endsection
+

@@ -162,6 +162,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('/notifications/delete/{id}', [App\Http\Controllers\User\UserNotificationController::class, 'delete'])
         ->name('notifications.delete');
+
+        // deal routes
+        // User side
+Route::get('/summer-deals', [App\Http\Controllers\SummerDealController::class, 'index'])->name('summer-deals.index');
+
+
 });
 
 
@@ -186,17 +192,19 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::delete('/notifications/delete/{id}', [App\Http\Controllers\Admin\AdminNotificationController::class, 'delete'])
         ->name('admin.notifications.delete');
+
+
+
+
+
+
+// Admin Summer Deals
+    Route::get('/summer-deals', [App\Http\Controllers\AdminSummerDealController::class, 'index'])->name('summer-deals.index');
+    Route::post('/summer-deals/store', [App\Http\Controllers\AdminSummerDealController::class, 'store'])->name('summer-deals.store');
+    Route::post('/summer-deals/update/{id}', [App\Http\Controllers\AdminSummerDealController::class, 'update'])->name('summer-deals.update');
+    Route::delete('/summer-deals/delete/{id}', [App\Http\Controllers\AdminSummerDealController::class, 'destroy'])->name('summer-deals.destroy');
 });
 
 
 
-// notification routes
 
-
-// Route::get('/notifications', function () {
-//     return response()->json([
-//         'notifications' => Auth::user()->unreadNotifications
-//     ]);
-// })->name('notifications.fetch');
-
-// ✅ Admin Notifications routes

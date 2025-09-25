@@ -289,7 +289,7 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item"><a class="nav-link" href="#">Summer Deal</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('summer-deals.index') }}">Summer Deal</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('male', ['gender' => 'male']) }}">Male Perfume</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('male', ['gender' => 'female']) }}">Female Perfume</a></li>
 

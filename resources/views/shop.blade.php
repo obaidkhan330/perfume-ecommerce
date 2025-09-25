@@ -114,7 +114,7 @@
     <h2 class="mb-4 text-center">
     {{ ucfirst(request()->segment(2) ?? 'All') }} Products
 </h2>
-    @forelse($Products as $product)
+    @forelse($products as $product)
    <div class="col-lg-3 col-md-4 col-6 mb-4">
     <div class="card p-2 shadow-sm product-card position-relative">
 
@@ -139,12 +139,15 @@
         </button>
     </form>
     @endif
+{{-- Wishlist Heart --}}
+@php
+    $isInWishlist = auth()->check() && auth()->user()->wishlists->contains('product_id', $product->id);
+@endphp
 
-    {{-- Wishlist Heart --}}
-    <button type="button" class="wishlist-btn hover-btn-heart" data-product-id="{{ $product->id }}">
-        <i class="bi bi-heart{{ auth()->user()->wishlists->contains('product_id', $product->id) ? '-fill' : '' }}"></i>
-    </button>
-</div>
+<button type="button" class="wishlist-btn hover-btn-heart" data-product-id="{{ $product->id }}">
+    <i class="bi bi-heart{{ $isInWishlist ? '-fill' : '' }}"></i>
+</button>
+
 
 
         {{-- Product Image --}}

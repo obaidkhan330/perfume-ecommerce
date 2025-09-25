@@ -54,7 +54,7 @@
 </section>
 
 
-<section class="container py-5">
+<section class="container-fluid py-5">
     <div class="row g-3 d-flex justify-content-center">
         <h1 class="text-center">{{ $brandName }}</h1>
         @forelse($maleProducts as $product)

@@ -101,7 +101,7 @@
 
       @php
         $total = 0;
-        $shipping = 0; 
+        $shipping = 0;
       @endphp
 
       <ul class="list-group mb-3">
@@ -160,11 +160,11 @@
             </div> --}}
 
             <!-- ✅ Single Button -->
-            @if(Auth::check())
+            {{-- @if(Auth::check()) --}}
               <button type="submit" class="btn btn-success w-100">Place Order</button>
-            @else
+            {{-- @else
               <a href="{{ route('login') }}" class="btn btn-dark w-100">Login to Place Order</a>
-            @endif
+            @endif --}}
 
             <p class="small text-muted mt-2 mb-0">By placing your order, you agree to our terms.</p>
           </div>
@@ -199,10 +199,10 @@
   });
 </script>
 
-<script>
+{{-- <script>
 document.getElementById('loginPromptBtn')?.addEventListener('click', function() {
     alert('Please login to place your order.');
     window.location.href = "{{ route('login') }}";
 });
-</script>
+</script> --}}
 @endsection

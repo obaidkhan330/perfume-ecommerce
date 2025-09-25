@@ -55,7 +55,7 @@
 
 <style>
     .scroll-row {
-        gap: 20px;
+        gap: 40px;
         padding-bottom: 10px;
         scrollbar-width: thin;
         scrollbar-color: #ccc transparent;
@@ -113,6 +113,8 @@
         /* height: ; */
         display: block;
         object-fit: cover;
+        background-size: cover;
+        background-position: center;
         max-height: 400px;
     }
 
@@ -166,10 +168,10 @@
 </style>
 
 <section class="ftco-section ftco-no-pb" id="abc">
-    <div class="container">
+    <div class="container-fluid">
         <h2 class="mb-4 text-center">POPULAR CATEGORIES</h2>
 
-        <div class="scroll-row d-flex justify-content-center flex-nowrap overflow-auto">
+        <div class="scroll-row d-flex  flex-nowrap overflow-auto ">
             <div class="category-box text-center">
                 <a href="{{ route('male', ['gender' => 'male']) }}" class="d-block">
                     <div class="img" style="background-image: url(naxham/assets/images/perfume1.jpg);"></div>
@@ -210,7 +212,7 @@
 
 {{-- male  --}}
 
-<section class="container py-5">
+<section class="container-fluid py-5">
     <h2 class="mb-4 text-center"> Male</h2>
 
     <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
@@ -250,7 +252,7 @@
 
 
 
-<section class="container py-5">
+<section class="container-fluid py-5">
     <h2 class="mb-4 text-center"> Testers </h2>
 
     <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
@@ -288,7 +290,7 @@
 
 
 <div class="poster-wrapper">
-    <div class="container">
+    <div class="container-fluid">
         <div class="poster-box">
             <img src="{{ asset('naxham/assets/images/slider2.jpg') }}" alt="Female Collection Poster" class="poster-img">
         </div>
@@ -298,7 +300,7 @@
 
 
 {{-- female --}}
-<section class="container py-5">
+<section class="container-fluid py-5">
     <h2 class="mb-4 text-center"> Female</h2>
 
     <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
@@ -339,7 +341,7 @@
 
 
 <div class="poster-wrapper">
-    <div class="container">
+    <div class="container-fluid">
         <div class="poster-box">
             <img src="{{ asset('naxham/assets/images/slider2.jpg') }}" alt="Female Collection Poster" class="poster-img">
         </div>
@@ -348,7 +350,7 @@
 {{-- unisex  --}}
 
 
-<section class="container py-5">
+<section class="container-fluid py-5">
     <h2 class="mb-4 text-center"> Unisex</h2>
 
     <div class="d-flex overflow-auto" style="gap: 1rem; -webkit-overflow-scrolling: touch; white-space: nowrap;">
@@ -394,7 +396,7 @@
 
 <section class="ftco-section testimony-section img" style="background-image: url(naxham/assets/images/banner.jpg);">
     <div class="overlay"></div>
-    <div class="container">
+    <div class="container ">
         <div class="row justify-content-center mb-5">
             <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
                 <span class="subheading">Testimonial</span>
