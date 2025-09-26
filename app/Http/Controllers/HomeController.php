@@ -26,14 +26,24 @@ class HomeController extends Controller
 
 public function showProducts($gender = null)
 {
-    if ($gender) {
+    if ($gender !== null && in_array($gender, ['male', 'female', 'unisex'])) {
         $Products = Product::where('gender', $gender)->latest()->get();
     } else {
-        $Products = Product::latest()->get(); // sab products
+        $Products = Product::latest()->get();
     }
 
-    return view('shop', compact('Products'));
+    // dynamic counts
+    $counts = [
+        'male' => Product::where('gender', 'male')->count(),
+        'female' => Product::where('gender', 'female')->count(),
+        'unisex' => Product::where('gender', 'unisex')->count(),
+    ];
+
+    return view('shop', compact('Products', 'counts'));
 }
+
+
+
 public function maleProducts($gender = null)
 {
     $query = Product::query();
@@ -48,7 +58,7 @@ public function maleProducts($gender = null)
 
     return view('male', ['maleProducts' => $Products]);
 }
-public function brandProducts(Brand $brand = null)
+public function brandProducts($brand = null)
 {
     $query = Product::query();
 
