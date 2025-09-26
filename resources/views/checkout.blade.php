@@ -114,17 +114,33 @@
               $subtotal  = $itemPrice * $itemQty;
               $total    += $subtotal;
             @endphp
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <a href="{{ url('product/' . $item['slug']) }}" class="fw-bold text-dark text-decoration-none">
-                  {{ $itemName }}
-                </a>
-                <small class="d-block text-muted">
-                  x{{ $itemQty }} {{ $item['volume'] ?? '' }}
-                </small>
-              </div>
-              <span>PKR {{ number_format($subtotal) }}</span>
-            </li>
+            @php
+    $subtotal  = $itemPrice * $itemQty;
+    $total    += $subtotal;
+@endphp
+<li class="list-group-item d-flex justify-content-between align-items-center">
+    <div>
+        @if(!empty($item['slug']))
+            {{-- Normal product --}}
+            <a href="{{ url('product/' . $item['slug']) }}" class="fw-bold text-dark text-decoration-none">
+                {{ $itemName }}
+            </a>
+        @elseif(!empty($item['id']))
+            {{-- Tester --}}
+            <a href="{{ url('tester/' . $item['id']) }}" class="fw-bold text-dark text-decoration-none">
+                {{ $itemName }}
+            </a>
+        @else
+            <span class="fw-bold text-dark">{{ $itemName }}</span>
+        @endif
+
+        <small class="d-block text-muted">
+            x{{ $itemQty }} {{ $item['volume'] ?? '' }}
+        </small>
+    </div>
+    <span>PKR {{ number_format($subtotal) }}</span>
+</li>
+
           @endforeach
 
           <li class="list-group-item d-flex justify-content-between align-items-center">
