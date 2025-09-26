@@ -139,14 +139,14 @@
         </button>
     </form>
     @endif
-{{-- Wishlist Heart --}}
+{{-- Wishlist Heart
 @php
     $isInWishlist = auth()->check() && auth()->user()->wishlists->contains('product_id', $product->id);
 @endphp
 
 <button type="button" class="wishlist-btn hover-btn-heart" data-product-id="{{ $product->id }}">
     <i class="bi bi-heart{{ $isInWishlist ? '-fill' : '' }}"></i>
-</button>
+</button> --}}
 
 
 

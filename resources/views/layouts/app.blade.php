@@ -289,7 +289,7 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item"><a class="nav-link" href="{{ route('summer-deals.index') }}">Summer Deal</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('summer-deals.index') }}"> Summer Deals</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('male', ['gender' => 'male']) }}">Male Perfume</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('male', ['gender' => 'female']) }}">Female Perfume</a></li>
 
@@ -306,11 +306,11 @@
                     <li class="nav-item"><a class="nav-link" href="{{ url('about') }}">About US</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('contact') }}">Contact US</a></li>
 
-                    @if(Auth::check())
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('orders.my') }}">My Orders</a>
                     </li>
-                    @endif
+
 
 
                     <!-- Add more nav-items as needed -->

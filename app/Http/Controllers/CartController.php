@@ -184,14 +184,17 @@ public function buyNow(Request $request, $slug)
     return redirect()->route('checkout')
         ->with('success', 'Product added. Proceed to checkout.');
 
+        if ($request->has('deal_id')) {
+    $deal = \App\Models\AdminSummerDeal::find($request->deal_id);
+    if ($deal) {
+        $price = $deal->discount_price ?? $deal->real_price;
+    }
+} else {
+    $price = $request->price;
+}
 
 }
 
 
-
-
-
-
-
-
 }
+

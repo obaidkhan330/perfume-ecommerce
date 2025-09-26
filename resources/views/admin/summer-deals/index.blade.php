@@ -43,6 +43,11 @@
                         <label class="form-label">Gift Image (if gift pack)</label>
                         <input type="file" name="gift_image" class="form-control">
                     </div>
+                    <div class="col-md-4">
+    <label class="form-label">Gallery Image (optional)</label>
+    <input type="file" name="gallery_image" class="form-control">
+</div>
+
                     <div class="col-md-12 mt-3">
                         <button type="submit" class="btn btn-success">Add Deal</button>
                     </div>
@@ -84,18 +89,23 @@
                         <td>{{ $deal->is_gift_pack ? 'Yes' : 'No' }}</td>
                         <td>
                           {{-- Update Form --}}
-<form action="{{ route('admin.summer-deals.update',$deal->id) }}" method="POST" enctype="multipart/form-data" class="d-inline-block">
+<form action="{{ route('admin.summer-deals.update', $deal->id) }}" method="POST" enctype="multipart/form-data" class="d-inline-block">
     @csrf
-    @method('PUT')   {{-- yeh add karo --}}
+    @method('PUT') {{-- Must be here for update --}}
+
     <input type="number" name="real_price" value="{{ $deal->real_price }}" class="form-control mb-1" style="width:120px;">
     <input type="number" name="discount_price" value="{{ $deal->discount_price }}" class="form-control mb-1" style="width:120px;">
+
     <input type="file" name="gift_image" class="form-control mb-1" style="width:150px;">
+
     <div class="form-check mb-1">
-        <input class="form-check-input" type="checkbox" name="is_gift_pack" {{ $deal->is_gift_pack ? 'checked' : '' }}>
+        <input class="form-check-input" type="checkbox" name="is_gift_pack" value="1" {{ $deal->is_gift_pack ? 'checked' : '' }}>
         <label class="form-check-label">Gift</label>
     </div>
+
     <button type="submit" class="btn btn-sm btn-primary">Update</button>
 </form>
+
 
 
                           <form action="{{ route('admin.summer-deals.destroy',$deal->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Delete this deal?')">

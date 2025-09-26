@@ -84,69 +84,120 @@
 <div class="container-fluid py-md-3">
   <div class="row">
 
-    <!-- Left Side: Thumbnails + Main Image -->
-    <div class="col-md-6 d-flex flex-column flex-md-row">
+      @php
+    // Check if product has a summer deal / gift pack
+    $deal = \App\Models\SummerDeal::where('product_id', $product->id)->first();
+// Price logic
+    if ($deal) {
+        $realPrice = $deal->real_price;
+        $discountPrice = $deal->discount_price;
+        $discountPercentage = $deal->discount_percentage ?? ($deal->real_price ? round((($deal->real_price - $deal->discount_price)/$deal->real_price)*100) : 0);
+        // Use deal gallery image if exists
+        $displayGallery = $deal->gallery_image ? [$deal->gallery_image] : null;
+        $mainImage = $deal->gallery_image ? asset('storage/' . $deal->gallery_image) : asset('storage/' . $product->image);
+    } else {
+        $realPrice = $product->price;
+        $discountPrice = $product->discount_price ?? null;
+        $discountPercentage = $product->discount_percentage ?? null;
+        $displayGallery = json_decode($product->gallery);
+        $mainImage = asset('storage/' . $product->image);
+    }
+@endphp
 
-      <!-- Thumbnails -->
-      <div class="thumbnail-bar">
-        @foreach(json_decode($product->gallery) as $img)
-          <img src="{{ asset('storage/' . $img) }}"
-               onclick="changeImage('{{ asset('storage/' . $img) }}')"
-               alt="Thumb">
-        @endforeach
-      </div>
+{{-- Left Side: Thumbnails + Main Image --}}
+<div class="col-md-6 d-flex flex-column flex-md-row">
+    @php
+        $gallery = $product->gallery_override ?? json_decode($product->gallery);
+        $mainImage = $gallery[0] ?? $product->image;
+    @endphp
 
-      <!-- Main Image -->
-      <div class="flex-grow-1 text-center">
+    <!-- Thumbnails -->
+    <div class="thumbnail-bar">
+        @if($gallery)
+            @foreach($gallery as $img)
+                <img src="{{ asset('storage/' . $img) }}"
+                     onclick="changeImage('{{ asset('storage/' . $img) }}')"
+                     alt="Thumb">
+            @endforeach
+        @endif
+    </div>
+
+    <!-- Main Image -->
+    <div class="flex-grow-1 text-center">
         <img id="mainProductImage"
-             src="{{ asset('storage/' . $product->image) }}"
+             src="{{ asset('storage/' . $mainImage) }}"
              alt="{{ $product->name }}"
              class="img-fluid rounded mb-3"
              style="max-height: 500px; object-fit: contain;">
-      </div>
     </div>
-
+</div>
     <!-- Right Side: Product Info -->
     <div class="col-md-5 mt-3 mt-md-0">
       <h2 class="fw-bold">{{ $product->name }}</h2>
+{{-- Price Section --}}
+<p class="fs-4">
+    @php
+        $realPrice = $product->real_price ?? $product->price;
+        $discountPrice = $product->discount_price ?? $product->variations->min('discount_price') ?? $product->variations->min('price') ?? $product->price;
+        $discountPercentage = $product->discount_percentage ?? ($realPrice && $discountPrice < $realPrice ? round((($realPrice - $discountPrice)/$realPrice)*100) : 0);
+    @endphp
 
-      @if($product->variations->count() > 0)
-        <p class="fs-4 text-danger">
-          Rs. <span id="price">{{ $product->smallestVariation->discount_price }}</span>
-        </p>
+    @if($discountPrice && $discountPrice < $realPrice)
+        <span class="text-muted text-decoration-line-through">
+            PKR {{ number_format($realPrice, 0) }}
+        </span>
+        <span id="price" class="text-danger fw-bold"
+              data-real-price="{{ $realPrice }}"
+              data-discount-price="{{ $discountPrice }}">
+            PKR {{ number_format($discountPrice, 0) }}
+        </span>
+        <span class="badge bg-success">
+            {{ $discountPercentage }}% OFF
+        </span>
+    @else
+        <span id="price" class="text-danger fw-bold"
+              data-real-price="{{ $realPrice }}"
+              data-discount-price="{{ $discountPrice }}">
+            PKR {{ number_format($realPrice, 0) }}
+        </span>
+    @endif
+</p>
 
-        <!-- Variations -->
-        <div class="d-flex flex-wrap gap-2 mb-3">
-          @foreach([30, 50, 100] as $size)
-            @php
-              $variation = $product->variations
-                  ->filter(function($v) use ($size) {
-                      return (int) filter_var($v->variation_type, FILTER_SANITIZE_NUMBER_INT) === $size;
-                  })
-                  ->first();
-            @endphp
 
-            @if($variation)
-              <button type="button"
-                      class="btn btn-outline-primary variation-btn btn-sm btn-md"
-                      data-id="{{ $variation->id }}"
-                      data-price="{{ $variation->discount_price }}"
-                      data-volume="{{ $variation->variation_type }}">
-                {{ $variation->variation_type }}
-              </button>
-            @else
-              <button type="button" class="btn btn-outline-secondary btn-sm btn-md" disabled>
-                {{ $size }}ml (Not Available)
-              </button>
-            @endif
-          @endforeach
-        </div>
+{{-- Variations Section --}}
+@if($product->variations->count() > 0)
+  <div class="d-flex flex-wrap gap-2 mb-3">
+    @foreach([30, 50, 100] as $size)
+      @php
+        $variation = $product->variations
+            ->filter(function($v) use ($size) {
+                return (int) filter_var($v->variation_type, FILTER_SANITIZE_NUMBER_INT) === $size;
+            })
+            ->first();
+      @endphp
 
-        <p class="text-muted">Size: <span id="ml">{{ $product->variations->first()->type }}</span></p>
+      @if($variation)
+        <button type="button"
+        class="btn btn-outline-primary variation-btn btn-sm btn-md {{ $loop->first ? 'active' : '' }}"
+        data-id="{{ $variation->id }}"
+        data-real-price="{{ $variation->price }}"
+        data-discount-price="{{ $variation->discount_price ?? $variation->price }}"
+        data-volume="{{ $variation->variation_type }}">
+  {{ $variation->variation_type }}
+</button>
+
       @else
-        <p class="text-danger">No variations available for this product.</p>
+        <button type="button" class="btn btn-outline-secondary btn-sm btn-md" disabled>
+          {{ $size }}ml (Not Available)
+        </button>
       @endif
+    @endforeach
+  </div>
 
+  <p class="text-muted">Size: <span id="ml">{{ $product->variations->first()->variation_type }}</span></p>
+@else
+  <p class="text-danger">No variations available for this product.</p>
+@endif
       <p class="text-muted">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>
       <p>{{ $product->description }}</p>
 
@@ -161,78 +212,73 @@
         </div>
       </div>
 
-     <!-- Desktop Actions -->
+    <!-- Desktop Actions -->
 <div class="mt-4 d-none d-md-flex flex-column gap-2">
-    <!-- Add to Cart -->
+
+    <!-- Add to Cart (Desktop) -->
     <form method="POST" action="{{ route('cart.add', $product->slug) }}">
         @csrf
-        <input type="hidden" name="variation_id" value="{{ $product->smallestVariation->id }}">
-        <input type="hidden" name="price" value="{{ $product->smallestVariation->discount_price }}">
-        <input type="hidden" name="volume" value="{{ $product->smallestVariation->variation_type }}">
-        <input type="hidden" name="quantity" value="1">
+        <input type="hidden" id="variationIdAdd" name="variation_id" value="{{ $product->smallestVariation->id }}">
+        <input type="hidden" id="variationPriceAdd" name="price" value="{{ $product->smallestVariation->discount_price ?? $product->smallestVariation->price }}">
+        <input type="hidden" id="variationVolumeAdd" name="volume" value="{{ $product->smallestVariation->variation_type }}">
+        <input type="hidden" id="variationQtyAdd" name="quantity" value="1">
+
         <button type="submit" class="btn btn-primary w-100 rounded-pill">
             <i class="bi bi-cart-plus me-2"></i> Add to Cart
         </button>
     </form>
 
-    <!-- Buy Now -->
+    <!-- Buy Now (Desktop) -->
     <form method="POST" action="{{ route('cart.buyNow', $product->slug) }}">
         @csrf
-        <input type="hidden" name="variation_id" value="{{ $product->smallestVariation->id }}">
-        <input type="hidden" name="price" value="{{ $product->smallestVariation->discount_price }}">
-        <input type="hidden" name="volume" value="{{ $product->smallestVariation->variation_type }}">
-        <input type="hidden" name="quantity" value="1">
+        <input type="hidden" id="variationIdBuy" name="variation_id" value="{{ $product->smallestVariation->id }}">
+        <input type="hidden" id="variationPriceBuy" name="price" value="{{ $product->smallestVariation->discount_price ?? $product->smallestVariation->price }}">
+        <input type="hidden" id="variationVolumeBuy" name="volume" value="{{ $product->smallestVariation->variation_type }}">
+        <input type="hidden" id="variationQtyBuy" name="quantity" value="1">
+
         <button type="submit" class="btn btn-dark w-100 rounded-pill">
             <i class="bi bi-lightning-charge me-2"></i> Buy Now
         </button>
     </form>
 
-    <!-- WhatsApp -->
+    <!-- WhatsApp (Desktop) -->
     @php
         $whatsappNumber = '923179452521';
         $productUrl = url('/details/' . $product->slug);
     @endphp
-    <a href="https://wa.me/{{ $whatsappNumber }}?text={{ urlencode('Hello, I want to order this product:') }} {{ $productUrl }}"
+    <a id="whatsappBtnDesktop"
+       href="#"
        target="_blank"
        class="btn btn-success w-100 rounded-pill">
         <i class="bi bi-whatsapp fs-5 me-2"></i> Order on WhatsApp
     </a>
 
-    <!-- Wishlist -->
-    @php
-        $isInWishlist = false;
-        if (auth()->check()) {
-            $isInWishlist = auth()->user()->wishlists->contains('product_id', $product->id);
-        }
-    @endphp
-    <button type="button"
-            class="btn btn-outline-danger wishlist-btn align-self-start mt-2"
-            data-product-id="{{ $product->id }}">
-        <i class="bi bi-heart{{ $isInWishlist ? '-fill' : '' }}"></i>
-    </button>
-</div>
 
-      <!-- Bottom Info -->
-      <div class="mt-3 text-muted small d-flex gap-3 ">
-        <span>07 DAYS RETURN</span>
-        <span>Easy Exchange</span>
-        <span>Limited Stock</span>
-      </div>
-    </div>
-  </div>
+{{-- <!-- Wishlist -->
+@php
+    $isInWishlist = false;
+    if (auth()->check()) {
+        $isInWishlist = auth()->user()->wishlists->contains('product_id', $product->id);
+    }
+@endphp --}}
+{{-- <button type="button"
+        class="btn btn-outline-danger wishlist-btn align-self-start mt-2"
+        data-product-id="{{ $product->id }}">
+    <i class="bi bi-heart{{ $isInWishlist ? '-fill' : '' }}"></i>
+</button> --}}
 </div>
-
 
 
 {{-- Mobile Actions --}}
-<div class=" d-block d-md-none mt-3">
+<div class="d-block d-md-none mt-3">
+
     {{-- Add to Cart (Mobile) --}}
     <form method="POST" action="{{ route('cart.add', $product->slug) }}">
         @csrf
-        <input type="hidden" name="variation_id" value="{{ $product->smallestVariation->id }}">
-        <input type="hidden" name="price" value="{{ $product->smallestVariation->discount_price }}">
-        <input type="hidden" name="volume" value="{{ $product->smallestVariation->variation_type }}">
-        <input type="hidden" name="quantity" value="1">
+        <input type="hidden" id="variationIdAddMobile" name="variation_id" value="{{ $product->smallestVariation->id }}">
+        <input type="hidden" id="variationPriceAddMobile" name="price" value="{{ $product->smallestVariation->discount_price ?? $product->smallestVariation->price }}">
+        <input type="hidden" id="variationVolumeAddMobile" name="volume" value="{{ $product->smallestVariation->variation_type }}">
+        <input type="hidden" id="variationQtyAddMobile" name="quantity" value="1">
 
         <button type="submit" class="btn btn-primary whatsapp-mobile-btn mb-2">
             <i class="bi bi-cart-plus fs-5 me-2"></i>
@@ -243,10 +289,10 @@
     {{-- Buy Now (Mobile) --}}
     <form method="POST" action="{{ route('cart.buyNow', $product->slug) }}">
         @csrf
-        <input type="hidden" name="variation_id" value="{{ $product->smallestVariation->id }}">
-        <input type="hidden" name="price" value="{{ $product->smallestVariation->discount_price }}">
-        <input type="hidden" name="volume" value="{{ $product->smallestVariation->variation_type }}">
-        <input type="hidden" name="quantity" value="1">
+        <input type="hidden" id="variationIdBuyMobile" name="variation_id" value="{{ $product->smallestVariation->id }}">
+        <input type="hidden" id="variationPriceBuyMobile" name="price" value="{{ $product->smallestVariation->discount_price ?? $product->smallestVariation->price }}">
+        <input type="hidden" id="variationVolumeBuyMobile" name="volume" value="{{ $product->smallestVariation->variation_type }}">
+        <input type="hidden" id="variationQtyBuyMobile" name="quantity" value="1">
 
         <button type="submit" class="btn btn-dark whatsapp-mobile-btn mb-2">
             <i class="bi bi-lightning-charge fs-5 me-2"></i>
@@ -256,17 +302,14 @@
 
     {{-- WhatsApp Order (Mobile) --}}
     <a id="whatsappBtnMobile"
-       href="https://wa.me/{{ $whatsappNumber }}?text={{ urlencode('Hello, I want to order this product:') }}"
+       href="#"
        target="_blank"
        class="btn btn-success whatsapp-mobile-btn">
         <i class="bi bi-whatsapp fs-4 me-2"></i>
         Order on WhatsApp
     </a>
 </div>
-
-
 </div>
-
 
 
 
@@ -556,19 +599,19 @@
 
 
 {{-- Toast Container --}}
-<div id="wishlist-toast" style="position: fixed; top: 20px; right: 20px; z-index: 9999; display: none;">
+{{-- <div id="wishlist-toast" style="position: fixed; top: 20px; right: 20px; z-index: 9999; display: none;">
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <span id="wishlist-toast-message"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-</div>
+</div> --}}
 
 
 
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+{{-- <script>
 $(document).ready(function(){
 
     function showToast(message) {
@@ -610,61 +653,72 @@ $(document).ready(function(){
     });
 
 });
-</script>
+</script> --}}
 
-
-
-
-{{-- Script to Update WhatsApp Link with Selected Variation --}}
 <script>
-    function updateWhatsAppLink() {
-        let productName = @json($product->name);
-        let productSlug = @json($product->slug);
-        let baseUrl = "{{ url('/details') }}/" + productSlug;
-        let volume = document.getElementById('variationVolumeBuy').value;
-        let qty = parseInt(document.getElementById('variationQtyBuy').value) || 1;
-        let number = "{{ $whatsappNumber }}";
 
-        // ✅ Sirf Name, Size aur Qty ka message
-        let message = `Hello, I want to order this product:\n\n` +
-                      `Product: ${productName}\n` +
-                      `Size: ${volume}\n` +
-                      `Quantity: ${qty}\n` +
-                      `Link: ${baseUrl}`;
+document.addEventListener("DOMContentLoaded", function() {
+    const whatsappNumber = "{{ $whatsappNumber }}";
+    const productName = "{{ $product->name }}";
+    const productUrl = "{{ $productUrl }}";
 
-        // ✅ WhatsApp link update
-        let link = "https://wa.me/" + number + "?text=" + encodeURIComponent(message);
-
-        document.getElementById('whatsappBtnDesktop').href = link;
-        document.getElementById('whatsappBtnMobile').href = link;
-    }
-
-    // variation change hone par update
-    document.querySelectorAll('.variation-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
-            document.getElementById('variationIdBuy').value = this.dataset.id;
-            document.getElementById('variationPriceBuy').value = this.dataset.price;
-            document.getElementById('variationVolumeBuy').value = this.dataset.volume;
-            updateWhatsAppLink();
+    // 👉 variation button active update
+    document.querySelectorAll(".variation-btn").forEach(btn => {
+        btn.addEventListener("click", function() {
+            document.querySelectorAll(".variation-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
         });
     });
 
-    // agar visible qty input hai, uske change par hidden qty update karo
-    const qtyInput = document.getElementById('qtyInput');
-    if (qtyInput) {
-        qtyInput.addEventListener('input', function () {
-            document.getElementById('variationQtyBuy').value = this.value;
-            updateWhatsAppLink();
+    function getSelectedVariation() {
+        let selectedBtn = document.querySelector(".variation-btn.active");
+        if (selectedBtn) {
+            return {
+                id: selectedBtn.dataset.id,
+                volume: selectedBtn.dataset.volume
+            };
+        }
+        // fallback: smallestVariation
+        return {
+            id: "{{ $product->smallestVariation->id ?? '' }}",
+            volume: "{{ $product->smallestVariation->variation_type ?? '' }}"
+        };
+    }
+
+    function getQuantity() {
+        let qtyInput = document.querySelector("#quantity");
+        return qtyInput ? qtyInput.value : 1;
+    }
+
+    function buildMessage() {
+        let variation = getSelectedVariation();
+        let qty = getQuantity();
+        return `Hello, I want to order this product:\n\n` +
+               `Product: ${productName}\n` +
+               `Link: ${productUrl}\n` +
+               `Variation: ${variation.volume}\n` +
+               `Quantity: ${qty}`;
+    }
+
+    function setWhatsappLink(btn) {
+        btn.addEventListener("click", function(e) {
+            e.preventDefault();
+            let message = encodeURIComponent(buildMessage());
+            let waUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+            window.open(waUrl, "_blank");
         });
     }
 
-    // page load hone par call karo
-    document.addEventListener('DOMContentLoaded', updateWhatsAppLink);
+    let desktopBtn = document.getElementById("whatsappBtnDesktop");
+    let mobileBtn = document.getElementById("whatsappBtnMobile");
+
+    if (desktopBtn) setWhatsappLink(desktopBtn);
+    if (mobileBtn) setWhatsappLink(mobileBtn);
+});
 </script>
 
 
 
-{{-- Button Scripts --}}
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const buttons = document.querySelectorAll(".variation-btn");
@@ -672,43 +726,64 @@ document.addEventListener("DOMContentLoaded", function () {
     const mlElement = document.getElementById("ml");
     const qtyInput = document.getElementById("quantity");
 
-    let currentPrice = parseFloat(priceElement.innerText) || 0;
+    // Initial prices from blade (handles summer deal or default product)
+    let selectedRealPrice = parseFloat(priceElement.dataset.realPrice) || 0;
+    let selectedDiscountPrice = parseFloat(priceElement.dataset.discountPrice) || selectedRealPrice;
+    let currentPrice = selectedDiscountPrice;
 
     // Function to update displayed price
     function updatePrice() {
         const qty = parseInt(qtyInput.value) || 1;
-        priceElement.innerText = (currentPrice * qty).toFixed(0);
-        document.getElementById("variationQtyAdd").value = qty;
-        document.getElementById("variationQtyBuy").value = qty;
+        priceElement.innerText = 'PKR ' + (currentPrice * qty).toLocaleString();
+
+        // Update hidden inputs with new qty
+        const hiddenIds = [
+            "variationQtyAdd", "variationQtyBuy",
+            "variationQtyAddMobile", "variationQtyBuyMobile"
+        ];
+        hiddenIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = qty;
+        });
     }
 
     // Variation button click
     buttons.forEach(btn => {
         btn.addEventListener("click", function () {
-            const price = parseFloat(this.getAttribute("data-price"));
-            const volume = this.getAttribute("data-volume");
-            const id = this.getAttribute("data-id");
+            const realPrice = parseFloat(this.dataset.realPrice);
+            const discountPrice = parseFloat(this.dataset.discountPrice) || realPrice;
+            const volume = this.dataset.volume;
+            const id = this.dataset.id;
 
-            currentPrice = price;
+            selectedRealPrice = realPrice;
+            selectedDiscountPrice = discountPrice;
+            currentPrice = discountPrice;
+
             mlElement.innerText = volume;
 
-            // Add to Cart hidden inputs
-            document.getElementById("variationIdAdd").value = id;
-            document.getElementById("variationPriceAdd").value = price;
-            document.getElementById("variationVolumeAdd").value = volume;
-            document.getElementById("variationQtyAdd").value = qtyInput.value;
+            // Update hidden inputs for both mobile and desktop Add/Buy buttons
+            const sets = [
+                {id: "Add", prefix: ""}, {id: "Buy", prefix: ""},
+                {id: "AddMobile", prefix: "Mobile"}, {id: "BuyMobile", prefix: "Mobile"}
+            ];
 
-            // Buy Now hidden inputs
-            document.getElementById("variationIdBuy").value = id;
-            document.getElementById("variationPriceBuy").value = price;
-            document.getElementById("variationVolumeBuy").value = volume;
-            document.getElementById("variationQtyBuy").value = qtyInput.value;
+            sets.forEach(set => {
+                const suffix = set.prefix ? set.prefix : "";
+                const ids = ["variationId" + set.id + suffix,
+                             "variationPrice" + set.id + suffix,
+                             "variationVolume" + set.id + suffix,
+                             "variationQty" + set.id + suffix];
+                const values = [id, discountPrice, volume, qtyInput.value];
 
-            // Highlight active button
-            buttons.forEach(b => {
-                b.classList.remove("btn-primary");
-                b.classList.add("btn-outline-primary");
+                ids.forEach((hid, idx) => {
+                    const el = document.getElementById(hid);
+                    if (el) el.value = values[idx];
+                });
             });
+
+            // Active button style
+            buttons.forEach(b => b.classList.remove("btn-primary"));
+            buttons.forEach(b => b.classList.add("btn-outline-primary"));
             this.classList.remove("btn-outline-primary");
             this.classList.add("btn-primary");
 
@@ -716,14 +791,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Sync quantity with both forms
+    // Qty input change
     qtyInput.addEventListener("input", updatePrice);
-// Qty input change event (extra safe)
-// document.getElementById("quantity").addEventListener("input", function () {
-//     variationQtyInput.value = this.value;
-// });
 
-    // + / - functions
+    // + / - buttons
     window.increaseQty = function () {
         qtyInput.value = parseInt(qtyInput.value) + 1;
         updatePrice();
@@ -736,14 +807,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // Image change function
-    window.changeImage = function (src) {
-        document.getElementById('mainProductImage').src = src;
-    };
-
-    // Init
+    // Initial price display
     updatePrice();
 });
+</script>
+
+<script>
+function changeImage(src) {
+    document.getElementById("mainProductImage").src = src;
+}
 </script>
 
 {{-- selected products  --}}

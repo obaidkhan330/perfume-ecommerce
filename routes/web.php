@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Admin\TesterController;
+use App\Http\Controllers\AdminSummerDealController;
+use App\Http\Controllers\SummerDealController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -164,8 +166,8 @@ Route::middleware(['auth'])->group(function () {
         ->name('notifications.delete');
 
         // deal routes
-        // User side
-Route::get('/summer-deals', [App\Http\Controllers\SummerDealController::class, 'index'])->name('summer-deals.index');
+// User Summer Deals Routes
+Route::get('/summer-deals', [SummerDealController::class, 'index'])->name('summer-deals.index');
 
 
 });
@@ -194,15 +196,15 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         ->name('admin.notifications.delete');
 
 
+});
+// Admin Summer Deal Routes
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('/summer-deals', [AdminSummerDealController::class, 'index'])->name('admin.summer-deals.index');
+    Route::post('/summer-deals', [AdminSummerDealController::class, 'store'])->name('admin.summer-deals.store');
+    Route::put('/summer-deals/{id}', [AdminSummerDealController::class, 'update'])->name('admin.summer-deals.update');
+    Route::delete('/summer-deals/{id}', [AdminSummerDealController::class, 'destroy'])->name('admin.summer-deals.destroy');
 
-
-
-
-// Admin Summer Deals
-    Route::get('/summer-deals', [App\Http\Controllers\AdminSummerDealController::class, 'index'])->name('summer-deals.index');
-    Route::post('/summer-deals/store', [App\Http\Controllers\AdminSummerDealController::class, 'store'])->name('summer-deals.store');
-    Route::post('/summer-deals/update/{id}', [App\Http\Controllers\AdminSummerDealController::class, 'update'])->name('summer-deals.update');
-    Route::delete('/summer-deals/delete/{id}', [App\Http\Controllers\AdminSummerDealController::class, 'destroy'])->name('summer-deals.destroy');
+    Route::get('/products/{slug}', [ProductController::class, 'details'])->name('admin.products.details');
 });
 
 

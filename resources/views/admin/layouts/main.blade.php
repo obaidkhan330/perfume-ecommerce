@@ -66,7 +66,10 @@
             <a href="{{ route('admin.variations.index') }}">Variations</a>
             <a href="{{ route('admin.orders') }}">Orders</a>
             <a href="{{ route('admin.testers.index') }}">Testers</a>
-             <a href="{{ route('admin.summer-deals.index') }}">Manage Summer Deals</a>
+<a href="{{ route('admin.summer-deals.index') }}" class="nav-link">
+    Manage Summer Deals
+</a>
+
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle position-relative" href="#" id="adminNotifDropdown" role="button"
        data-bs-toggle="dropdown" aria-expanded="false">
