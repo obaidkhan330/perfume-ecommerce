@@ -498,26 +498,7 @@ function loadUserNotifications() {
 
 
 </body>
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Owl Carousel JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
-<!-- Carousel Initialization -->
-<script>
-    $(document).ready(function() {
-        $('#hero-carousel').owlCarousel({
-            items: 1,
-            loop: true,
-            autoplay: true,
-            autoplayTimeout: 8000,
-            smartSpeed: 900,
-            nav: false,
-            dots: true
-        });
-    });
-</script>
 
 <script>const searchTrigger=document.querySelector(".search-trigger"),mobileSearch=document.getElementById("mobileSearch"),closeSearch=document.getElementById("closeSearch"),scrollToTopBtn=document.getElementById("scrollToTopBtn");let lastScrollY=window.scrollY;searchTrigger.addEventListener("click",()=>{mobileSearch.style.display="flex"});closeSearch.addEventListener("click",()=>{mobileSearch.style.display="none"});document.addEventListener("click",e=>{if(mobileSearch.style.display==="flex"&&!mobileSearch.contains(e.target)&&!searchTrigger.contains(e.target))mobileSearch.style.display="none"});window.addEventListener("scroll",function(){if(window.innerWidth>=992){window.scrollY>100&&window.scrollY>lastScrollY?(scrollToTopBtn.style.display="block",setTimeout(()=>{scrollToTopBtn.classList.add("show")},10)):(scrollToTopBtn.classList.remove("show"),setTimeout(()=>{scrollToTopBtn.style.display="none"},400)),lastScrollY=window.scrollY}else scrollToTopBtn.classList.remove("show"),scrollToTopBtn.style.display="none"});scrollToTopBtn.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"})});</script>
 
