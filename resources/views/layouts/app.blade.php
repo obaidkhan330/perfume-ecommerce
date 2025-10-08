@@ -528,7 +528,10 @@ function loadUserNotifications() {
 {{-- mobile nav js  --}}
 
   <script>const scrollToggler = document.getElementById("scrollToggler"), smallToggler = document.getElementById("smallToggler"), nav = document.getElementById("mainNav"), navLink = document.getElementById("mobileSml"), icon = scrollToggler.querySelector("i"), linkicon = smallToggler.querySelector("i"); window.addEventListener("scroll", function () { window.scrollY > 100 ? (scrollToggler.style.display = "block") : (scrollToggler.style.display = "none", nav.classList.remove("drown"), icon.classList.remove("fa-xmark"), icon.classList.add("fa-bars")) }); scrollToggler.addEventListener("click", function () { nav.classList.toggle("drown"), icon.classList.toggle("fa-bars"), icon.classList.toggle("fa-xmark") }); smallToggler.addEventListener("click", function () { if (!navLink.classList.contains("mobile-small")) navLink.classList.add("mobile-small"), navLink.style.animation = "slideDown .4s ease forwards"; else { navLink.style.animation = "slideUp .4s ease forwards"; navLink.addEventListener("animationend", function e() { navLink.classList.remove("mobile-small"), navLink.style.animation = "", navLink.removeEventListener("animationend", e) }) } linkicon.classList.toggle("fa-bars"), linkicon.classList.toggle("fa-xmark") }); const style = document.createElement("style"); style.innerHTML = "@keyframes slideDown{from{transform:translate(-50%,-30px);opacity:0}to{transform:translate(-50%,0);opacity:1}}@keyframes slideUp{from{transform:translate(-50%,0);opacity:1}to{transform:translate(-50%,-30px);opacity:0}}", document.head.appendChild(style); function checkNavSize() { nav.className = "", window.innerWidth < 992 ? nav.classList.add("nav-sml") : nav.classList.add("nav-small") } checkNavSize(), window.addEventListener("resize", checkNavSize);</script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Owl Carousel JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
 <script src="{{ asset('naxham/assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/jquery-migrate-3.0.1.min.js') }}"></script>
