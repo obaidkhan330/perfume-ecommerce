@@ -38,6 +38,11 @@
     /*------------------
 		Hero Slider
 	--------------------*/
+
+    $('.set-bg').each(function () {
+    var bg = $(this).data('setbg');
+    $(this).css('background-image', 'url(' + bg + ')');
+});
 	$('.hero-slider').owlCarousel({
 		loop: true,
 		nav: true,
@@ -61,10 +66,6 @@
 		}
 	});
 
-    $('.set-bg').each(function() {
-		var bg = $(this).data('setbg');
-		$(this).css('background-image', 'url(' + bg + ')');
-	});
 
 	// var carousel = function() {
 	// 	$('.carousel-testimony').owlCarousel({
