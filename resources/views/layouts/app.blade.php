@@ -9,33 +9,22 @@
     <title>Nexham-Perfumes</title>
     <meta charset="UTF-8">
     <meta name="description" content="nexham">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+   <!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@200;300;400;500;700;800&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Font Awesome 6 (latest icons) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<!-- Font Awesome 6 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-
-
-    <!-- Owl Carousel CSS -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<!-- Owl Carousel CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-
-
-
-         <!-- Bootstrap 5 CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <!-- Custom CSS -->
 <style>.top-bar{background:#0c0c0c;color:#fff;font-size:13px;margin:0;padding:12px}.top-bar .social-icons{padding-top:0;position:relative;top:-18px}.top-bar .social-icons i{margin-left:12px;color:#fff;cursor:pointer;transition:.3s;margin-top:0}.top-bar .social-icons i:hover{color:#d4af37}.main-header{background:#0c0c0c;padding:10px 0;box-shadow:0 2px 5px rgba(69,65,65,.1);position:sticky;top:0;z-index:1000}.header-icons i{font-size:22px;color:#fff;margin:0 8px;cursor:pointer}.header-icons span{margin-right:15px;font-size:14px;color:#fff}.search-box{position:relative}.search-box input{width:250px;padding-left:40px}.search-box i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#555}.search-box .navbar-toggler{font-size:20px;color:#fff;position:relative;left:-50px;top:20px}.search-box .navbar-toggler i{color:#fff}.mobile-search{display:none;position:fixed;top:0;left:0;width:100%;padding:15px;box-shadow:0 4px 10px rgba(0,0,0,.1);z-index:3000;align-items:center;gap:10px;animation:slideDown .3s ease}.mobile-search input{flex:1;border-radius:30px;border:1px solid #ccc;padding:15px}.mobile-search .close-btn{font-size:22px;color:#fff;cursor:pointer}@keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}@media(max-width:991px){.search-box{display:none!important}.navbar-brand{margin-right:auto!important}.header-icons{margin-left:auto}.header-icons .search-trigger{display:inline-block!important}}.search-trigger{display:none}.nav-small{background-color:#515151;width:100%;z-index:1200;transition:all .4s ease}.nav-small.hidden{transform:translateY(-105%);opacity:0}.nav-small .container>ul{list-style:none;display:flex;justify-content:center;flex-wrap:wrap;margin:0;padding:0}.nav-small .container>ul>li{position:relative;padding:15px 20px}.nav-small .container>ul>li>a{text-decoration:none;color:antiquewhite;font-weight:500;display:flex;align-items:center;gap:6px}.nav-small .container>ul>li:hover>a{border-bottom:2px solid aliceblue}.nav-small .container>ul>li.dropdown .dropdown-menu{display:none;position:absolute;top:100%;left:0;background-color:#fff;min-width:150px;border-radius:6px;box-shadow:0 4px 10px rgba(0,0,0,.1);overflow:hidden;z-index:99}.nav-small .container>ul>li.dropdown:hover .dropdown-menu{display:block}.nav-small .container>ul>li.dropdown .dropdown-menu li{padding:10px 15px;white-space:nowrap}.nav-small .container>ul>li.dropdown .dropdown-menu li a{color:#333;text-decoration:none;display:block}.nav-small .container>ul>li.dropdown .dropdown-menu li:hover{background-color:#f2f2f2}.nav-small .container>ul>li.dropdown .dropdown-menu li>a:hover{text-decoration:underline rgb(20,19,19) solid}#showNavBtn{position:fixed;left:20px;top:20px;background:#0c0c0c;color:#fff;border:none;border-radius:50%;width:40px;height:40px;display:none;justify-content:center;align-items:center;font-size:18px;cursor:pointer;z-index:1000;transition:all .3s ease}#showNavBtn:hover{background:#444;transform:scale(1.1)}.scroll-toggler{position:fixed;top:25px;left:25px;background:#0c0c0c;border:none;border-radius:4px;font-size:20px;cursor:pointer;padding:8px 12px;display:none;z-index:9999}.scroll-toggler>i{color:#fff}#mainNav.drown{position:sticky;top:60px;transition:all .3s ease}.nav-sml{display:none}.mobile-sml{display:none}.mobile-small{position:fixed;top:70px;left:50%;transform:translate(-50%,-20px);width:100%;background-color:#fafafa;display:flex;flex-direction:column;gap:10px;padding:50px 10px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.1);z-index:999;opacity:0;animation:slideDown .5s ease-out forwards}@keyframes slideDown{from{transform:translate(-50%,-30px);opacity:0}to{transform:translate(-50%,0);opacity:1}}.menu-item{display:flex;align-items:center;justify-content:space-between;width:100%;padding:10px 15px;border-bottom:1px solid #ddd}.menu-item i{color:#333;font-size:24px;margin-right:10px}.menu-item a{flex:1;display:flex;justify-content:space-between;align-items:center;color:#000;text-decoration:none;font-size:18px}.menu-item a:hover{color:#555}.menu-item span{color:#131212;font-weight:bolder}</style>
@@ -428,98 +417,8 @@
 
 
 
-
-
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-function loadUserNotifications() {
-    $.ajax({
-        url: "{{ route('notifications.fetch') }}",
-    method: 'GET',
-    success: function(data) {
-    let notifications = data.notifications;
-    let list = $("#user-notif-list");
-    let count = $("#user-notif-count");
-    let popup = $("#user-notif-popup");
-
-    list.empty();
-
-    if(notifications.length > 0){
-    count.text(notifications.length);
-
-    notifications.forEach(function(notif){
-    // Dropdown
-    list.append(`
-    <li class="d-flex justify-content-between align-items-center px-2">
-        <a class="dropdown-item" href="#">
-            ${notif.data.message}
-        </a>
-        <button class="btn btn-sm btn-link text-danger" onclick="deleteUserNotif('${notif.id}')">
-            ❌
-        </button>
-    </li>
-    `);
-
-    // Popup
-    popup.append(`
-    <div class="alert alert-info alert-dismissible fade show" role="alert">
-        ${notif.data.message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    `);
-    });
-    } else {
-    count.text(0);
-    list.append('<li><span class="dropdown-item">No new notifications</span></li>');
-    }
-    }
-    });
-    }
-
-    function deleteUserNotif(id){
-    $.ajax({
-    url: "/notifications/delete/" + id,
-    method: 'DELETE',
-    data: {_token: "{{ csrf_token() }}"},
-    success: function(){
-    loadUserNotifications();
-    }
-    });
-    }
-
-    // Page load pe call
-    loadUserNotifications();
-
-    // Har 10 second baad refresh
-    setInterval(loadUserNotifications, 10000);
-    </script>
-
-
-    --}}
-
-
 </body>
-{{-- <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Owl Carousel JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
-<!-- Carousel Initialization -->
-<script>
-    $(document).ready(function() {
-        $('#hero-carousel').owlCarousel({
-            items: 1,
-            loop: true,
-            autoplay: true,
-            autoplayTimeout: 8000,
-            smartSpeed: 900,
-            nav: false,
-            dots: true
-        });
-    });
-</script> --}}
 
 <script>const searchTrigger=document.querySelector(".search-trigger"),mobileSearch=document.getElementById("mobileSearch"),closeSearch=document.getElementById("closeSearch"),scrollToTopBtn=document.getElementById("scrollToTopBtn");let lastScrollY=window.scrollY;searchTrigger.addEventListener("click",()=>{mobileSearch.style.display="flex"});closeSearch.addEventListener("click",()=>{mobileSearch.style.display="none"});document.addEventListener("click",e=>{if(mobileSearch.style.display==="flex"&&!mobileSearch.contains(e.target)&&!searchTrigger.contains(e.target))mobileSearch.style.display="none"});window.addEventListener("scroll",function(){if(window.innerWidth>=992){window.scrollY>100&&window.scrollY>lastScrollY?(scrollToTopBtn.style.display="block",setTimeout(()=>{scrollToTopBtn.classList.add("show")},10)):(scrollToTopBtn.classList.remove("show"),setTimeout(()=>{scrollToTopBtn.style.display="none"},400)),lastScrollY=window.scrollY}else scrollToTopBtn.classList.remove("show"),scrollToTopBtn.style.display="none"});scrollToTopBtn.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"})});</script>
 
@@ -531,25 +430,29 @@ function loadUserNotifications() {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- Owl Carousel JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
+<!-- jQuery (local version) -->
 <script src="{{ asset('naxham/assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/jquery-migrate-3.0.1.min.js') }}"></script>
-<script src="{{ asset('naxham/assets/js/popper.min.js') }}"></script>
-<script src="{{ asset('naxham/assets/js/bootstrap.min.js') }}"></script>
+
+<!-- Bootstrap Bundle (includes Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Owl Carousel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<!-- Extra Plugins -->
 <script src="{{ asset('naxham/assets/js/jquery.easing.1.3.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/jquery.waypoints.min.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/jquery.stellar.min.js') }}"></script>
-<script src="{{ asset('naxham/assets/js/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/jquery.magnific-popup.min.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/jquery.animateNumber.min.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/scrollax.min.js') }}"></script>
+
+<!-- Google Maps -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
 <script src="{{ asset('naxham/assets/js/google-map.js') }}"></script>
+
+<!-- Main Script -->
 <script src="{{ asset('naxham/assets/js/main.js') }}"></script>
 
 

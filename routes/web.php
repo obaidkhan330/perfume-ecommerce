@@ -23,7 +23,6 @@ use App\Http\Controllers\Admin\AdminNotificationController;
 // Frontend Controllers
 use App\Http\Controllers\SummerDealController;
 use App\Http\Controllers\Frontend\TesterController as FrontendTesterController;
-use App\Http\Controllers\User\UserNotificationController;
 
 
 /*
