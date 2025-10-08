@@ -35,36 +35,41 @@
 
 
 
-    /*------------------
-		Hero Slider
-	--------------------*/
+ /*------------------
+    Hero Slider
+--------------------*/
 
+$(document).ready(function () {
+    // background set
     $('.set-bg').each(function () {
-    var bg = $(this).data('setbg');
-    $(this).css('background-image', 'url(' + bg + ')');
-});
-	$('.hero-slider').owlCarousel({
-		loop: true,
-		nav: true,
-		dots: true,
-		navText: ['', '<img src="naxham/assets/icons/solid-right-arrow.png">'],
-		mouseDrag: false,
-		animateOut: 'fadeOut',
-		animateIn: 'fadeIn',
-		items: 1,
-		autoplay: true,
-		autoplayTimeout: 9000,
-	});
+        var bg = $(this).data('setbg');
+        $(this).css('background-image', 'url(' + bg + ')');
+    });
 
-	var dot = $('.hero-slider .owl-dot');
-	dot.each(function() {
-		var index = $(this).index() + 1;
-		if(index < 10){
-			$(this).html('0').append(index + '.');
-		}else{
-			$(this).html(index + '.');
-		}
-	});
+    // owl carousel init
+    $('.hero-slider').owlCarousel({
+        loop: true,
+        nav: true,
+        dots: true,
+        navText: [
+            '<img src="/naxham/assets/icons/solid-right-arrow.png" alt="next">'
+        ],
+        mouseDrag: false,
+        animateOut: 'fadeOut',
+        animateIn: 'fadeIn',
+        items: 1,
+        autoplay: true,
+        autoplayTimeout: 5000, // 5s better hai instead of 9s
+        autoplayHoverPause: true,
+    });
+
+    // dots numbering
+    var dot = $('.hero-slider .owl-dot');
+    dot.each(function (index) {
+        var number = index + 1;
+        $(this).html((number < 10 ? '0' : '') + number + '.');
+    });
+});
 
 
 	// var carousel = function() {
