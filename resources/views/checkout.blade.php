@@ -114,10 +114,7 @@
               $subtotal  = $itemPrice * $itemQty;
               $total    += $subtotal;
             @endphp
-            @php
-    $subtotal  = $itemPrice * $itemQty;
-    $total    += $subtotal;
-@endphp
+
 <li class="list-group-item d-flex justify-content-between align-items-center">
     <div>
         @if(!empty($item['slug']))

@@ -2,11 +2,53 @@
 
 @section('content')
 
-<section class="hero-section">
+
+	<!-- Hero section -->
+	<section class="hero-section overflow-hidden">
+		<div class="hero-slider owl-carousel">
+			<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="{{ asset('naxham/assets/images/slider1.jpg')  }} " alt="slider1">
+				{{-- <div class="container">
+					<h2>Game on!</h2>
+					<p>Fusce erat dui, venenatis et erat in, vulputate dignissim lacus. Donec vitae tempus dolor,<br>sit amet elementum lorem. Ut cursus tempor turpis.</p>
+
+
+                    <a href="#" class="site-btn">  <img src="naxham/assets/icons/double-arrow.png" alt="#"/></a>
+				</div> --}}
+			</div>
+
+			<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="{{ asset('naxham/assets/images/slider2.jpg') }}">
+				{{-- <div class="container">
+					<h2>Game on!</h2>
+					<p>Fusce erat dui, venenatis et erat in, vulputate dignissim lacus. Donec vitae tempus dolor,<br>sit amet elementum lorem. Ut cursus tempor turpis.</p>
+
+                    <a href="#" class="site-btn">  <img src="{{ asset('naxham/assets/icons/double-arrow.png') }}" alt="#"/></a>
+				</div> --}}
+			</div>
+            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="{{ asset('naxham/assets/images/poster1.PNG') }}">
+				{{-- <div class="container">
+					<h2>Game on!</h2>
+					<p>Fusce erat dui, venenatis et erat in, vulputate dignissim lacus. Donec vitae tempus dolor,<br>sit amet elementum lorem. Ut cursus tempor turpis.</p>
+
+                    <a href="#" class="site-btn">  <img src="{{ asset('naxham/assets/icons/double-arrow.png') }}" alt="#"/></a>
+				</div> --}}
+			</div>
+            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="{{ asset('naxham/assets/images/poster1.PNG') }}">
+				{{-- <div class="container">
+					<h2>Game on!</h2>
+
+                    <p>Fusce erat dui, venenatis et erat in, vulputate dignissim lacus. Donec vitae tempus dolor,<br>sit amet elementum lorem. Ut cursus tempor turpis.</p>
+
+                    <a href="#" class="site-btn">  <img src="{{ asset('naxham/assets/icons/solid-right-arrow.png') }}" alt="right arrow"/></a>
+				</div> --}}
+			</div>
+		</div>
+	</section>
+
+{{-- <section class="hero-section">
     <div class="owl-carousel owl-theme" id="hero-carousel">
 
         <!-- Slide 1 -->
-        <div class="hero-wrap" style="background-image: url('naxham/assets/images/banner.jpg');">
+        <div class="hero-wrap" style="background-image: url('naxham/assets/images/poster1.PNG');">
             <div class="overlay"></div>
             <div class="slider-text text-center">
                 <div class="text">
@@ -20,7 +62,7 @@
         </div>
 
         <!-- Slide 2 -->
-        <div class="hero-wrap" style="background-image: url('naxham/assets/images/slider1.jpg');">
+        <div class="hero-wrap" style="background-image: url('naxham/assets/images/poster1.PNG');">
             <div class="overlay"></div>
             <div class="slider-text text-center">
                 <div class="text">
@@ -34,7 +76,7 @@
         </div>
 
         <!-- Slide 3 -->
-        <div class="hero-wrap" style="background-image: url('naxham/assets/images/slider2.jpg');">
+        <div class="hero-wrap" style="background-image: url('naxham/assets/images/poster1.PNG');">
             <div class="overlay"></div>
             <div class="slider-text text-center">
                 <div class="text">
@@ -48,7 +90,7 @@
         </div>
 
     </div>
-</section>
+</section> --}}
 
 {{-- brands  --}}
 
@@ -115,7 +157,7 @@
         object-fit: cover;
         background-size: cover;
         background-position: center;
-        max-height: 400px;
+        max-height: 450px;
     }
 
     /* Mobile Optimization */
@@ -167,7 +209,7 @@
     }
 </style>
 
-<section class="ftco-section ftco-no-pb" id="abc">
+<section class="ftco-section ftco-no-pb "  id="abc">
     <div class="container-fluid">
         <h2 class="mb-4 text-center">POPULAR CATEGORIES</h2>
 
@@ -292,7 +334,7 @@
 <div class="poster-wrapper">
     <div class="container-fluid">
         <div class="poster-box">
-            <img src="{{ asset('naxham/assets/images/slider2.jpg') }}" alt="Female Collection Poster" class="poster-img">
+            <img src="{{ asset('naxham/assets/images/poster1.PNG') }}" alt="Female Collection Poster" class="poster-img">
         </div>
     </div>
 </div>

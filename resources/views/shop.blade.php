@@ -25,7 +25,7 @@
 {{-- Banner --}}
 <section class="banner-section mb-4">
   <div class="banner-container">
-    <img src="{{ asset('naxham/assets/images/slider1.jpg') }}" alt="Banner" class="banner-img">
+    <img src="{{ asset('naxham/assets/images/poster1.PNG') }}" alt="Banner" class="banner-img">
   </div>
 </section>
 
@@ -39,10 +39,10 @@
           <div class="card-body">
             <h5 class="card-title h6 text-uppercase">Categories</h5>
             <ul class="list-unstyled small mb-0 shop-cats">
-              <li><a href="{{ route('shop') }}">All ({{ $counts['male'] + $counts['female'] + $counts['unisex'] }})</a></li>
-              <li><a href="{{ route('shop','female') }}">Female ({{ $counts['female'] }})</a></li>
-              <li><a href="{{ route('shop','male') }}">Male ({{ $counts['male'] }})</a></li>
-              <li><a href="{{ route('shop','unisex') }}">Unisex ({{ $counts['unisex'] }})</a></li>
+              <li><a href="{{ route('shop') }}"><strong>ALL</strong> ({{ $counts['male'] + $counts['female'] + $counts['unisex'] }})</a></li>
+              <li><a href="{{ route('shop','female') }}"><strong>Female</strong> ({{ $counts['female'] }})</a></li>
+              <li><a href="{{ route('shop','male') }}"><strong>Male</strong> ({{ $counts['male'] }})</a></li>
+              <li><a href="{{ route('shop','unisex') }}"><strong>Unisex</strong> ({{ $counts['unisex'] }})</a></li>
             </ul>
           </div>
         </div>

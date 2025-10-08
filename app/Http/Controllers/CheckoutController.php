@@ -41,6 +41,7 @@ class CheckoutController extends Controller
         // Save order
         $order = Order::create([
             'user_id' => Auth::id() ?? null,
+
             'first_name'=> $request->first_name,
             'last_name' => $request->last_name,
             'email'     => $request->email,
@@ -64,6 +65,6 @@ class CheckoutController extends Controller
 
         session()->forget('cart');
 
-        return redirect()->route('shop')->with('success', 'Order placed successfully!');
+        return redirect()->route('orders.my')->with('success', 'Order placed successfully!');
     }
 }

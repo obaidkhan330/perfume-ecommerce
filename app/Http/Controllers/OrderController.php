@@ -23,9 +23,9 @@ class OrderController extends Controller
     // place an order
     public function store(Request $request)
 {
-    if (!Auth::check()) {
-        return redirect()->route('login')->with('error', 'Please login first to place an order');
-    }
+    // if (!Auth::check()) {
+    //     return redirect()->route('login')->with('error', 'Please login first to place an order');
+    // }
 
     $request->validate([
         'first_name' => 'required|string|max:100',
@@ -76,9 +76,9 @@ Notification::send($admins, new NewOrderNotification($order));
         // view user orders
    public function myOrders()
     {
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Please login to view your orders');
-        }
+        // if (!Auth::check()) {
+        //     return redirect()->route('login')->with('error', 'Please login to view your orders');
+        // }
 
         $orders = Order::where('user_id', Auth::id())
                         ->with('items')

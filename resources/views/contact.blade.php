@@ -3,7 +3,7 @@
 @section('content')
 
 
-<section class="hero-wrap hero-wrap-2" style="background-image: url('naxham/assets/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+{{-- <section class="hero-wrap hero-wrap-2" style="background-image: url('naxham/assets/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center">
@@ -13,7 +13,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> --}}
 
     <section class="ftco-section bg-light">
 			<div class="container">
@@ -27,7 +27,7 @@
 				        			<span class="fa fa-map-marker"></span>
 				        		</div>
 				        		<div class="text">
-					            <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
+					            <p><span>Address:</span> Rohtas Road Rasheed Abad, Jhelum Near Mughal Plaza.</p>
 					          </div>
 				          </div>
 								</div>
@@ -37,7 +37,7 @@
 				        			<span class="fa fa-phone"></span>
 				        		</div>
 				        		<div class="text">
-					            <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+					            <p><span>Phone:</span> <a href="tel://1234567920">+92 3179 452521</a></p>
 					          </div>
 				          </div>
 								</div>
@@ -47,7 +47,7 @@
 				        			<span class="fa fa-paper-plane"></span>
 				        		</div>
 				        		<div class="text">
-					            <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+					            <p><span>Email:</span> <a href="mailto:info@yoursite.com">khawar555kashmir@gmail.com</a></p>
 					          </div>
 				          </div>
 								</div>
@@ -57,7 +57,7 @@
 				        			<span class="fa fa-globe"></span>
 				        		</div>
 				        		<div class="text">
-					            <p><span>Website</span> <a href="#">yoursite.com</a></p>
+					            <p><span>Website</span> <a href="https://SunyPronexa.com">Our Website</a></p>
 					          </div>
 				          </div>
 								</div>

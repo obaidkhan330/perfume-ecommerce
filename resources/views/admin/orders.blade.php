@@ -28,7 +28,7 @@
                             <td>{{ $order->first_name }} {{ $order->last_name }}</td>
                             <td>{{ $order->email }}</td>
                             <td>
-                                <strong>Billing:</strong> {{ $order->address }}, {{ $order->city }}, <br> {{ $order->postal }} <br>
+                                <strong>Addres:</strong> {{ $order->address }}, <br> <strong>city</strong> {{ $order->city }},<br>  <strong>Postel</strong> <br> {{ $order->postal }} <br>
                                 <strong>Phone:</strong> {{ $order->phone }} <br>
                                 @if($order->shipping_address)
                                     <span class="text-muted small">

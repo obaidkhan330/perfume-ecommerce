@@ -119,7 +119,7 @@
     $total = 0;
 @endphp
 
-<section class="hero-wrap hero-wrap-2" style="background-image: url('{{ asset('naxham/assets/images/bg_2.jpg') }}');" data-stellar-background-ratio="0.6">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('{{ asset('naxham/assets/images/poster1.PNG') }}');" data-stellar-background-ratio="0.6">
   <div class="overlay"></div>
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center">

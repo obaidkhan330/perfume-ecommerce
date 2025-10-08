@@ -32,32 +32,66 @@
 	};
 	loader();
 
-	var carousel = function() {
-		$('.carousel-testimony').owlCarousel({
-			center: true,
-			loop: true,
-			autoplay: true,
-			autoplaySpeed:2000,
-			items:1,
-			margin: 30,
-			stagePadding: 0,
-			nav: false,
-			navText: ['<span class="ion-ios-arrow-back">', '<span class="ion-ios-arrow-forward">'],
-			responsive:{
-				0:{
-					items: 1
-				},
-				600:{
-					items: 2
-				},
-				1000:{
-					items: 3
-				}
-			}
-		});
 
-	};
-	carousel();
+
+
+    /*------------------
+		Hero Slider
+	--------------------*/
+	$('.hero-slider').owlCarousel({
+		loop: true,
+		nav: true,
+		dots: true,
+		navText: ['', '<img src="naxham/assets/icons/solid-right-arrow.png">'],
+		mouseDrag: false,
+		animateOut: 'fadeOut',
+		animateIn: 'fadeIn',
+		items: 1,
+		autoplay: true,
+		autoplayTimeout: 9000,
+	});
+
+	var dot = $('.hero-slider .owl-dot');
+	dot.each(function() {
+		var index = $(this).index() + 1;
+		if(index < 10){
+			$(this).html('0').append(index + '.');
+		}else{
+			$(this).html(index + '.');
+		}
+	});
+
+    $('.set-bg').each(function() {
+		var bg = $(this).data('setbg');
+		$(this).css('background-image', 'url(' + bg + ')');
+	});
+
+	// var carousel = function() {
+	// 	$('.carousel-testimony').owlCarousel({
+	// 		center: true,
+	// 		loop: true,
+	// 		autoplay: true,
+	// 		autoplaySpeed:2000,
+	// 		items:1,
+	// 		margin: 30,
+	// 		stagePadding: 0,
+	// 		nav: false,
+	// 		navText: ['<span class="ion-ios-arrow-back">', '<span class="ion-ios-arrow-forward">'],
+	// 		responsive:{
+	// 			0:{
+	// 				items: 1
+	// 			},
+	// 			600:{
+	// 				items: 2
+	// 			},
+	// 			1000:{
+	// 				items: 3
+	// 			}
+	// 		}
+	// 	});
+
+	// };
+	// carousel();
 
 
 

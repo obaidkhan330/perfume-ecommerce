@@ -57,7 +57,7 @@
     </section>
 
     <section class="ftco-section ftco-no-pb">
-			<div class="container">
+			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-6 img img-3 d-flex justify-content-center align-items-center" style="background-image: url(naxham/assets/images/product1.jpg);">
 					</div>
@@ -80,7 +80,7 @@
 		</section>
 
 		<section class="ftco-section">
-			<div class="container">
+			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-2 col-md-4 ">
 						<div class="sort w-100 text-center ftco-animate">
@@ -102,7 +102,7 @@
 					</div>
 					<div class="col-lg-2 col-md-4 ">
 						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(naxham/assets/images/perfume4.jpg);"></div>
+							<div class="img" style="background-image: url(naxham/assets/images/perfume2.jpg);"></div>
 							<h3>ROUZAN</h3>
 						</div>
 					</div>
@@ -124,7 +124,7 @@
 		</section>
 
 
-    <section class="ftco-section testimony-section img" style="background-image: url(naxham/assets/images/bg_4.jpg);">
+    <section class="ftco-section testimony-section img" style="background-image: url(naxham/assets/images/banner.jpg);">
     	<div class="overlay"></div>
       <div class="container">
         <div class="row justify-content-center mb-5">

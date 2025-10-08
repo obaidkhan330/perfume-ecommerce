@@ -79,251 +79,327 @@
 
 
 </style>
-
-
 <div class="container-fluid py-md-3">
   <div class="row">
 
-      @php
-    // Check if product has a summer deal / gift pack
-    $deal = \App\Models\SummerDeal::where('product_id', $product->id)->first();
-// Price logic
-    if ($deal) {
-        $realPrice = $deal->real_price;
-        $discountPrice = $deal->discount_price;
-        $discountPercentage = $deal->discount_percentage ?? ($deal->real_price ? round((($deal->real_price - $deal->discount_price)/$deal->real_price)*100) : 0);
-        // Use deal gallery image if exists
-        $displayGallery = $deal->gallery_image ? [$deal->gallery_image] : null;
-        $mainImage = $deal->gallery_image ? asset('storage/' . $deal->gallery_image) : asset('storage/' . $product->image);
-    } else {
-        $realPrice = $product->price;
-        $discountPrice = $product->discount_price ?? null;
-        $discountPercentage = $product->discount_percentage ?? null;
-        $displayGallery = json_decode($product->gallery);
-        $mainImage = asset('storage/' . $product->image);
-    }
-@endphp
-
-{{-- Left Side: Thumbnails + Main Image --}}
-<div class="col-md-6 d-flex flex-column flex-md-row">
     @php
-        $gallery = $product->gallery_override ?? json_decode($product->gallery);
-        $mainImage = $gallery[0] ?? $product->image;
+        $dealId = request()->query('deal');
+        $deal = null;
+        if ($dealId) {
+            $deal = \App\Models\SummerDeal::with('product')->find($dealId);
+        }
     @endphp
 
-    <!-- Thumbnails -->
-    <div class="thumbnail-bar">
-        @if($gallery)
-            @foreach($gallery as $img)
-                <img src="{{ asset('storage/' . $img) }}"
-                     onclick="changeImage('{{ asset('storage/' . $img) }}')"
-                     alt="Thumb">
-            @endforeach
-        @endif
-    </div>
+    {{-- If Summer Deal --}}
+    {{-- If Summer Deal --}}
+@if($deal)
+    <div class="col-md-6 d-flex flex-column flex-md-row">
+        @php
+            $gallery = $deal->gallery_image ? [$deal->gallery_image] : json_decode($deal->product->gallery);
+            $mainImage = $deal->gallery_image ?? $deal->product->image;
+        @endphp
 
-    <!-- Main Image -->
-    <div class="flex-grow-1 text-center">
-        <img id="mainProductImage"
-             src="{{ asset('storage/' . $mainImage) }}"
-             alt="{{ $product->name }}"
-             class="img-fluid rounded mb-3"
-             style="max-height: 500px; object-fit: contain;">
-    </div>
-</div>
-    <!-- Right Side: Product Info -->
-    <div class="col-md-5 mt-3 mt-md-0">
-      <h2 class="fw-bold">{{ $product->name }}</h2>
-{{-- Price Section --}}
-<p class="fs-4">
-    @php
-        $realPrice = $product->real_price ?? $product->price;
-        $discountPrice = $product->discount_price ?? $product->variations->min('discount_price') ?? $product->variations->min('price') ?? $product->price;
-        $discountPercentage = $product->discount_percentage ?? ($realPrice && $discountPrice < $realPrice ? round((($realPrice - $discountPrice)/$realPrice)*100) : 0);
-    @endphp
-
-    @if($discountPrice && $discountPrice < $realPrice)
-        <span class="text-muted text-decoration-line-through">
-            PKR {{ number_format($realPrice, 0) }}
-        </span>
-        <span id="price" class="text-danger fw-bold"
-              data-real-price="{{ $realPrice }}"
-              data-discount-price="{{ $discountPrice }}">
-            PKR {{ number_format($discountPrice, 0) }}
-        </span>
-        <span class="badge bg-success">
-            {{ $discountPercentage }}% OFF
-        </span>
-    @else
-        <span id="price" class="text-danger fw-bold"
-              data-real-price="{{ $realPrice }}"
-              data-discount-price="{{ $discountPrice }}">
-            PKR {{ number_format($realPrice, 0) }}
-        </span>
-    @endif
-</p>
-
-
-{{-- Variations Section --}}
-@if($product->variations->count() > 0)
-  <div class="d-flex flex-wrap gap-2 mb-3">
-    @foreach([30, 50, 100] as $size)
-      @php
-        $variation = $product->variations
-            ->filter(function($v) use ($size) {
-                return (int) filter_var($v->variation_type, FILTER_SANITIZE_NUMBER_INT) === $size;
-            })
-            ->first();
-      @endphp
-
-      @if($variation)
-        <button type="button"
-        class="btn btn-outline-primary variation-btn btn-sm btn-md {{ $loop->first ? 'active' : '' }}"
-        data-id="{{ $variation->id }}"
-        data-real-price="{{ $variation->price }}"
-        data-discount-price="{{ $variation->discount_price ?? $variation->price }}"
-        data-volume="{{ $variation->variation_type }}">
-  {{ $variation->variation_type }}
-</button>
-
-      @else
-        <button type="button" class="btn btn-outline-secondary btn-sm btn-md" disabled>
-          {{ $size }}ml (Not Available)
-        </button>
-      @endif
-    @endforeach
-  </div>
-
-  <p class="text-muted">Size: <span id="ml">{{ $product->variations->first()->variation_type }}</span></p>
-@else
-  <p class="text-danger">No variations available for this product.</p>
-@endif
-      <p class="text-muted">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>
-      <p>{{ $product->description }}</p>
-
-      <!-- Qty -->
-      <div class="mt-3 d-flex align-items-center">
-        <label for="quantity" class="me-2">Qty:</label>
-        <div class="d-flex align-items-center rounded-pill border" style="overflow: hidden; width: 150px;">
-          <button type="button" onclick="decreaseQty()" class="btn border-0 flex-fill">−</button>
-          <input type="number" id="quantity" class="form-control text-center border-0 flex-fill"
-                 value="1" min="1" style="max-width: 50px; box-shadow: none;">
-          <button type="button" onclick="increaseQty()" class="btn border-0 flex-fill">+</button>
+        <div class="flex-grow-1 text-center">
+            <img src="{{ asset('storage/' . $mainImage) }}"
+                 class="img-fluid rounded mb-3"
+                 style="max-height: 500px; object-fit: contain;"
+                 alt="{{ $deal->product->name }}">
         </div>
-      </div>
+    </div>
 
-    <!-- Desktop Actions -->
-<div class="mt-4 d-none d-md-flex flex-column gap-2">
+    <div class="col-md-5 mt-3 mt-md-0">
+        <h2 class="fw-bold">{{ $deal->product->name }}</h2>
+        <p class="fs-4">
+            <span class="text-muted text-decoration-line-through">
+                PKR <span id="realPrice" data-real-price="{{ $deal->real_price }}">
+                    {{ number_format($deal->real_price, 0) }}
+                </span>
+            </span>
+            <span class="text-danger fw-bold" id="price"
+                  data-real-price="{{ $deal->real_price }}"
+                  data-discount-price="{{ $deal->discount_price }}">
+                PKR {{ number_format($deal->discount_price, 0) }}
+            </span>
+            <span class="badge bg-success">{{ $deal->discount_percentage }}% OFF</span>
+        </p>
+        <p class="text-muted">Special Summer Deal Offer</p>
 
-    <!-- Add to Cart (Desktop) -->
-    <form method="POST" action="{{ route('cart.add', $product->slug) }}">
-        @csrf
-        <input type="hidden" id="variationIdAdd" name="variation_id" value="{{ $product->smallestVariation->id }}">
-        <input type="hidden" id="variationPriceAdd" name="price" value="{{ $product->smallestVariation->discount_price ?? $product->smallestVariation->price }}">
-        <input type="hidden" id="variationVolumeAdd" name="volume" value="{{ $product->smallestVariation->variation_type }}">
-        <input type="hidden" id="variationQtyAdd" name="quantity" value="1">
+        {{-- Qty --}}
+        <div class="mt-3 d-flex align-items-center">
+            <label for="quantity" class="me-2">Qty:</label>
+            <div class="d-flex align-items-center rounded-pill border" style="overflow: hidden; width: 150px;">
+                <button type="button" onclick="decreaseQty()" class="btn border-0 flex-fill">−</button>
+                <input type="number" id="quantity" class="form-control text-center border-0 flex-fill"
+                       value="1" min="1" style="max-width: 50px; box-shadow: none;">
+                <button type="button" onclick="increaseQty()" class="btn border-0 flex-fill">+</button>
+            </div>
+        </div>
 
-        <button type="submit" class="btn btn-primary w-100 rounded-pill">
-            <i class="bi bi-cart-plus me-2"></i> Add to Cart
-        </button>
-    </form>
+        {{-- Actions --}}
+        <div class="mt-4 d-none d-md-flex flex-column gap-2">
+            {{-- Add to Cart --}}
+            <form method="POST" action="{{ route('cart.add', $deal->product->slug) }}">
+                @csrf
+                <input type="hidden" name="deal_id" value="{{ $deal->id }}">
+                <input type="hidden" name="type" value="deal">
+                <input type="hidden" name="price" value="{{ $deal->discount_price }}" data-deal="true">
+                <input type="hidden" id="dealQtyAdd" name="quantity" value="1">
+                <button type="submit" class="btn btn-primary w-100 rounded-pill">
+                    <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                </button>
+            </form>
 
-    <!-- Buy Now (Desktop) -->
-    <form method="POST" action="{{ route('cart.buyNow', $product->slug) }}">
-        @csrf
-        <input type="hidden" id="variationIdBuy" name="variation_id" value="{{ $product->smallestVariation->id }}">
-        <input type="hidden" id="variationPriceBuy" name="price" value="{{ $product->smallestVariation->discount_price ?? $product->smallestVariation->price }}">
-        <input type="hidden" id="variationVolumeBuy" name="volume" value="{{ $product->smallestVariation->variation_type }}">
-        <input type="hidden" id="variationQtyBuy" name="quantity" value="1">
+            {{-- Buy Now --}}
+            <form method="POST" action="{{ route('cart.buyNow', $deal->product->slug) }}">
+                @csrf
+                <input type="hidden" name="deal_id" value="{{ $deal->id }}">
+                <input type="hidden" name="type" value="deal">
+                <input type="hidden" name="price" value="{{ $deal->discount_price }}" data-deal="true">
+                <input type="hidden" id="dealQtyBuy" name="quantity" value="1">
+                <button type="submit" class="btn btn-dark w-100 rounded-pill">
+                    <i class="bi bi-lightning-charge me-2"></i> Buy Now
+                </button>
+            </form>
 
-        <button type="submit" class="btn btn-dark w-100 rounded-pill">
-            <i class="bi bi-lightning-charge me-2"></i> Buy Now
-        </button>
-    </form>
+            {{-- WhatsApp --}}
+            <a id="whatsappBtnDesktopDeal"
+               href="#"
+               target="_blank"
+               class="btn btn-success w-100 rounded-pill">
+                <i class="bi bi-whatsapp fs-5 me-2"></i> Order on WhatsApp
+            </a>
+        </div>
 
-    <!-- WhatsApp (Desktop) -->
-    @php
-        $whatsappNumber = '923179452521';
-        $productUrl = url('/details/' . $product->slug);
-    @endphp
-    <a id="whatsappBtnDesktop"
-       href="#"
-       target="_blank"
-       class="btn btn-success w-100 rounded-pill">
-        <i class="bi bi-whatsapp fs-5 me-2"></i> Order on WhatsApp
-    </a>
+        {{-- Mobile Actions --}}
+        <div class="d-block d-md-none mt-3">
+            {{-- Add to Cart (Mobile) --}}
+            <form method="POST" action="{{ route('cart.add', $deal->product->slug) }}">
+                @csrf
+                <input type="hidden" name="deal_id" value="{{ $deal->id }}">
+                <input type="hidden" name="type" value="deal">
+                <input type="hidden" name="price" value="{{ $deal->discount_price }}" data-deal="true">
+                <input type="hidden" id="dealQtyAddMobile" name="quantity" value="1">
+
+                <button type="submit" class="btn btn-primary whatsapp-mobile-btn mb-2">
+                    <i class="bi bi-cart-plus fs-5 me-2"></i>
+                    Add to Cart
+                </button>
+            </form>
+
+            {{-- Buy Now (Mobile) --}}
+            <form method="POST" action="{{ route('cart.buyNow', $deal->product->slug) }}">
+                @csrf
+                <input type="hidden" name="deal_id" value="{{ $deal->id }}">
+                <input type="hidden" name="type" value="deal">
+                <input type="hidden" name="price" value="{{ $deal->discount_price }}" data-deal="true">
+                <input type="hidden" id="dealQtyBuyMobile" name="quantity" value="1">
+
+                <button type="submit" class="btn btn-dark whatsapp-mobile-btn mb-2">
+                    <i class="bi bi-lightning-charge fs-5 me-2"></i>
+                    Buy Now
+                </button>
+            </form>
+
+            {{-- WhatsApp Order (Mobile) --}}
+            <a id="whatsappBtnMobileDeal"
+               href="#"
+               target="_blank"
+               class="btn btn-success whatsapp-mobile-btn">
+                <i class="bi bi-whatsapp fs-4 me-2"></i>
+                Order on WhatsApp
+            </a>
+        </div>
+    </div>
+
+    @else
+    {{-- If Normal Product --}}
+    <div class="col-md-6 d-flex flex-column flex-md-row">
+        @php
+            $gallery = $product->gallery_override ?? json_decode($product->gallery);
+            $mainImage = $gallery[0] ?? $product->image;
+        @endphp
+
+        <!-- Thumbnails -->
+        <div class="thumbnail-bar">
+            @if($gallery)
+                @foreach($gallery as $img)
+                    <img src="{{ asset('storage/' . $img) }}"
+                         onclick="changeImage('{{ asset('storage/' . $img) }}')"
+                         alt="Thumb">
+                @endforeach
+            @endif
+        </div>
+
+        <!-- Main Image -->
+        <div class="flex-grow-1 text-center">
+            <img id="mainProductImage"
+                 src="{{ asset('storage/' . $mainImage) }}"
+                 alt="{{ $product->name }}"
+                 class="img-fluid rounded mb-3"
+                 style="max-height: 500px; object-fit: contain;">
+        </div>
+    </div>
+
+    {{-- Right Side: Product Info --}}
+    <div class="col-md-5 mt-3 mt-md-0">
+        <h2 class="fw-bold">{{ $product->name }}</h2>
+
+        {{-- Price Section --}}
+        <p class="fs-4">
+            @php
+                $realPrice = $product->real_price ?? $product->price;
+                $discountPrice = $product->discount_price ?? $product->variations->min('discount_price') ?? $product->variations->min('price') ?? $product->price;
+                $discountPercentage = $product->discount_percentage ?? ($realPrice && $discountPrice < $realPrice ? round((($realPrice - $discountPrice)/$realPrice)*100) : 0);
+            @endphp
+
+            @if($discountPrice && $discountPrice < $realPrice)
+                <span class="text-muted text-decoration-line-through">
+                    PKR {{ number_format($realPrice, 0) }}
+                </span>
+                <span id="price" class="text-danger fw-bold"
+                      data-real-price="{{ $realPrice }}"
+                      data-discount-price="{{ $discountPrice }}">
+                    PKR {{ number_format($discountPrice, 0) }}
+                </span>
+                <span class="badge bg-success">{{ $discountPercentage }}% OFF</span>
+            @else
+                <span id="price" class="text-danger fw-bold"
+                      data-real-price="{{ $realPrice }}"
+                      data-discount-price="{{ $discountPrice }}">
+                    PKR {{ number_format($realPrice, 0) }}
+                </span>
+            @endif
+        </p>
+
+        {{-- Variations Section --}}
+        @if($product->variations->count() > 0)
+            <div class="d-flex flex-wrap gap-2 mb-3">
+                @foreach([30, 50, 100] as $size)
+                    @php
+                        $variation = $product->variations
+                            ->filter(function($v) use ($size) {
+                                return (int) filter_var($v->variation_type, FILTER_SANITIZE_NUMBER_INT) === $size;
+                            })
+                            ->first();
+                    @endphp
+
+                    @if($variation)
+                        <button type="button"
+                            class="btn btn-outline-primary variation-btn btn-sm btn-md {{ $loop->first ? 'active' : '' }}"
+                            data-id="{{ $variation->id }}"
+                            data-real-price="{{ $variation->price }}"
+                            data-discount-price="{{ $variation->discount_price ?? $variation->price }}"
+                            data-volume="{{ $variation->variation_type }}">
+                            {{ $variation->variation_type }}
+                        </button>
+                    @else
+                        <button type="button" class="btn btn-outline-secondary btn-sm btn-md" disabled>
+                            {{ $size }}ml (Not Available)
+                        </button>
+                    @endif
+                @endforeach
+            </div>
+            <p class="text-muted">Size: <span id="ml">{{ $product->variations->first()->variation_type }}</span></p>
+        @else
+            <p class="text-danger">No variations available for this product.</p>
+        @endif
+
+        <p class="text-muted">{{ $product->fragrance_family }} | {{ $product->brand->name }}</p>
+        <p>{{ $product->description }}</p>
+
+        {{-- Qty --}}
+        <div class="mt-3 d-flex align-items-center">
+            <label for="quantity" class="me-2">Qty:</label>
+            <div class="d-flex align-items-center rounded-pill border" style="overflow: hidden; width: 150px;">
+                <button type="button" onclick="decreaseQty()" class="btn border-0 flex-fill">−</button>
+                <input type="number" id="quantity" class="form-control text-center border-0 flex-fill"
+                       value="1" min="1" style="max-width: 50px; box-shadow: none;">
+                <button type="button" onclick="increaseQty()" class="btn border-0 flex-fill">+</button>
+            </div>
+        </div>
+
+        {{-- Actions --}}
+        <div class="mt-4 d-none d-md-flex flex-column gap-2">
+            {{-- Add to Cart --}}
+            <form method="POST" action="{{ route('cart.add', $product->slug) }}">
+                @csrf
+                <input type="hidden" id="variationIdAdd" name="variation_id" value="{{ $product->smallestVariation->id }}">
+                <input type="hidden" id="variationPriceAdd" name="price" value="{{ $product->smallestVariation->discount_price ?? $product->smallestVariation->price }}">
+                <input type="hidden" id="variationVolumeAdd" name="volume" value="{{ $product->smallestVariation->variation_type }}">
+                <input type="hidden" id="variationQtyAdd" name="quantity" value="1">
+                <button type="submit" class="btn btn-primary w-100 rounded-pill">
+                    <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                </button>
+            </form>
+
+            {{-- Buy Now --}}
+            <form method="POST" action="{{ route('cart.buyNow', $product->slug) }}">
+                @csrf
+                <input type="hidden" id="variationIdBuy" name="variation_id" value="{{ $product->smallestVariation->id }}">
+                <input type="hidden" id="variationPriceBuy" name="price" value="{{ $product->smallestVariation->discount_price ?? $product->smallestVariation->price }}">
+                <input type="hidden" id="variationVolumeBuy" name="volume" value="{{ $product->smallestVariation->variation_type }}">
+                <input type="hidden" id="variationQtyBuy" name="quantity" value="1">
+                <button type="submit" class="btn btn-dark w-100 rounded-pill">
+                    <i class="bi bi-lightning-charge me-2"></i> Buy Now
+                </button>
+            </form>
+
+            {{-- WhatsApp (Desktop) --}}
 
 
-{{-- <!-- Wishlist -->
-@php
-    $isInWishlist = false;
-    if (auth()->check()) {
-        $isInWishlist = auth()->user()->wishlists->contains('product_id', $product->id);
-    }
-@endphp --}}
-{{-- <button type="button"
-        class="btn btn-outline-danger wishlist-btn align-self-start mt-2"
-        data-product-id="{{ $product->id }}">
-    <i class="bi bi-heart{{ $isInWishlist ? '-fill' : '' }}"></i>
-</button> --}}
+            <a id="whatsappBtnDesktop"
+               href="#"
+               target="_blank"
+               class="btn btn-success w-100 rounded-pill">
+                <i class="bi bi-whatsapp fs-5 me-2"></i> Order on WhatsApp
+            </a>
+        </div>
+
+        {{-- Mobile Actions --}}
+        <div class="d-block d-md-none mt-3">
+            {{-- Add to Cart (Mobile) --}}
+            <form method="POST" action="{{ route('cart.add', $product->slug) }}">
+                @csrf
+                <input type="hidden" id="variationIdAddMobile" name="variation_id" value="{{ $product->smallestVariation->id }}">
+                <input type="hidden" id="variationPriceAddMobile" name="price" value="{{ $product->smallestVariation->discount_price ?? $product->smallestVariation->price }}">
+                <input type="hidden" id="variationVolumeAddMobile" name="volume" value="{{ $product->smallestVariation->variation_type }}">
+                <input type="hidden" id="variationQtyAddMobile" name="quantity" value="1">
+
+                <button type="submit" class="btn btn-primary whatsapp-mobile-btn mb-2">
+                    <i class="bi bi-cart-plus fs-5 me-2"></i>
+                    Add to Cart
+                </button>
+            </form>
+
+            {{-- Buy Now (Mobile) --}}
+            <form method="POST" action="{{ route('cart.buyNow', $product->slug) }}">
+                @csrf
+                <input type="hidden" id="variationIdBuyMobile" name="variation_id" value="{{ $product->smallestVariation->id }}">
+                <input type="hidden" id="variationPriceBuyMobile" name="price" value="{{ $product->smallestVariation->discount_price ?? $product->smallestVariation->price }}">
+                <input type="hidden" id="variationVolumeBuyMobile" name="volume" value="{{ $product->smallestVariation->variation_type }}">
+                <input type="hidden" id="variationQtyBuyMobile" name="quantity" value="1">
+
+                <button type="submit" class="btn btn-dark whatsapp-mobile-btn mb-2">
+                    <i class="bi bi-lightning-charge fs-5 me-2"></i>
+                    Buy Now
+                </button>
+            </form>
+
+            {{-- WhatsApp Order (Mobile) --}}
+            <a id="whatsappBtnMobile"
+               href="#"
+               target="_blank"
+               class="btn btn-success whatsapp-mobile-btn">
+                <i class="bi bi-whatsapp fs-4 me-2"></i>
+                Order on WhatsApp
+            </a>
+        </div>
+    </div>
+    @endif
+  </div>
 </div>
 
-
-{{-- Mobile Actions --}}
-<div class="d-block d-md-none mt-3">
-
-    {{-- Add to Cart (Mobile) --}}
-    <form method="POST" action="{{ route('cart.add', $product->slug) }}">
-        @csrf
-        <input type="hidden" id="variationIdAddMobile" name="variation_id" value="{{ $product->smallestVariation->id }}">
-        <input type="hidden" id="variationPriceAddMobile" name="price" value="{{ $product->smallestVariation->discount_price ?? $product->smallestVariation->price }}">
-        <input type="hidden" id="variationVolumeAddMobile" name="volume" value="{{ $product->smallestVariation->variation_type }}">
-        <input type="hidden" id="variationQtyAddMobile" name="quantity" value="1">
-
-        <button type="submit" class="btn btn-primary whatsapp-mobile-btn mb-2">
-            <i class="bi bi-cart-plus fs-5 me-2"></i>
-            Add to Cart
-        </button>
-    </form>
-
-    {{-- Buy Now (Mobile) --}}
-    <form method="POST" action="{{ route('cart.buyNow', $product->slug) }}">
-        @csrf
-        <input type="hidden" id="variationIdBuyMobile" name="variation_id" value="{{ $product->smallestVariation->id }}">
-        <input type="hidden" id="variationPriceBuyMobile" name="price" value="{{ $product->smallestVariation->discount_price ?? $product->smallestVariation->price }}">
-        <input type="hidden" id="variationVolumeBuyMobile" name="volume" value="{{ $product->smallestVariation->variation_type }}">
-        <input type="hidden" id="variationQtyBuyMobile" name="quantity" value="1">
-
-        <button type="submit" class="btn btn-dark whatsapp-mobile-btn mb-2">
-            <i class="bi bi-lightning-charge fs-5 me-2"></i>
-            Buy Now
-        </button>
-    </form>
-
-    {{-- WhatsApp Order (Mobile) --}}
-    <a id="whatsappBtnMobile"
-       href="#"
-       target="_blank"
-       class="btn btn-success whatsapp-mobile-btn">
-        <i class="bi bi-whatsapp fs-4 me-2"></i>
-        Order on WhatsApp
-    </a>
-</div>
-</div>
-
-
-
-
-</div>
-
-
-
-
-
-
-  {{-- descripction  --}}
-
-
+{{-- Description --}}
 <div class="container-fluid my-5">
     <div class="text-center mb-4">
         <h2 class="fw-bold">STOP AND SMELL THESE</h2>
@@ -338,20 +414,21 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <p class="text-secondary" style="font-size: 0.95rem;">
-                <strong>Dioran</strong> opens with a vibrant burst of citrus and crisp herbal notes, offering an energetic and confident start. As it settles, the heart reveals a refined blend of lavender and warm spices, bringing depth and charm to the composition. The base lingers with rich oud and smooth amber, leaving a trail that is bold, elegant, and unmistakably Mahir—a fragrance that speaks of strength, sophistication, and timeless appeal.
+                <strong>Dioran</strong> opens with a vibrant burst of citrus and crisp herbal notes...
             </p>
 
             <div class="mt-4">
-           <h6 class="fw-bold">Notes:</h6>
-                   <ul class="list-unstyled">
-                      <li><strong>Top Note:</strong> {{ $product->notes_top }}</li>
-                     <li><strong>Middle Note:</strong> {{ $product->notes_middle }}</li>
-                      <li><strong>Base Note:</strong> {{ $product->notes_base }}</li>
-                   </ul>
+               <h6 class="fw-bold">Notes:</h6>
+               <ul class="list-unstyled">
+                  <li><strong>Top Note:</strong> {{ $product->notes_top }}</li>
+                  <li><strong>Middle Note:</strong> {{ $product->notes_middle }}</li>
+                  <li><strong>Base Note:</strong> {{ $product->notes_base }}</li>
+               </ul>
             </div>
         </div>
     </div>
 </div>
+
 
 {{-- end descripctyoon     --}}
 
@@ -482,7 +559,7 @@
                 <img src="{{ asset('storage/' . $item->image) }}"
                      class="card-img-top mb-2"
                      alt="{{ $item->name }}"
-                     style="height: 180px; object-fit: cover;">
+                     style="height: 210px; object-fit: cover;">
 
                 <div class="card-body p-2 text-center">
                     <small class="fw-bold">{{ $item->name }}</small>
@@ -540,7 +617,7 @@
                 <img src="{{ asset('storage/' . $top->image) }}"
                      class="card-img-top mb-2"
                      alt="{{ $top->name }}"
-                     style="height: 180px; object-fit: cover;">
+                     style="height: 210px; object-fit: cover;">
 
                 <div class="card-body p-2 text-center">
                     <small class="fw-bold">{{ $top->name }}</small>
@@ -654,35 +731,58 @@ $(document).ready(function(){
 
 });
 </script> --}}
+@php
+    $whatsappNumber = '923179452521';
+
+    if(isset($deal) && $deal) {
+        $currentProduct = $deal->product;
+        // ✅ Slug + deal id dono
+        $productUrl = url('/details/' . $deal->product->slug . '?deal=' . $deal->id);
+        $isDeal = true;
+    } else {
+        $currentProduct = $product;
+        $productUrl = url('/details/' . $product->slug);
+        $isDeal = false;
+    }
+@endphp
 
 <script>
-
 document.addEventListener("DOMContentLoaded", function() {
     const whatsappNumber = "{{ $whatsappNumber }}";
-    const productName = "{{ $product->name }}";
+    const productName = "{{ $currentProduct->name }}";
     const productUrl = "{{ $productUrl }}";
+    const isDeal = @json($isDeal);
 
-    // 👉 variation button active update
-    document.querySelectorAll(".variation-btn").forEach(btn => {
-        btn.addEventListener("click", function() {
-            document.querySelectorAll(".variation-btn").forEach(b => b.classList.remove("active"));
-            this.classList.add("active");
+    // 👉 variation button (sirf normal product me)
+    if (!isDeal) {
+        document.querySelectorAll(".variation-btn").forEach(btn => {
+            btn.addEventListener("click", function() {
+                document.querySelectorAll(".variation-btn").forEach(b => b.classList.remove("active"));
+                this.classList.add("active");
+            });
         });
-    });
+    }
 
     function getSelectedVariation() {
-        let selectedBtn = document.querySelector(".variation-btn.active");
-        if (selectedBtn) {
+        if (!isDeal) {
+            let selectedBtn = document.querySelector(".variation-btn.active");
+            if (selectedBtn) {
+                return {
+                    id: selectedBtn.dataset.id,
+                    volume: selectedBtn.dataset.volume
+                };
+            }
             return {
-                id: selectedBtn.dataset.id,
-                volume: selectedBtn.dataset.volume
+                id: "{{ $currentProduct->smallestVariation->id ?? '' }}",
+                volume: "{{ $currentProduct->smallestVariation->variation_type ?? 'Standard' }}"
+            };
+        } else {
+            // ✅ Deals me variation nahi hota
+            return {
+                id: "deal-{{ $deal->id ?? '' }}",
+                volume: "Standard"
             };
         }
-        // fallback: smallestVariation
-        return {
-            id: "{{ $product->smallestVariation->id ?? '' }}",
-            volume: "{{ $product->smallestVariation->variation_type ?? '' }}"
-        };
     }
 
     function getQuantity() {
@@ -701,6 +801,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function setWhatsappLink(btn) {
+        if (!btn) return;
         btn.addEventListener("click", function(e) {
             e.preventDefault();
             let message = encodeURIComponent(buildMessage());
@@ -709,16 +810,15 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    let desktopBtn = document.getElementById("whatsappBtnDesktop");
-    let mobileBtn = document.getElementById("whatsappBtnMobile");
+    // ✅ Normal buttons
+    setWhatsappLink(document.getElementById("whatsappBtnDesktop"));
+    setWhatsappLink(document.getElementById("whatsappBtnMobile"));
 
-    if (desktopBtn) setWhatsappLink(desktopBtn);
-    if (mobileBtn) setWhatsappLink(mobileBtn);
+    // ✅ Deal buttons
+    setWhatsappLink(document.getElementById("whatsappBtnDesktopDeal"));
+    setWhatsappLink(document.getElementById("whatsappBtnMobileDeal"));
 });
 </script>
-
-
-
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const buttons = document.querySelectorAll(".variation-btn");
@@ -731,12 +831,15 @@ document.addEventListener("DOMContentLoaded", function () {
     let selectedDiscountPrice = parseFloat(priceElement.dataset.discountPrice) || selectedRealPrice;
     let currentPrice = selectedDiscountPrice;
 
-    // Function to update displayed price
+    // Function to update displayed price + hidden inputs
     function updatePrice() {
         const qty = parseInt(qtyInput.value) || 1;
-        priceElement.innerText = 'PKR ' + (currentPrice * qty).toLocaleString();
+        const total = currentPrice * qty;
 
-        // Update hidden inputs with new qty
+        // UI price update
+        priceElement.innerText = 'PKR ' + total.toLocaleString();
+
+        // Normal product hidden qty update
         const hiddenIds = [
             "variationQtyAdd", "variationQtyBuy",
             "variationQtyAddMobile", "variationQtyBuyMobile"
@@ -745,9 +848,19 @@ document.addEventListener("DOMContentLoaded", function () {
             const el = document.getElementById(id);
             if (el) el.value = qty;
         });
+
+        // Deal product hidden qty + price update
+        const dealHiddenQty = ["dealQtyAdd", "dealQtyBuy", "dealQtyAddMobile", "dealQtyBuyMobile"];
+        dealHiddenQty.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = qty;
+        });
+
+        const dealPriceInputs = document.querySelectorAll("input[name='price'][data-deal='true']");
+        dealPriceInputs.forEach(inp => inp.value = total);
     }
 
-    // Variation button click
+    // Variation button click (for normal products)
     buttons.forEach(btn => {
         btn.addEventListener("click", function () {
             const realPrice = parseFloat(this.dataset.realPrice);
@@ -759,20 +872,19 @@ document.addEventListener("DOMContentLoaded", function () {
             selectedDiscountPrice = discountPrice;
             currentPrice = discountPrice;
 
-            mlElement.innerText = volume;
+            if (mlElement) mlElement.innerText = volume;
 
-            // Update hidden inputs for both mobile and desktop Add/Buy buttons
+            // Update hidden inputs for Add/Buy buttons
             const sets = [
                 {id: "Add", prefix: ""}, {id: "Buy", prefix: ""},
                 {id: "AddMobile", prefix: "Mobile"}, {id: "BuyMobile", prefix: "Mobile"}
             ];
 
             sets.forEach(set => {
-                const suffix = set.prefix ? set.prefix : "";
-                const ids = ["variationId" + set.id + suffix,
-                             "variationPrice" + set.id + suffix,
-                             "variationVolume" + set.id + suffix,
-                             "variationQty" + set.id + suffix];
+                const ids = ["variationId" + set.id + set.prefix,
+                             "variationPrice" + set.id + set.prefix,
+                             "variationVolume" + set.id + set.prefix,
+                             "variationQty" + set.id + set.prefix];
                 const values = [id, discountPrice, volume, qtyInput.value];
 
                 ids.forEach((hid, idx) => {
@@ -811,6 +923,7 @@ document.addEventListener("DOMContentLoaded", function () {
     updatePrice();
 });
 </script>
+
 
 <script>
 function changeImage(src) {

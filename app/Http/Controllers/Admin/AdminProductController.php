@@ -39,7 +39,7 @@ class AdminProductController extends Controller
             'description'    => 'nullable|string',
             'origin_country' => 'nullable|string|max:100',
             'website'        => 'nullable|url|max:255',
-            'logo'           => 'nullable|image|mimes:jpeg,png,jpg,gif|max:11024',
+            'logo'           => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $logoPath = null;
