@@ -35,85 +35,54 @@
 
 
 
- /*------------------
-    Hero Slider
---------------------*/
-
+    /*------------------
+		Hero Slider
+	--------------------*/
 $(document).ready(function () {
-    // background set
-    $('.set-bg').each(function () {
-        var bg = $(this).data('setbg');
-        $(this).css('background-image', 'url(' + bg + ')');
-    });
+  // set-bg backgrounds
+  $('.set-bg').each(function () {
+    var bg = $(this).data('setbg');
+    if (bg) $(this).css('background-image', 'url(' + bg + ')');
+  });
 
-    // owl carousel init
+  // initialize owl
+  if ($.fn.owlCarousel) {
     $('.hero-slider').owlCarousel({
-        loop: true,
-        nav: true,
-        dots: true,
-        navText: [
-            '<img src="/naxham/assets/icons/solid-right-arrow.png" alt="next">'
-        ],
-        mouseDrag: false,
-        animateOut: 'fadeOut',
-        animateIn: 'fadeIn',
-        items: 1,
-        autoplay: true,
-        autoplayTimeout: 5000, // 5s better hai instead of 9s
-        autoplayHoverPause: true,
+      loop: true,
+      nav: true,
+      dots: true,
+      navText: [
+        '<img src="/naxham/assets/icons/solid-left-arrow.png" alt="prev">',
+        '<img src="/naxham/assets/icons/solid-right-arrow.png" alt="next">'
+      ],
+      mouseDrag: true,
+      animateOut: 'fadeOut',
+      animateIn: 'fadeIn',
+      items: 1,
+      autoplay: true,
+      autoplayTimeout: 5000,
+      autoplayHoverPause: true
     });
 
-    // dots numbering
-    var dot = $('.hero-slider .owl-dot');
-    dot.each(function (index) {
-        var number = index + 1;
-        $(this).html((number < 10 ? '0' : '') + number + '.');
+    // formatted dots
+    $('.hero-slider').on('initialized.owl.carousel changed.owl.carousel', function(e){
+      var dots = $(this).find('.owl-dot');
+      dots.each(function(i){
+        var n = i + 1;
+        $(this).html((n < 10 ? '0' : '') + n + '.');
+      });
     });
+  } else {
+    console.warn('Owl Carousel not loaded — $.fn.owlCarousel is undefined');
+  }
 });
 
 
-	// var carousel = function() {
-	// 	$('.carousel-testimony').owlCarousel({
-	// 		center: true,
-	// 		loop: true,
-	// 		autoplay: true,
-	// 		autoplaySpeed:2000,
-	// 		items:1,
-	// 		margin: 30,
-	// 		stagePadding: 0,
-	// 		nav: false,
-	// 		navText: ['<span class="ion-ios-arrow-back">', '<span class="ion-ios-arrow-forward">'],
-	// 		responsive:{
-	// 			0:{
-	// 				items: 1
-	// 			},
-	// 			600:{
-	// 				items: 2
-	// 			},
-	// 			1000:{
-	// 				items: 3
-	// 			}
-	// 		}
-	// 	});
-
-	// };
-	// carousel();
 
 
 
 
 
-//   $(document).ready(function(){
-//     $('#hero-carousel').owlCarousel({
-//       items: 1,
-//       loop: true,
-//       autoplay: true,
-//       autoplayTimeout: 5000,
-//       smartSpeed: 800,
-//       nav: false,
-//       dots: true
-//     });
-//   });
 
 
 	$('nav .dropdown').hover(function(){

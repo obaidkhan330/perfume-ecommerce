@@ -420,41 +420,63 @@
 </body>
 
 
+
+
 <script>const searchTrigger=document.querySelector(".search-trigger"),mobileSearch=document.getElementById("mobileSearch"),closeSearch=document.getElementById("closeSearch"),scrollToTopBtn=document.getElementById("scrollToTopBtn");let lastScrollY=window.scrollY;searchTrigger.addEventListener("click",()=>{mobileSearch.style.display="flex"});closeSearch.addEventListener("click",()=>{mobileSearch.style.display="none"});document.addEventListener("click",e=>{if(mobileSearch.style.display==="flex"&&!mobileSearch.contains(e.target)&&!searchTrigger.contains(e.target))mobileSearch.style.display="none"});window.addEventListener("scroll",function(){if(window.innerWidth>=992){window.scrollY>100&&window.scrollY>lastScrollY?(scrollToTopBtn.style.display="block",setTimeout(()=>{scrollToTopBtn.classList.add("show")},10)):(scrollToTopBtn.classList.remove("show"),setTimeout(()=>{scrollToTopBtn.style.display="none"},400)),lastScrollY=window.scrollY}else scrollToTopBtn.classList.remove("show"),scrollToTopBtn.style.display="none"});scrollToTopBtn.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"})});</script>
+
+
+<script>
+  // safe event binding - put this BEFORE main.js or inside main.js (but keep after jQuery if using $)
+  (function(){
+    const searchTrigger = document.querySelector(".search-trigger");
+    const mobileSearch = document.getElementById("mobileSearch");
+    const closeSearch = document.getElementById("closeSearch");
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+    if (searchTrigger && mobileSearch) {
+      searchTrigger.addEventListener("click", ()=> { mobileSearch.style.display = "flex"; });
+    }
+    if (closeSearch && mobileSearch) {
+      closeSearch.addEventListener("click", ()=> { mobileSearch.style.display = "none"; });
+    }
+    if (scrollToTopBtn) {
+      scrollToTopBtn.addEventListener("click", ()=> window.scrollTo({top:0, behavior:'smooth'}));
+    }
+  })();
+</script>
 
 
 
 {{-- mobile nav js  --}}
 
   <script>const scrollToggler = document.getElementById("scrollToggler"), smallToggler = document.getElementById("smallToggler"), nav = document.getElementById("mainNav"), navLink = document.getElementById("mobileSml"), icon = scrollToggler.querySelector("i"), linkicon = smallToggler.querySelector("i"); window.addEventListener("scroll", function () { window.scrollY > 100 ? (scrollToggler.style.display = "block") : (scrollToggler.style.display = "none", nav.classList.remove("drown"), icon.classList.remove("fa-xmark"), icon.classList.add("fa-bars")) }); scrollToggler.addEventListener("click", function () { nav.classList.toggle("drown"), icon.classList.toggle("fa-bars"), icon.classList.toggle("fa-xmark") }); smallToggler.addEventListener("click", function () { if (!navLink.classList.contains("mobile-small")) navLink.classList.add("mobile-small"), navLink.style.animation = "slideDown .4s ease forwards"; else { navLink.style.animation = "slideUp .4s ease forwards"; navLink.addEventListener("animationend", function e() { navLink.classList.remove("mobile-small"), navLink.style.animation = "", navLink.removeEventListener("animationend", e) }) } linkicon.classList.toggle("fa-bars"), linkicon.classList.toggle("fa-xmark") }); const style = document.createElement("style"); style.innerHTML = "@keyframes slideDown{from{transform:translate(-50%,-30px);opacity:0}to{transform:translate(-50%,0);opacity:1}}@keyframes slideUp{from{transform:translate(-50%,0);opacity:1}to{transform:translate(-50%,-30px);opacity:0}}", document.head.appendChild(style); function checkNavSize() { nav.className = "", window.innerWidth < 992 ? nav.classList.add("nav-sml") : nav.classList.add("nav-small") } checkNavSize(), window.addEventListener("resize", checkNavSize);</script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- === SCRIPTS - place all these at the bottom (before </body>) === -->
 
-<!-- Owl Carousel JS -->
-<!-- jQuery (local version) -->
+<!-- jQuery (local preferred) -->
 <script src="{{ asset('naxham/assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/jquery-migrate-3.0.1.min.js') }}"></script>
 
-<!-- Bootstrap Bundle (includes Popper) -->
+<!-- Bootstrap (bundle includes Popper) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Owl Carousel -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
-<!-- Extra Plugins -->
+<!-- Plugins (load AFTER jQuery) -->
 <script src="{{ asset('naxham/assets/js/jquery.easing.1.3.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/jquery.waypoints.min.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/jquery.stellar.min.js') }}"></script>
+
+<!-- Owl Carousel (only once) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
 <script src="{{ asset('naxham/assets/js/jquery.magnific-popup.min.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/jquery.animateNumber.min.js') }}"></script>
 <script src="{{ asset('naxham/assets/js/scrollax.min.js') }}"></script>
 
-<!-- Google Maps -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<!-- Google Maps if you need it -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE&sensor=false"></script>
 <script src="{{ asset('naxham/assets/js/google-map.js') }}"></script>
 
-<!-- Main Script -->
+<!-- Main (your init code) -->
 <script src="{{ asset('naxham/assets/js/main.js') }}"></script>
-
 
 
 
